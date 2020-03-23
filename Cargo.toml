@@ -1,0 +1,9 @@
+[package]
+name = "haiku-generator"
+version = "0.1.0"
+authors = ["Loïc TRUCHOT"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
