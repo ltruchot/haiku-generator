@@ -99,6 +99,6 @@ fn main() {
             None => ""
         })
         .collect::<Vec<&str>>();
-    println!("Result:");
-    println!("{}", result.join(" ")); 
+
+    println!("Result:\n{}", result.join(" ")); 
 }
