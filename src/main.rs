@@ -7,16 +7,9 @@ enum Gender {
     Male,
 }
 
-enum NounType {
-    Common,
-    Proper,
-}
-
 struct Noun {
     lemme: String,
-    gender: Gender,
-    #[allow(dead_code)]
-    kind: NounType,
+    gender: Gender
 }
 type StringMaker = fn(&Noun) -> String;
 
@@ -58,11 +51,10 @@ fn get_as_noun_apposition(noun: &Noun) -> String {
 }
 
 impl Noun {
-    fn new(lemme: &str, gender: Gender, kind: NounType) -> Noun {
+    fn new(lemme: &str, gender: Gender) -> Noun {
         Noun {
             lemme: String::from(lemme),
-            gender: gender,
-            kind: kind,
+            gender: gender
         }
     }
 }
@@ -72,17 +64,17 @@ fn main() {
     categories.insert(
         "astre",
         vec![
-            Noun::new("Lune", Gender::Female, NounType::Proper),
-            Noun::new("Soleil", Gender::Male, NounType::Proper),
+            Noun::new("Lune", Gender::Female),
+            Noun::new("Soleil", Gender::Male),
         ],
     );
     categories.insert(
         "saison",
         vec![
-            Noun::new("printemps", Gender::Male, NounType::Common),
-            Noun::new("été", Gender::Male, NounType::Common),
-            Noun::new("automne", Gender::Male, NounType::Common),
-            Noun::new("hiver", Gender::Male, NounType::Common),
+            Noun::new("printemps", Gender::Male),
+            Noun::new("été", Gender::Male),
+            Noun::new("automne", Gender::Male),
+            Noun::new("hiver", Gender::Male),
         ],
     );
     let combination: [(&str, StringMaker); 2] = [
