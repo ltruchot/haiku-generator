@@ -1,70 +1,112 @@
 use std::collections::HashMap;
-
-type Lemme = String;
+use rand::thread_rng;
+use rand::seq::SliceRandom; 
 
 enum Gender {
     Female,
     Male,
 }
 
-enum Noun {
-    Common(Lemme, Gender),
-    Proper(Lemme, Gender),
+enum NounType {
+    Common,
+    Proper,
 }
 
-enum Article {
-    Definite(Lemme, Gender)
+struct Noun {
+    lemme: String,
+    gender: Gender,
+    #[allow(dead_code)]
+    kind: NounType,
+}
+type StringMaker = fn(&Noun) -> String;
+
+fn get_with_definite_article(noun: &Noun) -> String {
+    let article = match noun.gender {
+        Gender::Male => "le",
+        Gender::Female => "la",
+    };
+    let mut word = String::new();
+    word.push_str(article);
+    word.push(' ');
+    word.push_str(&noun.lemme);
+    word
 }
 
-enum Lexeme {
-    Noun(Noun),
-    Article(Article),
-    Preposition(Lemme)
+fn get_as_noun_apposition(noun: &Noun) -> String {
+/*     let french_vowels = Regex::new(r"[aeiouyàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸhH]").unwrap();
+    let first = noun.lemme.chars().next();
+    match first {
+        Some(letter) => {
+            let apposition = if french_vowels.is_match(letter) { "d'" } else { "de "};
+            [apposition, &noun.lemme].join("")
+        },
+        None => String::from(""),
+    } */
+
+    let ellisions = [
+        'a', 'é', 'h'
+    ];
+
+    let first = noun.lemme.chars().next();
+    match first {
+        Some(letter) => [
+            if ellisions.contains(&letter) { "d'" } else { "de " },
+            &noun.lemme
+        ].join(""),
+        None => String::from("")
+    }
 }
 
+impl Noun {
+    fn new(lemme: &str, gender: Gender, kind: NounType) -> Noun {
+        Noun {
+            lemme: String::from(lemme),
+            gender: gender,
+            kind: kind,
+        }
+    }
+}
 
 fn main() {
     let mut categories = HashMap::new();
-    categories.insert("article défini", vec![
-        Lexeme::Article(Article::Definite(String::from("le"), Gender::Female)),
-        Lexeme::Article(Article::Definite(String::from("la"), Gender::Male)),
-    ]);
-    categories.insert("astre", vec![
-        Lexeme::Noun(Noun::Proper(String::from("Lune"), Gender::Female)),
-        Lexeme::Noun(Noun::Proper(String::from("Soleil"), Gender::Male)),
-    ]);
-    categories.insert("préposition de temps", vec![
-        Lexeme::Preposition(String::from("de")),
-    ]);
-    categories.insert("saison", vec![
-        Lexeme::Noun(Noun::Common(String::from("printemps"), Gender::Male)),
-        Lexeme::Noun(Noun::Common(String::from("été"), Gender::Male)),
-        Lexeme::Noun(Noun::Common(String::from("automne"), Gender::Male)),
-        Lexeme::Noun(Noun::Common(String::from("hiver"), Gender::Male)),
-    ]);
-    let combination = [        
-        categories.get("article défini").and_then(|val|val.first()),
-        categories.get("astre").and_then(|val|val.first()),
-        categories.get("préposition de temps").and_then(|val|val.first()),
-        categories.get("saison").and_then(|val|val.first()),        
+    categories.insert(
+        "astre",
+        vec![
+            Noun::new("Lune", Gender::Female, NounType::Proper),
+            Noun::new("Soleil", Gender::Male, NounType::Proper),
+        ],
+    );
+    categories.insert(
+        "saison",
+        vec![
+            Noun::new("printemps", Gender::Male, NounType::Common),
+            Noun::new("été", Gender::Male, NounType::Common),
+            Noun::new("automne", Gender::Male, NounType::Common),
+            Noun::new("hiver", Gender::Male, NounType::Common),
+        ],
+    );
+    let combination: [(&str, StringMaker); 2] = [
+        ("astre", get_with_definite_article),
+        ("saison", get_as_noun_apposition),
     ];
-    let result: Vec<&str> = combination
-    .iter()
-    .map(|cat_option| match cat_option {
-        Some(cat) => {
-            match cat {
-                Lexeme::Article(variant) => match variant {
-                    Article::Definite(lemme, _gender) => lemme,
-                } 
-                Lexeme::Noun(variant) => match variant {
-                    Noun::Proper(lemme, _gender) => lemme,
-                    Noun::Common(lemme, _gender) => lemme,
-                } 
-                Lexeme::Preposition(lemme) => lemme,
-            }
-        },
-        _ => "error"
-    })
-    .collect();
-    println!("{}", result.join(" "));
+    let random_result: Vec<Option<String>> = combination
+        .iter()
+        .map(|key|categories
+            .get(key.0)
+            .and_then(|cat|{
+                let mut rng = thread_rng();
+                cat.choose(&mut rng)
+            })
+            .and_then(|i|Some(key.1(i)))
+        ).collect();
+
+    let result = random_result
+        .iter()
+        .map(|res_option|match res_option {
+            Some(str) => str,
+            None => ""
+        })
+        .collect::<Vec<&str>>();
+    println!("Result:");
+    println!("{}", result.join(" ")); 
 }
