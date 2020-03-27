@@ -2,103 +2,17 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::collections::HashMap;
 
+mod enums;
+use enums::{Gender, AdjId, Article, CategoryId, Number}; 
+
+mod nouns;
+use nouns::{Noun, get_apposition, get_with_some_article};
+
+mod adjs;
+use adjs::{Adj};
+
 macro_rules! str_vec {
     ($($x:expr),*) => (vec![$($x.to_string()),*]);
-}
-
-#[derive(Copy, Clone)]
-enum Gender {
-    Female,
-    Male,
-}
-
-#[derive(Copy, Clone)]
-enum Article {
-    Definite,
-    Indefinite,
-}
-
-#[derive(Eq, PartialEq, Hash, Copy, Clone)]
-enum AdjId {
-    EnFleur,
-    Sauvage,
-}
-
-#[derive(Eq, PartialEq, Hash, Copy, Clone)]
-enum CategoryId {
-    Astre,
-    Phenomene,
-    Saison,
-    PlanteAFleur,
-    OrganeDePlante,
-}
-
-struct Adj {
-    lemme: String,
-}
-
-impl Adj {
-    fn new(lemme: &str) -> Adj {
-        Adj {
-            lemme: String::from(lemme),
-        }
-    }
-}
-
-#[derive(Clone)]
-struct Noun {
-    lemme: String,
-    gender: Gender,
-    emit: Vec<String>,
-    can_be: Vec<AdjId>,
-}
-
-impl Noun {
-    fn new(lemme: &str, gender: Gender, emissions: Vec<String>, adjs: Vec<AdjId>) -> Noun {
-        Noun {
-            lemme: String::from(lemme),
-            gender: gender,
-            emit: emissions,
-            can_be: adjs,
-        }
-    }
-}
-
-fn get_with_some_article(article: Article, noun: &Noun) -> String {
-    let article = match noun.gender {
-        Gender::Male => match article {
-            Article::Definite => "le",
-            Article::Indefinite => "un",
-        },
-        Gender::Female => match article {
-            Article::Definite => "la",
-            Article::Indefinite => "une",
-        },
-    };
-    let mut word = String::new();
-    word.push_str(article);
-    word.push(' ');
-    word.push_str(&noun.lemme);
-    word
-}
-
-fn get_apposition(noun: &Noun) -> String {
-    let first = noun.lemme.chars().next();
-    match first {
-        Some(letter) => {
-            let ellisions = ['a', 'é', 'h'];
-            [
-                if ellisions.contains(&letter) {
-                    "d'"
-                } else {
-                    "de "
-                },
-                &noun.lemme,
-            ]
-            .join("")
-        }
-        None => String::from(""),
-    }
 }
 
 fn main() {
@@ -189,11 +103,11 @@ fn main() {
         acc
     });
 
-    fn get_with_article(article: Article) -> Box<dyn Fn(&Noun) -> String> {
-        Box::new(move |noun| get_with_some_article(article, noun))
+    fn get_with_article(article: Article, number: Number) -> Box<dyn Fn(&Noun) -> String> {
+        Box::new(move |noun| get_with_some_article(article, number, noun))
     }
 
-    fn get_with_adjective(adjs: AdjHashMap) -> Box<dyn Fn(&Noun) -> String> {
+    fn get_with_adjective(adjs: AdjHashMap, number: Number) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |noun| {
             let mut rng = thread_rng();
             let rand_adj = noun
@@ -206,7 +120,7 @@ fn main() {
                 None => "",
             });
             [
-                get_with_some_article(Article::Indefinite, noun),
+                get_with_some_article(Article::Indefinite, number, noun),
                 adjective.clone(),
             ]
             .join(" ")
@@ -220,7 +134,7 @@ fn main() {
                 .emit
                 .choose(&mut rng)
                 .and_then(|name| nouns.iter().find(|item| &item.lemme == name))
-                .and_then(|noun| Some(get_with_some_article(Article::Indefinite, &noun)));
+                .and_then(|noun| Some(get_with_some_article(Article::Indefinite, Number::Singular, &noun)));
             let noun = match rand_noun {
                 Some(str) => str,
                 None => String::from(""),
@@ -230,10 +144,10 @@ fn main() {
     }
     let combination = [
         vec![
-            (CategoryId::Astre, get_with_article(Article::Definite)),
+            (CategoryId::Astre, get_with_article(Article::Definite, Number::Singular)),
             (CategoryId::Saison, Box::new(get_apposition)),
         ],
-        vec![(CategoryId::PlanteAFleur, get_with_adjective(adjs))],
+        vec![(CategoryId::PlanteAFleur, get_with_adjective(adjs, Number::Plural))],
         vec![(CategoryId::OrganeDePlante, get_as_noun_complement(nouns))],
     ];
 
