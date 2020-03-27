@@ -21,7 +21,7 @@ enum Article {
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 enum AdjId {
     EnFleur,
-    Sauvage
+    Sauvage,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -50,7 +50,7 @@ struct Noun {
     lemme: String,
     gender: Gender,
     emit: Vec<String>,
-    can_be: Vec<AdjId>
+    can_be: Vec<AdjId>,
 }
 
 impl Noun {
@@ -59,7 +59,7 @@ impl Noun {
             lemme: String::from(lemme),
             gender: gender,
             emit: emissions,
-            can_be: adjs
+            can_be: adjs,
         }
     }
 }
@@ -118,7 +118,7 @@ fn main() {
             vec![
                 Noun::new("Lune", Gender::Female, str_vec!["lumière"], vec![]),
                 Noun::new("Soleil", Gender::Male, str_vec!["lumière"], vec![]),
-            ]
+            ],
         ),
         (
             CategoryId::Phenomene,
@@ -126,7 +126,7 @@ fn main() {
                 Noun::new("bruit", Gender::Male, str_vec![], vec![]),
                 Noun::new("lumière", Gender::Female, str_vec![], vec![]),
                 Noun::new("odeur", Gender::Female, str_vec![], vec![]),
-            ]
+            ],
         ),
         (
             CategoryId::Saison,
@@ -135,30 +135,59 @@ fn main() {
                 Noun::new("été", Gender::Male, str_vec!["odeur"], vec![]),
                 Noun::new("automne", Gender::Male, str_vec!["odeur"], vec![]),
                 Noun::new("hiver", Gender::Male, str_vec!["odeur"], vec![]),
-            ]        
+            ],
         ),
         (
-            CategoryId::PlanteAFleur,        
+            CategoryId::PlanteAFleur,
             vec![
-                Noun::new("prunier", Gender::Male, str_vec!["odeur"], vec![AdjId::EnFleur, AdjId::Sauvage]),
-                Noun::new("cerisier", Gender::Male, str_vec!["odeur"], vec![AdjId::EnFleur, AdjId::Sauvage]),
-                Noun::new("oeillet", Gender::Male, str_vec!["odeur"], vec![AdjId::EnFleur, AdjId::Sauvage]),
-                Noun::new("glycine", Gender::Female, str_vec!["odeur"], vec![AdjId::EnFleur, AdjId::Sauvage]),
-                Noun::new("pivoine", Gender::Female, str_vec!["odeur"], vec![AdjId::EnFleur, AdjId::Sauvage]),
-            ]        
+                Noun::new(
+                    "prunier",
+                    Gender::Male,
+                    str_vec!["odeur"],
+                    vec![AdjId::EnFleur, AdjId::Sauvage],
+                ),
+                Noun::new(
+                    "cerisier",
+                    Gender::Male,
+                    str_vec!["odeur"],
+                    vec![AdjId::EnFleur, AdjId::Sauvage],
+                ),
+                Noun::new(
+                    "oeillet",
+                    Gender::Male,
+                    str_vec!["odeur"],
+                    vec![AdjId::EnFleur, AdjId::Sauvage],
+                ),
+                Noun::new(
+                    "glycine",
+                    Gender::Female,
+                    str_vec!["odeur"],
+                    vec![AdjId::EnFleur, AdjId::Sauvage],
+                ),
+                Noun::new(
+                    "pivoine",
+                    Gender::Female,
+                    str_vec!["odeur"],
+                    vec![AdjId::EnFleur, AdjId::Sauvage],
+                ),
+            ],
         ),
         (
-            CategoryId::OrganeDePlante,        
+            CategoryId::OrganeDePlante,
             vec![
                 Noun::new("feuille", Gender::Male, str_vec!["bruit"], vec![]),
                 Noun::new("branche", Gender::Male, str_vec!["bruit"], vec![]),
-            ]
-        )
-    ].iter().cloned().collect();
+            ],
+        ),
+    ]
+    .iter()
+    .cloned()
+    .collect();
 
-    let nouns: Vec<Noun> = categories
-        .iter()
-        .fold(vec![], |mut acc, cat| { acc.extend(cat.1.clone()); acc });
+    let nouns: Vec<Noun> = categories.iter().fold(vec![], |mut acc, cat| {
+        acc.extend(cat.1.clone());
+        acc
+    });
 
     fn get_with_article(article: Article) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |noun| get_with_some_article(article, noun))
@@ -167,10 +196,11 @@ fn main() {
     fn get_with_adjective(adjs: AdjHashMap) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |noun| {
             let mut rng = thread_rng();
-            let rand_adj = noun.can_be
+            let rand_adj = noun
+                .can_be
                 .choose(&mut rng)
-                .and_then(|id|adjs.get(id))
-                .and_then(|v|v.first());
+                .and_then(|id| adjs.get(id))
+                .and_then(|v| v.first());
             let adjective = String::from(match rand_adj {
                 Some(adj) => &adj.lemme,
                 None => "",
@@ -183,24 +213,19 @@ fn main() {
         })
     }
 
-     fn get_as_noun_complement(nouns: Vec<Noun>) -> Box<dyn Fn(&Noun) -> String> {
+    fn get_as_noun_complement(nouns: Vec<Noun>) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |complement| {
             let mut rng = thread_rng();
-            let rand_noun = complement.emit
+            let rand_noun = complement
+                .emit
                 .choose(&mut rng)
-                .and_then(|name|
-                    nouns.iter().find(|item|&item.lemme == name)
-                )
+                .and_then(|name| nouns.iter().find(|item| &item.lemme == name))
                 .and_then(|noun| Some(get_with_some_article(Article::Indefinite, &noun)));
             let noun = match rand_noun {
                 Some(str) => str,
                 None => String::from(""),
             };
-            [                
-                noun.clone(),
-                get_apposition(&complement)
-            ]
-            .join(" ")
+            [noun.clone(), get_apposition(&complement)].join(" ")
         })
     }
     let combination = [
@@ -208,13 +233,8 @@ fn main() {
             (CategoryId::Astre, get_with_article(Article::Definite)),
             (CategoryId::Saison, Box::new(get_apposition)),
         ],
-        vec![(
-            CategoryId::PlanteAFleur,
-            get_with_adjective(adjs),
-        )],
-        vec![(CategoryId::OrganeDePlante,
-            get_as_noun_complement(nouns)
-        )], 
+        vec![(CategoryId::PlanteAFleur, get_with_adjective(adjs))],
+        vec![(CategoryId::OrganeDePlante, get_as_noun_complement(nouns))],
     ];
 
     for nb in 0..3 {
@@ -232,7 +252,6 @@ fn main() {
                 .collect(),
             None => vec![],
         };
-    
         let result = random_result
             .iter()
             .map(|res_option| match res_option {
@@ -240,8 +259,6 @@ fn main() {
                 None => "",
             })
             .collect::<Vec<&str>>();
-    
         println!("{}", result.join(" "));
     }
-   
 }
