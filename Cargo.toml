@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 rand = "0.7.3"
-regex = "1"
+unicode-segmentation = "1.6.0"

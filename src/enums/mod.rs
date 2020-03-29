@@ -20,6 +20,7 @@ pub enum Article {
 pub enum AdjId {
     EnFleur,
     Sauvage,
+    RelAUneSaison,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]

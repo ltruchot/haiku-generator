@@ -20,6 +20,10 @@ impl Noun {
     }
 }
 
+pub fn extract_lemme(noun: &Noun) -> String {
+    noun.lemme.clone()
+}
+
 pub fn get_with_some_article(article: Article, number: Number, noun: &Noun) -> String {
     let article = match number {
         Number::Plural => {
