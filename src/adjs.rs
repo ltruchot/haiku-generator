@@ -1,6 +1,7 @@
-use unicode_segmentation::UnicodeSegmentation;
 use crate::enums;
-use enums::{Gender, Number}; 
+use enums::{AdjCatId, Gender, Number};
+use std::collections::HashMap;
+use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Clone)]
 pub struct Adj {
@@ -74,47 +75,72 @@ fn get_plural(word: &str) -> String {
     }
 }
 impl Adj {
-    pub fn agreed (&self, gender: Gender, number: Number) -> String {
+    pub fn agreed(&self, gender: Gender, number: Number) -> String {
         if self.invariable {
             return String::from(&self.masc);
         }
         enum ToAgree {
-            Form(Gender, Number)
+            Form(Gender, Number),
         }
         let agreement = ToAgree::Form(gender, number);
         match agreement {
             ToAgree::Form(Gender::Male, Number::Singular) => String::from(&self.masc),
             ToAgree::Form(Gender::Male, Number::Plural) => match &self.masc_plur {
                 Some(masc) => String::from(masc),
-                None => String::from([&self.masc, "s"].join(""))
+                None => String::from([&self.masc, "s"].join("")),
             },
             ToAgree::Form(Gender::Female, Number::Singular) => match &self.fem {
                 Some(fem) => String::from(fem),
-                None => {
-                  get_feminine(&self.masc)
-                }
-            }, 
+                None => get_feminine(&self.masc),
+            },
             ToAgree::Form(Gender::Female, Number::Plural) => match &self.fem_plur {
                 Some(fem_plur) => String::from(fem_plur),
                 None => {
                     let fem = get_feminine(&self.masc);
                     String::from(get_plural(&fem))
                 }
-            }
+            },
         }
     }
     pub fn new(
-        masc: &str, fem: Option<String>, 
-        masc_plur: Option<String>, 
+        masc: &str,
+        fem: Option<String>,
+        masc_plur: Option<String>,
         fem_plur: Option<String>,
-        invariable: bool
+        invariable: bool,
     ) -> Adj {
         Adj {
             masc: String::from(masc),
             fem: fem,
             masc_plur: masc_plur,
             fem_plur: fem_plur,
-            invariable: invariable
+            invariable: invariable,
         }
     }
+}
+
+pub type AdjCatHashMap = HashMap<AdjCatId, Vec<Adj>>;
+lazy_static! {
+    pub static ref ADJ_CATS: AdjCatHashMap = [
+        (
+            AdjCatId::EnFleur,
+            vec![Adj::new("en fleur", None, None, None, true)],
+        ),
+        (
+            AdjCatId::Sauvage,
+            vec![Adj::new("sauvage", None, None, None, false)],
+        ),
+        (
+            AdjCatId::RelAUneSaison,
+            vec![
+                Adj::new("printanier", None, None, None, false),
+                Adj::new("estival", None, None, None, false),
+                Adj::new("automnal", None, None, None, false),
+                Adj::new("hivernal", None, None, None, false),
+            ],
+        ),
+    ]
+    .iter()
+    .cloned()
+    .collect();
 }

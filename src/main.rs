@@ -1,136 +1,27 @@
+#[macro_use]
+extern crate lazy_static;
+
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use std::collections::HashMap;
 
 mod enums;
-use enums::{AdjId, Article, CategoryId, Gender, Number};
+use enums::{Article, NounCatId, Number};
 
 mod nouns;
-use nouns::{extract_lemme, get_apposition, get_with_some_article, Noun};
+use nouns::{extract_lemme, get_apposition, get_with_some_article, Noun, NOUNS, NOUN_CATS};
 
 mod adjs;
-use adjs::Adj;
-
-macro_rules! str_vec {
-    ($($x:expr),*) => (vec![$($x.to_string()),*]);
-}
+use adjs::{AdjCatHashMap, ADJ_CATS};
 
 fn main() {
     let mut rng = thread_rng();
-
-    type AdjHashMap = HashMap<AdjId, Vec<Adj>>;
-    let adjs: AdjHashMap = [
-        (AdjId::EnFleur, vec![
-            Adj::new("en fleur", None, None, None, true),
-        ]),
-        (AdjId::Sauvage, vec![
-            Adj::new("sauvage", None, None, None, false)
-        ]),
-        (AdjId::RelAUneSaison, vec![
-            Adj::new("printanier", None, None, None, false),
-            Adj::new("estival", None, None, None, false),
-            Adj::new("automnal", None, None, None, false),
-            Adj::new("hivernal", None, None, None, false),
-        ]),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
-    type CatHashMap = HashMap<CategoryId, Vec<Noun>>;
-    let categories: CatHashMap = [
-        (
-            CategoryId::Astre,
-            vec![
-                Noun::new(
-                    "Lune",
-                    Gender::Female,
-                    str_vec!["lumière"],
-                    vec![AdjId::RelAUneSaison],
-                ),
-                Noun::new(
-                    "Soleil",
-                    Gender::Male,
-                    str_vec!["lumière"],
-                    vec![AdjId::RelAUneSaison],
-                ),
-            ],
-        ),
-        (
-            CategoryId::Phenomene,
-            vec![
-                Noun::new("bruit", Gender::Male, str_vec![], vec![]),
-                Noun::new("lumière", Gender::Female, str_vec![], vec![]),
-                Noun::new("odeur", Gender::Female, str_vec![], vec![]),
-            ],
-        ),
-        (
-            CategoryId::Saison,
-            vec![
-                Noun::new("printemps", Gender::Male, str_vec!["odeur", "lumière"], vec![]),
-                Noun::new("été", Gender::Male, str_vec!["odeur", "lumière"], vec![]),
-                Noun::new("automne", Gender::Male, str_vec!["odeur", "lumière"], vec![]),
-                Noun::new("hiver", Gender::Male, str_vec!["odeur", "lumière"], vec![]),
-            ],
-        ),
-        (
-            CategoryId::PlanteAFleur,
-            vec![
-                Noun::new(
-                    "prunier",
-                    Gender::Male,
-                    str_vec!["odeur"],
-                    vec![AdjId::EnFleur, AdjId::Sauvage],
-                ),
-                Noun::new(
-                    "cerisier",
-                    Gender::Male,
-                    str_vec!["odeur"],
-                    vec![AdjId::EnFleur, AdjId::Sauvage],
-                ),
-                Noun::new(
-                    "oeillet",
-                    Gender::Male,
-                    str_vec!["odeur"],
-                    vec![AdjId::EnFleur, AdjId::Sauvage],
-                ),
-                Noun::new(
-                    "glycine",
-                    Gender::Female,
-                    str_vec!["odeur"],
-                    vec![AdjId::EnFleur, AdjId::Sauvage],
-                ),
-                Noun::new(
-                    "pivoine",
-                    Gender::Female,
-                    str_vec!["odeur"],
-                    vec![AdjId::EnFleur, AdjId::Sauvage],
-                ),
-            ],
-        ),
-        (
-            CategoryId::OrganeDePlante,
-            vec![
-                Noun::new("feuille", Gender::Male, str_vec!["bruit", "odeur"], vec![]),
-                Noun::new("branche", Gender::Male, str_vec!["bruit", "odeur"], vec![]),
-            ],
-        ),
-    ]
-    .iter()
-    .cloned()
-    .collect();
-
-    let nouns: Vec<Noun> = categories.iter().fold(vec![], |mut acc, cat| {
-        acc.extend(cat.1.clone());
-        acc
-    });
 
     fn get_with_article(article: Article, number: Number) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |noun| get_with_some_article(article, number, noun))
     }
 
     fn get_with_adjective(
-        adjectives: AdjHashMap,
+        adjs: &'static AdjCatHashMap,
         number: Number,
     ) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |noun| {
@@ -138,28 +29,29 @@ fn main() {
             let rand_adj = noun
                 .can_be
                 .choose(&mut rng)
-                .and_then(|id| adjectives.get(id))
+                .and_then(|id| adjs.get(id))
                 .and_then(|v| v.choose(&mut rng))
-                .and_then(|adj|Some(adj.agreed(noun.gender, number)));
+                .and_then(|adj| Some(adj.agreed(noun.gender, number)));
             match rand_adj {
-                Some(adj) =>            [
+                Some(adj) => [
                     get_with_some_article(Article::Indefinite, number, noun),
                     adj.clone(),
                 ]
                 .join(" "),
-                None => String::from("#err#adj not found")
+                None => String::from("#err#adj not found"),
             }
- 
         })
     }
 
-    fn get_as_noun_complement(nouns: Vec<Noun>) -> Box<dyn Fn(&Noun) -> String> {
+    fn get_as_noun_complement(nouns: &'static [Noun; 21]) -> Box<dyn Fn(&Noun) -> String> {
         Box::new(move |complement| {
             let mut rng = thread_rng();
             let rand_noun = complement
                 .emit
                 .choose(&mut rng)
-                .and_then(|name| nouns.iter().find(|item| &item.lemme == name))
+                .and_then(|id| NOUN_CATS.get(id))
+                .and_then(|v| v.choose(&mut rng))
+                .and_then(|id| nouns.iter().find(|item| &item.id == id))
                 .and_then(|noun| {
                     Some(get_with_some_article(
                         Article::Indefinite,
@@ -175,37 +67,30 @@ fn main() {
         })
     }
 
-    let with_singular_adj = get_with_adjective(adjs.clone(), Number::Singular);
-    let with_plural_adj = get_with_adjective(adjs.clone(), Number::Plural);
-    
+    let with_singular_adj = get_with_adjective(&ADJ_CATS, Number::Singular);
+    let with_plural_adj = get_with_adjective(&ADJ_CATS, Number::Plural);
     let combinations = [
         vec![
             (
-                CategoryId::Astre,
+                NounCatId::Astre,
                 get_with_article(Article::Indefinite, Number::Singular),
             ),
-            (CategoryId::Saison, Box::new(get_apposition)),
+            (NounCatId::Saison, Box::new(get_apposition)),
         ],
         vec![
             (
-                CategoryId::Phenomene,
+                NounCatId::Phenomene,
                 get_with_article(Article::Indefinite, Number::Plural),
             ),
-            (CategoryId::Saison, Box::new(get_apposition)),
+            (NounCatId::Saison, Box::new(get_apposition)),
         ],
         vec![
-            (CategoryId::Astre, Box::new(extract_lemme)),
-            (CategoryId::Saison, Box::new(get_apposition)),
+            (NounCatId::Astre, Box::new(extract_lemme)),
+            (NounCatId::Saison, Box::new(get_apposition)),
         ],
-        vec![(
-            CategoryId::Astre,
-            with_singular_adj,
-        )],
-        vec![(
-            CategoryId::PlanteAFleur,
-            with_plural_adj
-        )],
-        vec![(CategoryId::OrganeDePlante, get_as_noun_complement(nouns))],
+        vec![(NounCatId::Astre, with_singular_adj)],
+        vec![(NounCatId::PlanteAFleur, with_plural_adj)],
+        vec![(NounCatId::OrganeDePlante, get_as_noun_complement(&NOUNS))],
     ];
 
     for nb in 0..combinations.len() {
@@ -215,9 +100,10 @@ fn main() {
             Some(choice) => choice
                 .iter()
                 .map(|key| {
-                    categories
+                    NOUN_CATS
                         .get(&key.0)
                         .and_then(|cat| cat.choose(&mut rng))
+                        .and_then(|id| NOUNS.iter().find(|item| &item.id == id))
                         .and_then(|noun| Some(key.1(noun)))
                 })
                 .collect(),

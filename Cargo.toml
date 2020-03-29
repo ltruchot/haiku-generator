@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 rand = "0.7.3"
 unicode-segmentation = "1.6.0"
+lazy_static = "1.4.0"
