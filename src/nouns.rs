@@ -1,14 +1,15 @@
 use crate::enums;
+use crate::words;
 use enums::{AdjCatId, Article, Gender, NounCatId, NounId, Number};
-use std::collections::HashMap;
+use words::{WordGroup, add_words};
 
 #[derive(Clone)]
 pub struct Noun {
     pub id: NounId,
-    pub lemme: String,
     pub gender: Gender,
     pub emit: Vec<NounCatId>,
     pub can_be: Vec<AdjCatId>,
+    pub word: WordGroup,
 }
 
 impl Noun {
@@ -18,235 +19,104 @@ impl Noun {
         gender: Gender,
         emissions: Vec<NounCatId>,
         adjs: Vec<AdjCatId>,
+        foots: (u8, u8),
     ) -> Noun {
         Noun {
             id: id,
-            lemme: String::from(lemme),
             gender: gender,
             emit: emissions,
             can_be: adjs,
+            word: WordGroup {
+                text: String::from(lemme),
+                foots: foots,
+            },
         }
     }
 }
 
-pub fn extract_lemme(noun: &Noun) -> String {
-    noun.lemme.clone()
+pub fn extract_wordgroup(noun: &Noun) -> WordGroup {
+    noun.word.clone()
 }
 
-pub fn get_with_some_article(article: Article, number: Number, noun: &Noun) -> String {
-    let article = match number {
+pub fn get_with_some_article(article: Article, number: Number, noun: &Noun) -> WordGroup {
+    let article: WordGroup = match number {
         Number::Plural => match article {
-            Article::Definite => "les",
-            Article::Indefinite => "des",
+            Article::Definite => WordGroup{ text: String::from("les "), foots: (1, 1) },
+            Article::Indefinite => WordGroup{ text: String::from("des "), foots: (1, 1) },
         },
-        Number::Singular => match noun.gender {
-            Gender::Male => match article {
-                Article::Definite => "le",
-                Article::Indefinite => "un",
-            },
-            Gender::Female => match article {
-                Article::Definite => "la",
-                Article::Indefinite => "une",
-            },
-        },
-    };
-    let mut word = String::new();
-    word.push_str(article);
-    word.push(' ');
-    word.push_str(&match number {
-        Number::Plural => {
-            let mut plural = String::from(&noun.lemme);
-            plural.push('s');
-            plural
+        Number::Singular => {
+            let first = noun.word.text.chars().next();
+            let has_ellision = match first {
+                Some(letter) => check_ellision(letter),
+                None => false
+            };
+            match noun.gender {
+                Gender::Male => match article {
+                    Article::Definite => match first { 
+                        Some(letter) => if check_ellision(letter) {
+                            WordGroup{ text: String::from("l'"), foots: (0, 0) }
+                        } else {
+                            WordGroup{ text: String::from("le "), foots: (1, 1) }
+                        },
+                        None => WordGroup { 
+                            text: String::from("#error#get_with_some_article#No first letter for ellision#"), 
+                            foots: (0, 0)
+                        }
+                    },
+                    Article::Indefinite => WordGroup{ text: String::from("un "), foots: (1, 1) },
+                },
+                Gender::Female => match article {
+                    Article::Definite => match first { 
+                        Some(letter) => if check_ellision(letter) {
+                            WordGroup { 
+                                text: String::from("l'"), foots: (0, 0) }
+                        } else {
+                            WordGroup{ text: String::from("la "), foots: (1, 1) }
+                        },
+                        None => WordGroup { 
+                            text: String::from("#error#get_with_some_article#No first letter for ellision#"),
+                            foots: (0, 0)
+                        }
+                    },
+                    Article::Indefinite => WordGroup{ text: String::from("une "), foots: (1, if has_ellision { 1 } else {2}) },
+                }
+            }
         }
-        Number::Singular => String::from(&noun.lemme),
-    });
-    word
+    };
+    let agreed_noun = agree_noun(&noun, number);
+    add_words(article, agreed_noun)
 }
 
-pub fn get_apposition(noun: &Noun) -> String {
-    let first = noun.lemme.chars().next();
-    match first {
-        Some(letter) => {
-            let ellisions = ['a', 'é', 'h'];
-            [
-                if ellisions.contains(&letter) {
-                    "d'"
-                } else {
-                    "de "
-                },
-                &noun.lemme,
-            ]
-            .join("")
+pub fn agree_noun (noun: &Noun, number: Number) -> WordGroup {
+    match number {
+        Number::Plural => {
+            let mut plural = String::from(&noun.word.text);
+            plural.push('s');
+            WordGroup {
+                text: plural,
+                foots: (noun.word.foots)
+            }
         }
-        None => String::from(""),
+        Number::Singular => noun.word.clone(),
     }
 }
 
-lazy_static! {
-    pub static ref NOUNS: [Noun; 21] = [
-        Noun::new(
-            NounId::Lune,
-            "lune",
-            Gender::Female,
-            vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison],
-        ),
-        Noun::new(
-            NounId::Soleil,
-            "soleil",
-            Gender::Male,
-            vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison],
-        ),
-        Noun::new(
-            NounId::Etoile,
-            "étoile",
-            Gender::Female,
-            vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison],
-        ),
-        Noun::new(NounId::Bruit, "bruit", Gender::Male, vec![], vec![]),
-        Noun::new(NounId::Chant, "chant", Gender::Male, vec![], vec![]),
-        Noun::new(
-            NounId::Bruissement,
-            "bruissement",
-            Gender::Male,
-            vec![],
-            vec![]
-        ),
-        Noun::new(NounId::Lumiere, "lumière", Gender::Female, vec![], vec![]),
-        Noun::new(NounId::Rayon, "rayon", Gender::Male, vec![], vec![]),
-        Noun::new(NounId::Odeur, "odeur", Gender::Female, vec![], vec![]),
-        Noun::new(NounId::Parfum, "parfum", Gender::Male, vec![], vec![]),
-        Noun::new(
-            NounId::Printemps,
-            "printemps",
-            Gender::Male,
-            vec![NounCatId::Phenomene],
-            vec![],
-        ),
-        Noun::new(
-            NounId::Ete,
-            "été",
-            Gender::Male,
-            vec![NounCatId::Phenomene],
-            vec![],
-        ),
-        Noun::new(
-            NounId::Automne,
-            "automne",
-            Gender::Male,
-            vec![NounCatId::Phenomene],
-            vec![],
-        ),
-        Noun::new(
-            NounId::Hiver,
-            "hiver",
-            Gender::Male,
-            vec![NounCatId::Phenomene],
-            vec![],
-        ),
-        Noun::new(
-            NounId::Prunier,
-            "prunier",
-            Gender::Male,
-            vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
-        ),
-        Noun::new(
-            NounId::Cerisier,
-            "cerisier",
-            Gender::Male,
-            vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
-        ),
-        Noun::new(
-            NounId::Oeillet,
-            "oeillet",
-            Gender::Male,
-            vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
-        ),
-        Noun::new(
-            NounId::Glycine,
-            "glycine",
-            Gender::Female,
-            vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
-        ),
-        Noun::new(
-            NounId::Pivoine,
-            "pivoine",
-            Gender::Female,
-            vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
-        ),
-        Noun::new(
-            NounId::Feuille,
-            "feuille",
-            Gender::Male,
-            vec![NounCatId::PhenomeneSonore, NounCatId::PhenomeneOlfactif],
-            vec![],
-        ),
-        Noun::new(
-            NounId::Branche,
-            "branche",
-            Gender::Male,
-            vec![NounCatId::PhenomeneSonore, NounCatId::PhenomeneOlfactif],
-            vec![],
-        ),
-    ];
+pub fn check_ellision (letter: char) -> bool {
+    let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h'];
+    ellisions.contains(&letter)
 }
 
-pub type NounCatHashMap = HashMap<NounCatId, Vec<NounId>>;
-lazy_static! {
-    pub static ref NOUN_CATS: NounCatHashMap = [
-        (
-            NounCatId::Astre,
-            vec![NounId::Lune, NounId::Soleil, NounId::Etoile],
-        ),
-        (
-            NounCatId::Phenomene,
-            vec![NounId::Bruit, NounId::Lumiere, NounId::Odeur],
-        ),
-        (
-            NounCatId::PhenomeneLumineux,
-            vec![NounId::Lumiere, NounId::Rayon],
-        ),
-        (
-            NounCatId::PhenomeneSonore,
-            vec![NounId::Bruit, NounId::Chant, NounId::Bruissement],
-        ),
-        (
-            NounCatId::PhenomeneOlfactif,
-            vec![NounId::Odeur, NounId::Parfum],
-        ),
-        (
-            NounCatId::Saison,
-            vec![
-                NounId::Printemps,
-                NounId::Ete,
-                NounId::Automne,
-                NounId::Hiver,
-            ],
-        ),
-        (
-            NounCatId::PlanteAFleur,
-            vec![
-                NounId::Prunier,
-                NounId::Cerisier,
-                NounId::Oeillet,
-                NounId::Glycine,
-                NounId::Pivoine,
-            ],
-        ),
-        (
-            NounCatId::OrganeDePlante,
-            vec![NounId::Feuille, NounId::Branche,],
-        ),
-    ]
-    .iter()
-    .cloned()
-    .collect();
+pub fn get_apposition(noun: &Noun) -> WordGroup {
+    let first = noun.word.text.chars().next();
+    add_words(match first {
+        Some(letter) => if check_ellision(letter) {
+            WordGroup { text: String::from("d'"), foots: (0, 0) }
+        } else {
+            WordGroup{ text: String::from("de "), foots: (1, 1) }
+        },        
+        None => WordGroup { 
+            text: String::from("#error#get_apposition#No first letter#"),
+            foots: (0, 0)
+        },
+    }, noun.word.clone())
 }
