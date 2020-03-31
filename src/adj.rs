@@ -1,13 +1,18 @@
 use std::collections::HashMap;
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::enums;
-use crate::words;
-use enums::{AdjCatId, Gender, Number};
-use words::WordGroup;
+use crate::common_enums;
+use common_enums::{Gender, Number};
+
+use crate::word;
+use word::WordGroup;
+
+use crate::adj_enums;
+use adj_enums::{AdjId, AdjCatId};
 
 #[derive(Clone)]
 pub struct Adj {
+    pub id: AdjId,
     pub fem: Option<String>,
     pub masc_plur: Option<String>,
     pub fem_plur: Option<String>,
@@ -26,41 +31,42 @@ impl Adj {
         match agreement {
             ToAgree::Form(Gender::Male, Number::Singular) => self.word.clone(),
             ToAgree::Form(Gender::Male, Number::Plural) => match &self.masc_plur {
-                Some(masc) => WordGroup { 
-                    text: String::from(masc), 
-                    foots: self.word.foots 
+                Some(masc) => WordGroup {
+                    text: String::from(masc),
+                    foots: self.word.foots,
                 },
-                None => WordGroup { 
-                    text: String::from([&self.word.text, "s"].join("")), 
-                    foots: self.word.foots 
-                }
+                None => WordGroup {
+                    text: String::from([&self.word.text, "s"].join("")),
+                    foots: self.word.foots,
+                },
             },
             ToAgree::Form(Gender::Female, Number::Singular) => match &self.fem {
-                Some(fem) => WordGroup { 
-                    text: String::from(fem), 
-                    foots: self.word.foots 
+                Some(fem) => WordGroup {
+                    text: String::from(fem),
+                    foots: self.word.foots,
                 },
-                None => WordGroup { 
-                    text: get_feminine(&self.word.text), 
-                    foots: self.word.foots 
-                }
+                None => WordGroup {
+                    text: get_feminine(&self.word.text),
+                    foots: self.word.foots,
+                },
             },
             ToAgree::Form(Gender::Female, Number::Plural) => match &self.fem_plur {
-                Some(fem_plur) => WordGroup { 
-                    text: String::from(fem_plur), 
-                    foots: self.word.foots 
+                Some(fem_plur) => WordGroup {
+                    text: String::from(fem_plur),
+                    foots: self.word.foots,
                 },
                 None => {
                     let fem = get_feminine(&self.word.text);
-                    WordGroup { 
-                        text: String::from(get_plural(&fem)), 
-                        foots: self.word.foots 
-                    }                    
+                    WordGroup {
+                        text: String::from(get_plural(&fem)),
+                        foots: self.word.foots,
+                    }
                 }
             },
         }
     }
     pub fn new(
+        id: AdjId,
         masc: &str,
         fem: Option<String>,
         masc_plur: Option<String>,
@@ -69,6 +75,7 @@ impl Adj {
         foots: (u8, u8),
     ) -> Adj {
         Adj {
+            id: id,
             fem: fem,
             masc_plur: masc_plur,
             fem_plur: fem_plur,
@@ -153,29 +160,34 @@ lazy_static! {
     pub static ref ADJ_CATS: AdjCatHashMap = [
         (
             AdjCatId::EnFleur,
-            vec![Adj::new("en fleur", None, None, None, true, (2, 2))],
+            vec![Adj::new(
+                AdjId::EnFleur,
+                "en fleur", None, None, None, true, (2, 2))],
         ),
         (
             AdjCatId::Sauvage,
-            vec![Adj::new("sauvage", None, None, None, false, (2, 3))],
+            vec![
+                Adj::new(
+                    AdjId::Sauvage,
+                    "sauvage", None, None, None, false, (2, 3))],
         ),
         (
             AdjCatId::RelAUneSaison,
             vec![
-                Adj::new("printanier", None, None, None, false, (3, 4)),
-                Adj::new("estival", None, None, None, false, (3, 3)),
-                Adj::new("automnal", None, None, None, false, (3, 3)),
-                Adj::new("hivernal", None, None, None, false, (3, 3)),
+                Adj::new(AdjId::Printanier,"printanier", None, None, None, false, (3, 4)),
+                Adj::new(AdjId::Estival,"estival", None, None, None, false, (3, 3)),
+                Adj::new(AdjId::Automnal,"automnal", None, None, None, false, (3, 3)),
+                Adj::new(AdjId::Hivernal,"hivernal", None, None, None, false, (3, 3)),
             ],
         ),
         (
             AdjCatId::Couleur,
             vec![
-                Adj::new("violet", None, None, None, false, (2, 3)),
-                Adj::new("orange", None, None, None, false, (2, 3)),
-                Adj::new("brun", None, None, None, false, (2, 3)),
-                Adj::new("doré", None, None, None, false, (3, 3)),
-                Adj::new("argenté", None, None, None, false, (3, 3)),
+                Adj::new(AdjId::Violet,"violet", None, None, None, false, (2, 3)),
+                Adj::new(AdjId::Orange,"orange", None, None, None, false, (2, 3)),
+                Adj::new(AdjId::Brun,"brun", None, None, None, false, (2, 3)),
+                Adj::new(AdjId::Dore,"doré", None, None, None, false, (3, 3)),
+                Adj::new(AdjId::Argente,"argenté", None, None, None, false, (3, 3)),
             ],
         ),
     ]

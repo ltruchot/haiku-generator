@@ -1,7 +1,14 @@
-use crate::enums;
-use crate::words;
-use enums::{AdjCatId, Article, Gender, NounCatId, NounId, Number};
-use words::{WordGroup, add_words};
+use crate::common_enums;
+use common_enums::{Article, Gender, Number};
+
+use crate::word;
+use word::{WordGroup, add_words};
+
+use crate::adj_enums;
+use adj_enums::{AdjId, AdjCatId};
+
+use crate::noun_enums;
+use noun_enums::{NounId, NounCatId};
 
 #[derive(Clone)]
 pub struct Noun {

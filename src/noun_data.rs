@@ -1,9 +1,18 @@
+// IMPORTS
 use std::collections::HashMap;
-use crate::enums;
-use crate::nouns;
-use enums::{AdjCatId, Gender, NounCatId, NounId};
-use nouns::{Noun};
 
+use crate::common_enums;
+use common_enums::{Gender};
+
+use crate::adj_enums;
+use adj_enums::{AdjCatId};
+
+use crate::noun;
+use noun::{Noun};
+use crate::noun_enums;
+use noun_enums::{NounCatId, NounId};
+
+// EXPORTS
 pub type StaticNouns = [Noun; 41];
 lazy_static! {
     pub static ref NOUNS: StaticNouns = [
@@ -171,7 +180,7 @@ lazy_static! {
             NounId::Feuille,
             "feuille",
             Gender::Male,
-            vec![NounCatId::PhenomeneSonore, NounCatId::PhenomeneOlfactif],
+            vec![NounCatId::PhenomeneSonoreFloral, NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Couleur],
             (1, 2),
         ),
@@ -179,7 +188,7 @@ lazy_static! {
             NounId::Branche,
             "branche",
             Gender::Male,
-            vec![NounCatId::PhenomeneSonore, NounCatId::PhenomeneOlfactif],
+            vec![NounCatId::PhenomeneSonoreFloral, NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Couleur],
             (1, 2),
         ),
@@ -355,7 +364,15 @@ lazy_static! {
         ),
         (
             NounCatId::PhenomeneSonore,
-            vec![NounId::Bruit, NounId::Chant, NounId::Bruissement],
+            vec![NounId::Bruit, NounId::Chant],
+        ),
+        (
+            NounCatId::PhenomeneSonoreFloral,
+            vec![NounId::Bruit, NounId::Bruissement],
+        ),
+        (
+            NounCatId::PhenomeneOlfactif,
+            vec![NounId::Odeur, NounId::Parfum, NounId::Arome],
         ),
         (
             NounCatId::PhenomeneOlfactif,

@@ -1,28 +1,31 @@
+// externals
 #[macro_use]
 extern crate lazy_static;
-
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 
-mod enums;
-use enums::{Article, NounCatId, Number};
+// commons
+mod common_enums;
+use common_enums::{Article, Number};
+mod haikus;
+use haikus::check_haiku_form;
+mod word;
+use word::{add_words, WordGroup};
 
-mod nouns;
-use nouns::{
-    get_apposition, 
-    extract_wordgroup,
-    get_with_some_article, 
-    Noun,
-};
+// nouns
+mod noun;
+use noun::{extract_wordgroup, get_apposition, get_with_some_article, Noun};
+mod noun_enums;
+use noun_enums::{NounCatId};
+mod noun_data;
+use noun_data::{StaticNouns, NOUNS, NOUN_CATS};
 
-mod nounsdata;
-use nounsdata::{NOUNS, NOUN_CATS, StaticNouns};
+// adjectives
+mod adj;
+use adj::{AdjCatHashMap, ADJ_CATS};
+mod adj_enums;
+mod adj_data;
 
-mod adjs;
-use adjs::{AdjCatHashMap, ADJ_CATS};
-
-mod words;
-use words::{add_words, WordGroup};
 
 fn main() {
     let mut rng = thread_rng();
@@ -50,16 +53,16 @@ fn main() {
                     let wg = get_with_some_article(article, number, noun);
                     add_words(
                         WordGroup {
-                         text: [&wg.text, " "].join(""),
-                         foots: wg.foots
-                        },  
-                        adj.clone()
+                            text: [&wg.text, " "].join(""),
+                            foots: wg.foots,
+                        },
+                        adj.clone(),
                     )
-                },
-                None => WordGroup {
-                    text:String::from("#err#adj not found"),
-                    foots: (0, 0)
                 }
+                None => WordGroup {
+                    text: String::from("#err#adj not found"),
+                    foots: (0, 0),
+                },
             };
             wg
         })
@@ -75,20 +78,27 @@ fn main() {
                 .and_then(|v| v.choose(&mut rng))
                 .and_then(|id| nouns.iter().find(|item| &item.id == id))
                 .and_then(|noun| {
-                    Some(get_with_some_article(Article::Indefinite, Number::Singular, &noun))
+                    Some(get_with_some_article(
+                        Article::Indefinite,
+                        Number::Singular,
+                        &noun,
+                    ))
                 });
             let noun = match rand_noun {
                 Some(group) => group,
-                None => WordGroup { 
+                None => WordGroup {
                     text: String::from("#error#get_as_noun_complement#Can't find noun"),
-                    foots: (0, 0)
-                }
+                    foots: (0, 0),
+                },
             };
-            let apposition= get_apposition(&complement);
-            add_words(noun, WordGroup {
-                text: [" ", & apposition.text].join(""),
-                foots: apposition.foots
-            })
+            let apposition = get_apposition(&complement);
+            add_words(
+                noun,
+                WordGroup {
+                    text: [" ", &apposition.text].join(""),
+                    foots: apposition.foots,
+                },
+            )
         })
     }
 
@@ -122,50 +132,47 @@ fn main() {
                 vec![Box::new(get_apposition)],
             ),
         ],
-        
         vec![
-            (vec![
-                NounCatId::Astre, 
-                NounCatId::PhenomeneLumineux
-            ], vec![
-                Box::new(extract_wordgroup),
-                get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
-                get_with_adjective(&ADJ_CATS, Article::Definite, Number::Plural),
-                get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
-                get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Plural),
-            ]),
-            (vec![
-                NounCatId::MomentDuJour
-            ], vec![Box::new(get_apposition)]),
-        ],/*
-        vec![(NounCatId::Astre, with_singular_adj)],
-        
-        */
-        vec![
-            (vec![NounCatId::OrganeDePlante, NounCatId::Oiseau], 
-                vec![get_as_noun_complement(&NOUNS)]
-            )
-        ],
+            (
+                vec![NounCatId::Astre, NounCatId::PhenomeneLumineux],
+                vec![
+                    Box::new(extract_wordgroup),
+                    get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
+                    get_with_adjective(&ADJ_CATS, Article::Definite, Number::Plural),
+                    get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
+                    get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Plural),
+                ],
+            ),
+            (
+                vec![NounCatId::MomentDuJour],
+                vec![Box::new(get_apposition)],
+            ),
+        ], /*
+           vec![(NounCatId::Astre, with_singular_adj)],
+
+           */
         vec![(
-            vec![NounCatId::PlanteAFleur, NounCatId::Plante, NounCatId::Oiseau], vec![
+            vec![NounCatId::OrganeDePlante, NounCatId::Oiseau],
+            vec![get_as_noun_complement(&NOUNS)],
+        )],
+        vec![(
+            vec![
+                NounCatId::PlanteAFleur,
+                NounCatId::Plante,
+                NounCatId::Oiseau,
+            ],
+            vec![
                 get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
                 get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
                 get_with_adjective(&ADJ_CATS, Article::Definite, Number::Plural),
                 get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
-            ]
-        )]        
+            ],
+        )],
     ];
     constructions.shuffle(&mut rng);
-    let haiku_form = [5, 7, 5];
-    let mut haiku =  [
-        String::from(""), 
-        String::from(""), 
-        String::from("")
-    ];
 
+    let mut haiku = [String::from(""), String::from(""), String::from("")];
     for nb in 0..3 {
-        //let chosen = combination.choose(&mut rng);
-        let mut foots_total = (0, 10);
         let mut is_running = true;
         while is_running {
             let random_result: Vec<Option<WordGroup>> = match constructions.get(nb) {
@@ -203,18 +210,16 @@ fn main() {
                     None => acc,
                 },
             );
-            foots_total = result.foots;
-            if  haiku_form[nb] >= foots_total.0 &&  haiku_form[nb] <= foots_total.1 {
-                haiku[nb] = String::from(&result.text);
-                is_running = false;
-            }
 
+            match check_haiku_form([5, 7, 5], nb, &result) {
+                Some(res) => {
+                    haiku[nb] = res;
+                    is_running = false;
+                }
+                None => (),
+            }
             println!("{} ({} - {})", result.text, result.foots.0, result.foots.1);
         }
     }
-    println!("Haïku:\n\t{}\n\t{}\n\t{}", 
-        haiku[0],
-        haiku[1],
-        haiku[2],
-    );
+    println!("Haïku:\n\t{}\n\t{}\n\t{}", haiku[0], haiku[1], haiku[2],);
 }
