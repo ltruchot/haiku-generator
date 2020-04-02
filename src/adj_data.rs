@@ -18,7 +18,7 @@ lazy_static! {
         Adj::new(AdjId::Violet, "violet", (2, 3)),
         Adj::new(AdjId::Orange, "orange", (2, 3)),
         Adj::new(AdjId::Brun, "brun", (2, 3)),
-        Adj::new(AdjId::Dore, "doré", (3, 3)),
+        Adj::new(AdjId::Dore, "doré", (2, 2)),
         Adj::new(AdjId::Argente, "argenté", (3, 3)),
         Adj::new_special(
             AdjId::Roux,

@@ -7,7 +7,7 @@ use verb_enums::{VerbGroup, VerbCatId, VerbId};
 
 pub type StaticVerbs = [Verb; 5];
 lazy_static! {
-    pub static ref ADJS: StaticVerbs = [
+    pub static ref VERBS: StaticVerbs = [
         Verb::new(VerbId::SEndormir, "endormir", (3, 3), VerbGroup::Second, true),
         Verb::new(VerbId::SEveiller, "éveiller", (3, 3), VerbGroup::First, true),
         Verb::new(VerbId::SEclipser, "éclipser", (3, 3), VerbGroup::First, true),

@@ -4,6 +4,12 @@ use rand::thread_rng;
 use crate::common_enums;
 use common_enums::{Article,  Number};
 
+// verbs
+use crate::verb_enums;
+use verb_enums::{VerbCatId};
+use crate::verb_data;
+use verb_data::{VERBS, VERB_CATS};
+
 use crate::word;
 use word::{WordGroup, add_words};
 use crate::noun;
@@ -15,6 +21,25 @@ use noun_data::{StaticNouns, NOUN_CATS};
 
 // EXPORTS
 pub type Combination = Box<dyn Fn(&Noun) -> WordGroup>;
+
+pub fn get_with_intransitive_verb(verb_cats: Vec<VerbCatId>, number: Number) -> Combination {
+    let mut rng = thread_rng();
+    let rand_article = [Article::Definite, Article::Indefinite]
+        .choose(&mut rng)
+        .unwrap_or(&Article::Indefinite).clone();
+    let verb = 
+        verb_cats
+        .choose(&mut rng)
+        .and_then(|id| VERB_CATS.get(id))
+        .and_then(|v| v.choose(&mut rng))
+        .and_then(|id| VERBS.iter().find(|item| &item.id == id))
+        .unwrap();
+    Box::new(move |noun| {
+        let article = noun.get_article(number, rand_article);
+        let noun_with_intransitive_verb = noun.with_intransitive_verb(&verb, number);
+        add_words(&article, &noun_with_intransitive_verb, false)
+    })
+}
 
 pub fn get_with_article(article: Article, number: Number) -> Combination {
     Box::new(move |noun| get_with_some_article(article, number, noun))
@@ -50,13 +75,7 @@ pub fn get_with_adjective(
         let wg = match rand_adj {
             Some(adj) => {
                 let wg = get_with_some_article(article, number, noun);
-                add_words(
-                    WordGroup {
-                        text: [&wg.text, " "].join(""),
-                        foots: wg.foots,
-                    },
-                    adj.clone(),
-                )
+                add_words(&wg, &adj, true)
             }
             None => WordGroup {
                 text: String::from("#err#adj not found"),
@@ -71,7 +90,7 @@ pub fn get_as_noun_complement(nouns: &'static StaticNouns) -> Combination {
     Box::new(move |complement| {
         let mut rng = thread_rng();
         let rand_noun = complement
-            .emit
+            .can_emit
             .choose(&mut rng)
             .and_then(|id| NOUN_CATS.get(id))
             .and_then(|v| v.choose(&mut rng))
@@ -91,12 +110,7 @@ pub fn get_as_noun_complement(nouns: &'static StaticNouns) -> Combination {
             },
         };
         let apposition = get_apposition(&complement);
-        add_words(
-            noun,
-            WordGroup {
-                text: [" ", &apposition.text].join(""),
-                foots: apposition.foots,
-            },
-        )
+
+        add_words(&noun, &apposition, true)
     })
 }

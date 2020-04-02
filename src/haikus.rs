@@ -14,15 +14,17 @@ pub fn check_haiku_form (haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> 
             }
         } else {
             WordGroup {
-                text: String::from("#error#check_haiku_form#last letter should exist"),
-                foots: (0, 0)
+                text: String::from(&result.text),
+                foots: (result.foots.0, result.foots.1)
             }
+            
         },
         None => WordGroup {
-                text: String::from(&result.text),
-                foots: (result.foots.0, result.foots.1 - 1)
-            }
+            text: String::from("#error#check_haiku_form#last letter should exist"),
+            foots: (0, 0)
+        }
     };
+    println!("{} ({}, {})", haiku_form[nb], wg.foots.0, wg.foots.1);
     if  haiku_form[nb] >= wg.foots.0 && haiku_form[nb] <= wg.foots.1 {
         Some(String::from(wg.text))
     } else {

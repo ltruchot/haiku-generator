@@ -13,37 +13,44 @@ mod word;
 use word::{add_words, WordGroup};
 mod combinations;
 use combinations::{
-    Combination, 
-    get_with_article, 
+    get_as_noun_complement, 
+    get_with_adjective,
     get_with_rand_article,
-    get_with_adjective, 
-    get_as_noun_complement
+    get_with_intransitive_verb,
+    Combination,
 };
 
 // nouns
 mod noun;
 use noun::{extract_wordgroup, get_apposition};
 mod noun_enums;
-use noun_enums::{NounCatId};
+use noun_enums::NounCatId;
 mod noun_data;
 use noun_data::{NOUNS, NOUN_CATS};
 
 // adjectives
 mod adj;
-mod adj_enums;
 mod adj_data;
-use adj_data::{ADJ_CATS};
+mod adj_enums;
+use adj_data::ADJ_CATS;
 
 // verbs
 mod verb;
-mod verb_enums;
 mod verb_data;
-
+mod verb_enums;
+use verb_enums::VerbCatId;
 
 fn main() {
     let mut rng = thread_rng();
 
-    let mut constructions: [Vec<(Vec<NounCatId>, Vec<Combination>)>; 4] = [
+    let mut constructions: [Vec<(Vec<NounCatId>, Vec<Combination>)>; 5] = [
+        vec![(
+            vec![NounCatId::Astre, NounCatId::Mammifere],
+            vec![get_with_intransitive_verb(
+                vec![VerbCatId::EtatDEveil],
+                Number::Singular,
+            )],
+        )],
         vec![
             (
                 vec![
@@ -51,9 +58,7 @@ fn main() {
                     NounCatId::Phenomene,
                     NounCatId::PhenomeneOlfactif,
                 ],
-                vec![
-                    get_with_rand_article()
-                ],
+                vec![get_with_rand_article()],
             ),
             (
                 vec![NounCatId::Saison, NounCatId::MomentDuJour],
@@ -88,7 +93,7 @@ fn main() {
                 NounCatId::PlanteAFleur,
                 NounCatId::Plante,
                 NounCatId::Oiseau,
-                NounCatId::Mammifere
+                NounCatId::Mammifere,
             ],
             vec![
                 get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
@@ -129,13 +134,7 @@ fn main() {
                     foots: (0, 0),
                 },
                 |acc, wg_option| match wg_option {
-                    Some(wg) => add_words(
-                        acc,
-                        WordGroup {
-                            text: [" ", &wg.text].join(""),
-                            foots: wg.foots,
-                        },
-                    ),
+                    Some(wg) => add_words(&acc, &wg, true),
                     None => acc,
                 },
             );

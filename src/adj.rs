@@ -1,10 +1,13 @@
-use unicode_segmentation::UnicodeSegmentation;
-
 use crate::common_enums;
 use common_enums::{Gender, Number};
 
 use crate::word;
-use word::WordGroup;
+use word::{
+    WordGroup,
+    take_last_grapheme,
+    take_last_graphemes,
+    drop_last_graphemes,
+};
 
 use crate::adj_enums;
 use adj_enums::{AdjId};
@@ -104,41 +107,6 @@ impl Adj {
     }
 }
 
-fn take_last_grapheme(word: &str) -> String {
-    let s = String::from(word);
-    // check last
-    let last = s.graphemes(true).last();
-    String::from(match last {
-        Some(letter) => letter,
-        None => "",
-    })
-}
-
-fn take_last_graphemes(word: &str, n: usize) -> String {
-    let last_two_rev = word
-        .graphemes(true)
-        .rev()
-        .take(n)
-        .collect::<Vec<&str>>()
-        .join("");
-    String::from(
-        last_two_rev
-            .graphemes(true)
-            .rev()
-            .collect::<Vec<&str>>()
-            .join(""),
-    )
-}
-
-fn drop_last_graphemes(word: &str, n: usize) -> String {
-    let rev = word
-        .graphemes(true)
-        .rev()
-        .skip(n)
-        .collect::<Vec<&str>>()
-        .join("");
-    String::from(rev.graphemes(true).rev().collect::<Vec<&str>>().join(""))
-}
 fn get_feminine(word: &str) -> String {
     let last = take_last_grapheme(word);
     let last_two = take_last_graphemes(word, 2);

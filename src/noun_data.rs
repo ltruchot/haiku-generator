@@ -12,6 +12,9 @@ use crate::noun_enums;
 use noun::Noun;
 use noun_enums::{NounCatId, NounId};
 
+use crate::verb_enums;
+use verb_enums::{VerbCatId};
+
 // EXPORTS
 pub type StaticNouns = [Noun; 50];
 lazy_static! {
@@ -27,6 +30,7 @@ lazy_static! {
                 AdjCatId::ColorationRousse,
                 AdjCatId::Grandeur
             ],
+            vec![VerbCatId::EtatDEveil],
             (1, 2),
         ),
         Noun::new(
@@ -40,6 +44,7 @@ lazy_static! {
                 AdjCatId::ColorationRousse,
                 AdjCatId::Grandeur
             ],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -48,14 +53,16 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneLumineux],
             vec![AdjCatId::RelAUneSaison, AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
-        Noun::new(NounId::Bruit, "bruit", Gender::Male, vec![], vec![], (1, 2)),
-        Noun::new(NounId::Chant, "chant", Gender::Male, vec![], vec![], (1, 1)),
+        Noun::new(NounId::Bruit, "bruit", Gender::Male, vec![], vec![], vec![], (1, 2)),
+        Noun::new(NounId::Chant, "chant", Gender::Male, vec![], vec![], vec![], (1, 1)),
         Noun::new(
             NounId::Bruissement,
             "bruissement",
             Gender::Male,
+            vec![],
             vec![],
             vec![],
             (2, 3),
@@ -66,6 +73,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
         Noun::new(
@@ -74,12 +82,14 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::Coloration],
+            vec![],
             (2, 2),
         ),
         Noun::new(
             NounId::Odeur,
             "odeur",
             Gender::Female,
+            vec![],
             vec![],
             vec![],
             (2, 2),
@@ -90,15 +100,17 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![],
+            vec![],
             (2, 2),
         ),
-        Noun::new(NounId::Arome, "arôme", Gender::Male, vec![], vec![], (2, 3),),
+        Noun::new(NounId::Arome, "arôme", Gender::Male, vec![], vec![], vec![], (2, 3),),
         Noun::new(
             NounId::Printemps,
             "printemps",
             Gender::Male,
             vec![NounCatId::Phenomene],
             vec![AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -107,6 +119,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::Phenomene],
             vec![AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -115,6 +128,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::Phenomene],
             vec![AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -123,6 +137,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::Phenomene],
             vec![AdjCatId::Coloration],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -131,6 +146,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::EtatDeFloraison, AdjCatId::Liberte],
+            vec![],
             (2, 3),
         ),
         Noun::new(
@@ -139,6 +155,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::EtatDeFloraison, AdjCatId::Liberte, AdjCatId::Grandeur],
+            vec![],
             (3, 4),
         ),
         Noun::new(
@@ -151,6 +168,7 @@ lazy_static! {
                 AdjCatId::Liberte,
                 AdjCatId::Coloration
             ],
+            vec![],
             (2, 2),
         ),
         Noun::new(
@@ -163,6 +181,7 @@ lazy_static! {
                 AdjCatId::Liberte,
                 AdjCatId::Coloration
             ],
+            vec![],
             (2, 2),
         ),
         Noun::new(
@@ -175,6 +194,7 @@ lazy_static! {
                 AdjCatId::Liberte,
                 AdjCatId::Coloration
             ],
+            vec![],
             (2, 3),
         ),
         Noun::new(
@@ -186,6 +206,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif
             ],
             vec![AdjCatId::Coloration],
+            vec![],
             (1, 2),
         ),
         Noun::new(
@@ -197,6 +218,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif
             ],
             vec![AdjCatId::Coloration],
+            vec![],
             (1, 2),
         ),
         Noun::new(
@@ -209,6 +231,7 @@ lazy_static! {
                 NounCatId::Phenomene
             ],
             vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![],
             (2, 2),
         ),
         Noun::new(
@@ -221,6 +244,7 @@ lazy_static! {
                 NounCatId::Phenomene
             ],
             vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![],
             (3, 4),
         ),
         Noun::new(
@@ -233,6 +257,7 @@ lazy_static! {
                 NounCatId::Phenomene
             ],
             vec![AdjCatId::Coloration],
+            vec![],
             (2, 2),
         ),
         Noun::new(
@@ -245,6 +270,7 @@ lazy_static! {
                 NounCatId::Phenomene
             ],
             vec![AdjCatId::Coloration],
+            vec![],
             (2, 2),
         ),
         Noun::new(
@@ -257,6 +283,7 @@ lazy_static! {
                 AdjCatId::Coloration,
                 AdjCatId::ColorationRousse
             ],
+            vec![],
             (1, 2),
         ),
         Noun::new(
@@ -265,6 +292,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![AdjCatId::Liberte, AdjCatId::Coloration],
+            vec![],
             (1, 2),
         ),
         Noun::new(
@@ -273,6 +301,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Liberte, AdjCatId::Coloration],
+            vec![],
             (1, 2),
         ),
         Noun::new(
@@ -281,6 +310,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Coloration],
+            vec![],
             (3, 4),
         ),
         Noun::new(
@@ -289,6 +319,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![],
             (2, 3),
         ),
         Noun::new(
@@ -297,6 +328,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneOlfactif],
             vec![AdjCatId::Coloration],
+            vec![],
             (3, 4),
         ),
         Noun::new(
@@ -305,6 +337,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![],
             (3, 4),
         ),
         Noun::new(
@@ -313,6 +346,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![],
             (2, 3),
         ),
         Noun::new(
@@ -321,6 +355,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (1, 2),
         ),
         Noun::new(
@@ -329,6 +364,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -337,6 +373,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
         Noun::new(
@@ -345,6 +382,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
         Noun::new(
@@ -353,6 +391,7 @@ lazy_static! {
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (3, 4),
         ),
         Noun::new(
@@ -361,6 +400,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (1, 2),
         ),
         Noun::new(
@@ -369,6 +409,7 @@ lazy_static! {
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (1, 1),
         ),
         Noun::new(
@@ -377,6 +418,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            vec![VerbCatId::EtatDEveil],
             (1, 1),
         ),
         Noun::new(
@@ -385,6 +427,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (1, 2),
         ),
         Noun::new(
@@ -393,6 +436,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse],
+            vec![VerbCatId::EtatDEveil],
             (1, 1),
         ),
         Noun::new(
@@ -401,6 +445,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (3, 3),
         ),
         Noun::new(
@@ -409,6 +454,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
         Noun::new(
@@ -417,6 +463,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
         Noun::new(
@@ -425,6 +472,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            vec![VerbCatId::EtatDEveil],
             (1, 1),
         ),
         Noun::new(
@@ -433,6 +481,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
         Noun::new(
@@ -441,6 +490,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
     ];
