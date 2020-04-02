@@ -1,13 +1,21 @@
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 pub enum AdjCatId {
-    EnFleur,
-    Sauvage,
+    EtatDeFloraison,
+    Liberte,
     RelAUneSaison,
-    Couleur,
+    Coloration,
+    ColorationRousse,
+    Grandeur,
+    Noblesse,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 pub enum AdjId {
+    // divers
+    EnFleur,
+    Sauvage,
+    Libre,
+
     // saison
     Printanier,
     Estival,
@@ -20,8 +28,15 @@ pub enum AdjId {
     Brun,
     Dore,
     Argente,
+    Roux,
+    Ecarlate,
 
-    // divers
-    EnFleur,
-    Sauvage,
+    // taille
+    Grand,
+    Immense,
+
+    // noblesse
+    Majestueux,
+    Noble,
+    Delicat,
 }

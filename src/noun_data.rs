@@ -2,18 +2,18 @@
 use std::collections::HashMap;
 
 use crate::common_enums;
-use common_enums::{Gender};
+use common_enums::Gender;
 
 use crate::adj_enums;
-use adj_enums::{AdjCatId};
+use adj_enums::AdjCatId;
 
 use crate::noun;
-use noun::{Noun};
 use crate::noun_enums;
+use noun::Noun;
 use noun_enums::{NounCatId, NounId};
 
 // EXPORTS
-pub type StaticNouns = [Noun; 41];
+pub type StaticNouns = [Noun; 50];
 lazy_static! {
     pub static ref NOUNS: StaticNouns = [
         Noun::new(
@@ -21,7 +21,12 @@ lazy_static! {
             "lune",
             Gender::Female,
             vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison, AdjCatId::Couleur],
+            vec![
+                AdjCatId::RelAUneSaison,
+                AdjCatId::Coloration,
+                AdjCatId::ColorationRousse,
+                AdjCatId::Grandeur
+            ],
             (1, 2),
         ),
         Noun::new(
@@ -29,7 +34,12 @@ lazy_static! {
             "soleil",
             Gender::Male,
             vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison, AdjCatId::Couleur],
+            vec![
+                AdjCatId::RelAUneSaison,
+                AdjCatId::Coloration,
+                AdjCatId::ColorationRousse,
+                AdjCatId::Grandeur
+            ],
             (2, 2),
         ),
         Noun::new(
@@ -37,25 +47,11 @@ lazy_static! {
             "étoile",
             Gender::Female,
             vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison, AdjCatId::Couleur],
+            vec![AdjCatId::RelAUneSaison, AdjCatId::Coloration],
             (2, 3),
         ),
-        Noun::new(
-            NounId::Bruit,
-            "bruit",
-            Gender::Male,
-            vec![],
-            vec![],
-            (1, 2)
-        ),
-        Noun::new(
-            NounId::Chant,
-            "chant",
-            Gender::Male,
-            vec![],
-            vec![],
-            (1, 1)
-        ),
+        Noun::new(NounId::Bruit, "bruit", Gender::Male, vec![], vec![], (1, 2)),
+        Noun::new(NounId::Chant, "chant", Gender::Male, vec![], vec![], (1, 1)),
         Noun::new(
             NounId::Bruissement,
             "bruissement",
@@ -69,7 +65,7 @@ lazy_static! {
             "lumière",
             Gender::Female,
             vec![],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 3),
         ),
         Noun::new(
@@ -77,7 +73,7 @@ lazy_static! {
             "rayon",
             Gender::Male,
             vec![],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -96,20 +92,13 @@ lazy_static! {
             vec![],
             (2, 2),
         ),
-        Noun::new(
-            NounId::Arome,
-            "arôme",
-            Gender::Male,
-            vec![],
-            vec![],
-            (2, 3),
-        ),
+        Noun::new(NounId::Arome, "arôme", Gender::Male, vec![], vec![], (2, 3),),
         Noun::new(
             NounId::Printemps,
             "printemps",
             Gender::Male,
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -117,7 +106,7 @@ lazy_static! {
             "été",
             Gender::Male,
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -125,7 +114,7 @@ lazy_static! {
             "automne",
             Gender::Male,
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -133,7 +122,7 @@ lazy_static! {
             "hiver",
             Gender::Male,
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -141,7 +130,7 @@ lazy_static! {
             "prunier",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
+            vec![AdjCatId::EtatDeFloraison, AdjCatId::Liberte],
             (2, 3),
         ),
         Noun::new(
@@ -149,7 +138,7 @@ lazy_static! {
             "cerisier",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage],
+            vec![AdjCatId::EtatDeFloraison, AdjCatId::Liberte, AdjCatId::Grandeur],
             (3, 4),
         ),
         Noun::new(
@@ -157,7 +146,11 @@ lazy_static! {
             "oeillet",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![
+                AdjCatId::EtatDeFloraison,
+                AdjCatId::Liberte,
+                AdjCatId::Coloration
+            ],
             (2, 2),
         ),
         Noun::new(
@@ -165,7 +158,11 @@ lazy_static! {
             "glycine",
             Gender::Female,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![
+                AdjCatId::EtatDeFloraison,
+                AdjCatId::Liberte,
+                AdjCatId::Coloration
+            ],
             (2, 2),
         ),
         Noun::new(
@@ -173,55 +170,81 @@ lazy_static! {
             "pivoine",
             Gender::Female,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::EnFleur, AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![
+                AdjCatId::EtatDeFloraison,
+                AdjCatId::Liberte,
+                AdjCatId::Coloration
+            ],
             (2, 3),
         ),
         Noun::new(
             NounId::Feuille,
             "feuille",
             Gender::Male,
-            vec![NounCatId::PhenomeneSonoreFloral, NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneSonoreFloral,
+                NounCatId::PhenomeneOlfactif
+            ],
+            vec![AdjCatId::Coloration],
             (1, 2),
         ),
         Noun::new(
             NounId::Branche,
             "branche",
             Gender::Male,
-            vec![NounCatId::PhenomeneSonoreFloral, NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneSonoreFloral,
+                NounCatId::PhenomeneOlfactif
+            ],
+            vec![AdjCatId::Coloration],
             (1, 2),
         ),
         Noun::new(
             NounId::Aurore,
             "aurore",
             Gender::Female,
-            vec![NounCatId::PhenomeneLumineux, NounCatId::PhenomeneOlfactif, NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneLumineux,
+                NounCatId::PhenomeneOlfactif,
+                NounCatId::Phenomene
+            ],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
             (2, 2),
         ),
         Noun::new(
             NounId::Crepuscule,
             "crépuscule",
             Gender::Male,
-            vec![NounCatId::PhenomeneLumineux, NounCatId::PhenomeneOlfactif, NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneLumineux,
+                NounCatId::PhenomeneOlfactif,
+                NounCatId::Phenomene
+            ],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
             (3, 4),
         ),
         Noun::new(
             NounId::Midi,
             "midi",
             Gender::Male,
-            vec![NounCatId::PhenomeneLumineux, NounCatId::PhenomeneOlfactif, NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneLumineux,
+                NounCatId::PhenomeneOlfactif,
+                NounCatId::Phenomene
+            ],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
             NounId::Minuit,
             "minuit",
             Gender::Male,
-            vec![NounCatId::PhenomeneLumineux, NounCatId::PhenomeneOlfactif, NounCatId::Phenomene],
-            vec![AdjCatId::Couleur],
+            vec![
+                NounCatId::PhenomeneLumineux,
+                NounCatId::PhenomeneOlfactif,
+                NounCatId::Phenomene
+            ],
+            vec![AdjCatId::Coloration],
             (2, 2),
         ),
         Noun::new(
@@ -229,7 +252,11 @@ lazy_static! {
             "mousse",
             Gender::Female,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![
+                AdjCatId::Liberte,
+                AdjCatId::Coloration,
+                AdjCatId::ColorationRousse
+            ],
             (1, 2),
         ),
         Noun::new(
@@ -237,7 +264,7 @@ lazy_static! {
             "liane",
             Gender::Female,
             vec![],
-            vec![AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![AdjCatId::Liberte, AdjCatId::Coloration],
             (1, 2),
         ),
         Noun::new(
@@ -245,7 +272,7 @@ lazy_static! {
             "lierre",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Sauvage, AdjCatId::Couleur],
+            vec![AdjCatId::Liberte, AdjCatId::Coloration],
             (1, 2),
         ),
         Noun::new(
@@ -253,7 +280,7 @@ lazy_static! {
             "chèvrefeuille",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (3, 4),
         ),
         Noun::new(
@@ -261,7 +288,7 @@ lazy_static! {
             "pétale",
             Gender::Male,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
             (2, 3),
         ),
         Noun::new(
@@ -269,7 +296,7 @@ lazy_static! {
             "étamine",
             Gender::Female,
             vec![NounCatId::PhenomeneOlfactif],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration],
             (3, 4),
         ),
         Noun::new(
@@ -277,15 +304,15 @@ lazy_static! {
             "alouette",
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (3, 4),
-        ),  
+        ),
         Noun::new(
             NounId::Mesange,
             "mésange",
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (2, 3),
         ),
         Noun::new(
@@ -293,15 +320,15 @@ lazy_static! {
             "grive",
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (1, 2),
-        ),  
+        ),
         Noun::new(
             NounId::Canard,
             "canard",
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (2, 2),
         ),
         Noun::new(
@@ -309,31 +336,31 @@ lazy_static! {
             "rougegorge",
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
             (2, 3),
-        ),  
+        ),
         Noun::new(
             NounId::Fauvette,
             "fauvette",
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse, AdjCatId::Noblesse],
             (2, 3),
-        ),  
+        ),
         Noun::new(
             NounId::Hirondelle,
             "hirondelle",
             Gender::Female,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (3, 4),
-        ),  
+        ),
         Noun::new(
             NounId::Merle,
             "merle",
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (1, 2),
         ),
         Noun::new(
@@ -341,9 +368,81 @@ lazy_static! {
             "pic",
             Gender::Male,
             vec![NounCatId::PhenomeneSonore],
-            vec![AdjCatId::Couleur],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
             (1, 1),
-        ),   
+        ),
+        Noun::new(
+            NounId::Cerf,
+            "cerf",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            (1, 1),
+        ),
+        Noun::new(
+            NounId::Biche,
+            "biche",
+            Gender::Female,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            (1, 2),
+        ),
+        Noun::new(
+            NounId::Faon,
+            "faon",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse],
+            (1, 1),
+        ),
+        Noun::new(
+            NounId::Ecureuil,
+            "écureuil",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse],
+            (3, 3),
+        ),
+        Noun::new(
+            NounId::Belette,
+            "belette",
+            Gender::Female,
+            vec![],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            (2, 3),
+        ),
+        Noun::new(
+            NounId::Hermine,
+            "hermine",
+            Gender::Female,
+            vec![],
+            vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+            (2, 3),
+        ),
+        Noun::new(
+            NounId::Daim,
+            "daim",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            (1, 1),
+        ),
+        Noun::new(
+            NounId::Chevreuil,
+            "chevreuil",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            (2, 2),
+        ),
+        Noun::new(
+            NounId::Renard,
+            "renard",
+            Gender::Male,
+            vec![],
+            vec![AdjCatId::ColorationRousse, AdjCatId::Noblesse, AdjCatId::Grandeur],
+            (2, 2),
+        ),
     ];
 }
 
@@ -401,7 +500,7 @@ lazy_static! {
         (
             NounCatId::OrganeDePlante,
             vec![
-                NounId::Feuille, 
+                NounId::Feuille,
                 NounId::Branche,
                 NounId::Petale,
                 NounId::Etamine,
@@ -409,7 +508,12 @@ lazy_static! {
         ),
         (
             NounCatId::MomentDuJour,
-            vec![NounId::Aurore, NounId::Crepuscule, NounId::Midi, NounId::Minuit],
+            vec![
+                NounId::Aurore,
+                NounId::Crepuscule,
+                NounId::Midi,
+                NounId::Minuit
+            ],
         ),
         (
             NounCatId::Plante,
@@ -433,7 +537,21 @@ lazy_static! {
                 NounId::Merle,
                 NounId::Pic,
             ]
-        )
+        ),
+        (
+            NounCatId::Mammifere,
+            vec![
+                NounId::Cerf,
+                NounId::Ecureuil,
+                NounId::Belette,
+                NounId::Hermine,
+                NounId::Faon,
+                NounId::Biche,
+                NounId::Daim,
+                NounId::Chevreuil,
+                NounId::Renard,
+            ]
+        ),
     ]
     .iter()
     .cloned()

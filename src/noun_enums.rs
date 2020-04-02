@@ -42,13 +42,14 @@ pub enum NounId {
     Merle,
     Pic,
     Cerf,
+    Biche,
+    Faon,
     Ecureuil,
     Belette,
     Hermine,
-    Faon,
-    Biche,
     Daim,
-    Chevreuil
+    Chevreuil,
+    Renard,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -65,4 +66,5 @@ pub enum NounCatId {
     MomentDuJour,
     Plante,
     Oiseau,
+    Mammifere,
 }

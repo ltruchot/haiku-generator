@@ -5,7 +5,7 @@ use crate::word;
 use word::{WordGroup, add_words};
 
 use crate::adj_enums;
-use adj_enums::{AdjId, AdjCatId};
+use adj_enums::{AdjCatId};
 
 use crate::noun_enums;
 use noun_enums::{NounId, NounCatId};

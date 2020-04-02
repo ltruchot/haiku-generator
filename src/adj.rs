@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use unicode_segmentation::UnicodeSegmentation;
 
 use crate::common_enums;
@@ -8,7 +7,7 @@ use crate::word;
 use word::WordGroup;
 
 use crate::adj_enums;
-use adj_enums::{AdjId, AdjCatId};
+use adj_enums::{AdjId};
 
 #[derive(Clone)]
 pub struct Adj {
@@ -66,6 +65,23 @@ impl Adj {
         }
     }
     pub fn new(
+        id: AdjId,
+        masc: &str,
+        foots: (u8, u8),
+    ) -> Adj {
+        Adj {
+            id: id,
+            fem: None,
+            masc_plur: None,
+            fem_plur: None,
+            invariable: false,
+            word: WordGroup {
+                text: String::from(masc),
+                foots: foots,
+            },
+        }
+    }
+    pub fn new_special(
         id: AdjId,
         masc: &str,
         fem: Option<String>,
@@ -126,9 +142,16 @@ fn drop_last_graphemes(word: &str, n: usize) -> String {
 fn get_feminine(word: &str) -> String {
     let last = take_last_grapheme(word);
     let last_two = take_last_graphemes(word, 2);
+    let last_three = take_last_graphemes(word, 3);
     if &last == "e" {
         String::from(word)
-    } else if &last_two == "er" {
+    } 
+    else if last_three == "eux" {
+        let mut new_lemme = drop_last_graphemes(word, 3);
+        new_lemme.push_str("euse");
+        new_lemme
+    }
+    else if &last_two == "er" {
         let mut new_lemme = drop_last_graphemes(word, 2);
         new_lemme.push_str("ère");
         new_lemme
@@ -153,45 +176,4 @@ fn get_plural(word: &str) -> String {
     } else {
         String::from([word, "s"].join(""))
     }
-}
-
-pub type AdjCatHashMap = HashMap<AdjCatId, Vec<Adj>>;
-lazy_static! {
-    pub static ref ADJ_CATS: AdjCatHashMap = [
-        (
-            AdjCatId::EnFleur,
-            vec![Adj::new(
-                AdjId::EnFleur,
-                "en fleur", None, None, None, true, (2, 2))],
-        ),
-        (
-            AdjCatId::Sauvage,
-            vec![
-                Adj::new(
-                    AdjId::Sauvage,
-                    "sauvage", None, None, None, false, (2, 3))],
-        ),
-        (
-            AdjCatId::RelAUneSaison,
-            vec![
-                Adj::new(AdjId::Printanier,"printanier", None, None, None, false, (3, 4)),
-                Adj::new(AdjId::Estival,"estival", None, None, None, false, (3, 3)),
-                Adj::new(AdjId::Automnal,"automnal", None, None, None, false, (3, 3)),
-                Adj::new(AdjId::Hivernal,"hivernal", None, None, None, false, (3, 3)),
-            ],
-        ),
-        (
-            AdjCatId::Couleur,
-            vec![
-                Adj::new(AdjId::Violet,"violet", None, None, None, false, (2, 3)),
-                Adj::new(AdjId::Orange,"orange", None, None, None, false, (2, 3)),
-                Adj::new(AdjId::Brun,"brun", None, None, None, false, (2, 3)),
-                Adj::new(AdjId::Dore,"doré", None, None, None, false, (3, 3)),
-                Adj::new(AdjId::Argente,"argenté", None, None, None, false, (3, 3)),
-            ],
-        ),
-    ]
-    .iter()
-    .cloned()
-    .collect();
 }

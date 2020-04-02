@@ -11,108 +11,39 @@ mod haikus;
 use haikus::check_haiku_form;
 mod word;
 use word::{add_words, WordGroup};
+mod combinations;
+use combinations::{
+    Combination, 
+    get_with_article, 
+    get_with_rand_article,
+    get_with_adjective, 
+    get_as_noun_complement
+};
 
 // nouns
 mod noun;
-use noun::{extract_wordgroup, get_apposition, get_with_some_article, Noun};
+use noun::{extract_wordgroup, get_apposition};
 mod noun_enums;
 use noun_enums::{NounCatId};
 mod noun_data;
-use noun_data::{StaticNouns, NOUNS, NOUN_CATS};
+use noun_data::{NOUNS, NOUN_CATS};
 
 // adjectives
 mod adj;
-use adj::{AdjCatHashMap, ADJ_CATS};
 mod adj_enums;
 mod adj_data;
+use adj_data::{ADJ_CATS};
+
+// verbs
+mod verb;
+mod verb_enums;
+mod verb_data;
 
 
 fn main() {
     let mut rng = thread_rng();
 
-    fn get_with_article(article: Article, number: Number) -> Box<dyn Fn(&Noun) -> WordGroup> {
-        Box::new(move |noun| get_with_some_article(article, number, noun))
-    }
-
-    fn get_with_adjective(
-        adjs: &'static AdjCatHashMap,
-        article: Article,
-        number: Number,
-    ) -> Box<dyn Fn(&Noun) -> WordGroup> {
-        Box::new(move |noun| {
-            let mut rng = thread_rng();
-            let rand_adj = noun
-                .can_be
-                .choose(&mut rng)
-                .and_then(|id| adjs.get(id))
-                .and_then(|v| v.choose(&mut rng))
-                .and_then(|adj| Some(adj.agreed(noun.gender, number)));
-
-            let wg = match rand_adj {
-                Some(adj) => {
-                    let wg = get_with_some_article(article, number, noun);
-                    add_words(
-                        WordGroup {
-                            text: [&wg.text, " "].join(""),
-                            foots: wg.foots,
-                        },
-                        adj.clone(),
-                    )
-                }
-                None => WordGroup {
-                    text: String::from("#err#adj not found"),
-                    foots: (0, 0),
-                },
-            };
-            wg
-        })
-    }
-
-    fn get_as_noun_complement(nouns: &'static StaticNouns) -> Box<dyn Fn(&Noun) -> WordGroup> {
-        Box::new(move |complement| {
-            let mut rng = thread_rng();
-            let rand_noun = complement
-                .emit
-                .choose(&mut rng)
-                .and_then(|id| NOUN_CATS.get(id))
-                .and_then(|v| v.choose(&mut rng))
-                .and_then(|id| nouns.iter().find(|item| &item.id == id))
-                .and_then(|noun| {
-                    Some(get_with_some_article(
-                        Article::Indefinite,
-                        Number::Singular,
-                        &noun,
-                    ))
-                });
-            let noun = match rand_noun {
-                Some(group) => group,
-                None => WordGroup {
-                    text: String::from("#error#get_as_noun_complement#Can't find noun"),
-                    foots: (0, 0),
-                },
-            };
-            let apposition = get_apposition(&complement);
-            add_words(
-                noun,
-                WordGroup {
-                    text: [" ", &apposition.text].join(""),
-                    foots: apposition.foots,
-                },
-            )
-        })
-    }
-
-    //let with_singular_adj = ;
-    //let with_plural_adj = ;
-
-    let mut constructions = [
-        /*
-         * ex:
-         * une étoile d'été
-         * les bruits d'aurore
-         * un parfum de printemps
-         * les odeurs d'automne
-         */
+    let mut constructions: [Vec<(Vec<NounCatId>, Vec<Combination>)>; 4] = [
         vec![
             (
                 vec![
@@ -121,10 +52,7 @@ fn main() {
                     NounCatId::PhenomeneOlfactif,
                 ],
                 vec![
-                    get_with_article(Article::Indefinite, Number::Singular),
-                    get_with_article(Article::Indefinite, Number::Plural),
-                    get_with_article(Article::Definite, Number::Singular),
-                    get_with_article(Article::Definite, Number::Plural),
+                    get_with_rand_article()
                 ],
             ),
             (
@@ -160,6 +88,7 @@ fn main() {
                 NounCatId::PlanteAFleur,
                 NounCatId::Plante,
                 NounCatId::Oiseau,
+                NounCatId::Mammifere
             ],
             vec![
                 get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
