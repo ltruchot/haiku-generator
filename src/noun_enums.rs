@@ -1,4 +1,4 @@
-#[derive(Eq, PartialEq, Hash, Copy, Clone)]
+#[derive(Eq, PartialEq, Hash, Copy, Clone, Debug)]
 pub enum NounId {
     Lune,
     Soleil,

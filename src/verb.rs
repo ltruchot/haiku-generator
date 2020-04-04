@@ -50,9 +50,13 @@ impl Verb {
                 }
             },
             VerbGroup::Second => {
+                let root = drop_last_graphemes(&self.word.text, 2);
                 WordGroup {
-                    text: String::from(&self.word.text),
-                    foots: (0, 0)
+                    text: match number {
+                        Number::Singular => [&root, "it"].join(""),
+                        Number::Plural => [&root, "issent"].join(""),
+                    },
+                    foots: (self.word.foots.0, self.word.foots.1 + 1)
                 }
             },
         };

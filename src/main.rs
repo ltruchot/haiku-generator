@@ -22,11 +22,12 @@ use combinations::{
 
 // nouns
 mod noun;
-use noun::{extract_wordgroup, get_apposition};
+use noun::{extract_wordgroup, get_apposition, pick_rand_noun};
 mod noun_enums;
-use noun_enums::NounCatId;
+use noun_enums::{NounCatId, NounId};
 mod noun_data;
 use noun_data::{NOUNS, NOUN_CATS};
+
 
 // adjectives
 mod adj;
@@ -42,6 +43,7 @@ use verb_enums::VerbCatId;
 
 fn main() {
     let mut rng = thread_rng();
+    let mut noun_black_list: Vec<NounId> = vec![];
 
     let mut constructions: [Vec<(Vec<NounCatId>, Vec<Combination>)>; 5] = [
         vec![(
@@ -108,20 +110,18 @@ fn main() {
     let mut haiku = [String::from(""), String::from(""), String::from("")];
     for nb in 0..3 {
         let mut is_running = true;
+        let mut current_noun_id: Option<NounId> = None;
         while is_running {
             let random_result: Vec<Option<WordGroup>> = match constructions.get(nb) {
                 Some(choice) => choice
                     .iter()
                     .map(|item| {
-                        item.0
-                            .choose(&mut rng)
-                            .and_then(|choice| NOUN_CATS.get(&choice))
-                            .and_then(|cat| cat.choose(&mut rng))
-                            .and_then(|id| NOUNS.iter().find(|item| &item.id == id))
+                        pick_rand_noun(&item.0, &mut rng, &noun_black_list)
                             .and_then(|noun| {
+                                current_noun_id = Some(noun.id);
                                 item.1
                                     .choose(&mut rng)
-                                    .and_then(|callback| Some(callback(noun)))
+                                    .and_then(|callback| Some(callback(&noun)))
                             })
                     })
                     .collect(),
@@ -143,11 +143,16 @@ fn main() {
                 Some(res) => {
                     haiku[nb] = res;
                     is_running = false;
+                    match current_noun_id {
+                        Some(id) => noun_black_list.push(id),
+                        None => ()
+                    }   
                 }
                 None => (),
             }
             println!("{} ({} - {})", result.text, result.foots.0, result.foots.1);
         }
     }
+    println!("{:?}", noun_black_list);
     println!("Haïku:\n\t{}\n\t{}\n\t{}", haiku[0], haiku[1], haiku[2],);
 }

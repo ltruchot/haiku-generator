@@ -23,18 +23,18 @@ use noun_data::{StaticNouns, NOUN_CATS};
 pub type Combination = Box<dyn Fn(&Noun) -> WordGroup>;
 
 pub fn get_with_intransitive_verb(verb_cats: Vec<VerbCatId>, number: Number) -> Combination {
-    let mut rng = thread_rng();
-    let rand_article = [Article::Definite, Article::Indefinite]
-        .choose(&mut rng)
-        .unwrap_or(&Article::Indefinite).clone();
-    let verb = 
-        verb_cats
-        .choose(&mut rng)
-        .and_then(|id| VERB_CATS.get(id))
-        .and_then(|v| v.choose(&mut rng))
-        .and_then(|id| VERBS.iter().find(|item| &item.id == id))
-        .unwrap();
     Box::new(move |noun| {
+        let mut rng = thread_rng();
+        let rand_article = [Article::Definite, Article::Indefinite]
+            .choose(&mut rng)
+            .unwrap_or(&Article::Indefinite).clone();
+        let verb = 
+            verb_cats
+            .choose(&mut rng)
+            .and_then(|id| VERB_CATS.get(id))
+            .and_then(|v| v.choose(&mut rng))
+            .and_then(|id| VERBS.iter().find(|item| &item.id == id))
+            .unwrap();
         let article = noun.get_article(number, rand_article);
         let noun_with_intransitive_verb = noun.with_intransitive_verb(&verb, number);
         add_words(&article, &noun_with_intransitive_verb, false)

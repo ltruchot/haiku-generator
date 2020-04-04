@@ -1,3 +1,6 @@
+use rand::seq::SliceRandom;
+use rand::rngs::{ThreadRng};
+
 use crate::common_enums;
 use common_enums::{Article, Gender, Number};
 
@@ -9,6 +12,8 @@ use adj_enums::{AdjCatId};
 
 use crate::noun_enums;
 use noun_enums::{NounId, NounCatId};
+use crate::noun_data;
+use noun_data::{NOUN_CATS, NOUNS};
 
 use crate::verb_enums;
 use verb_enums::{VerbCatId};
@@ -144,4 +149,25 @@ pub fn get_apposition(noun: &Noun) -> WordGroup {
         },
     };
     add_words(&apposition, &noun.word, false)
+}
+
+pub fn pick_rand_noun (
+    cats: &Vec<NounCatId>, 
+    rng: &mut ThreadRng, 
+    blacklist: &Vec<NounId>
+) -> Option<Noun> {
+    let mut noun: Option<Noun> = None;
+    while noun.is_none() {
+        let rand_noun = cats.choose(rng)
+            .and_then(|choice| NOUN_CATS.get(&choice))
+            .and_then(|cat| cat.choose(rng))
+            .and_then(|id| NOUNS.iter().cloned().find(|item| &item.id == id));
+        match rand_noun {
+            Some(chosen) => if !blacklist.contains(&chosen.id) {
+                noun = Some(chosen);
+            },
+            None => ()
+        }
+    }
+    noun
 }
