@@ -5,15 +5,20 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "npx parcel index.html",
+    "build": "npx parcel build index.html"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "tailwindcss": "1.2.0"
+  },
   "devDependencies": {
-    "parcel": "^1.12.4",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-wasm.rs": "^1.2.15",
-    "sass": "^1.26.3"
-  }
+    "parcel": "1.12.4",
+    "parcel-bundler": "1.12.4",
+    "parcel-plugin-asset-copier": "^1.0.0",
+    "parcel-plugin-wasm.rs": "1.2.15",
+    "sass": "1.26.3"
+  },
+  "assetsPath": "static"
 }

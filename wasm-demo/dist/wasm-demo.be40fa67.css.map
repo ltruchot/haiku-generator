@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,MACI,oBAAA,CACA","file":"wasm-demo.be40fa67.css","sourceRoot":"..","sourcesContent":["ul, li {\r\n    list-style-type: none;\r\n    padding: 0;\r\n}"]}
