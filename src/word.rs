@@ -6,6 +6,15 @@ pub struct WordGroup {
     pub foots: (u8, u8), // min / max
 }
 
+impl WordGroup {
+    pub fn new_empty() -> WordGroup {
+        WordGroup {
+            text: String::from(""),
+            foots: (0, 0),
+        }
+    }
+}
+
 pub fn check_ellision (letter: &char) -> bool {
     let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h'];
     ellisions.contains(letter)

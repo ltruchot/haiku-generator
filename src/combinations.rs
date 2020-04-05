@@ -16,11 +16,14 @@ use crate::noun;
 use noun::{Noun, get_with_some_article, get_apposition};
 use crate::adj_data;
 use adj_data::{AdjCatHashMap, ADJS};
+use crate::noun_enums;
+use noun_enums::{NounCatId};
 use crate::noun_data;
 use noun_data::{StaticNouns, NOUN_CATS};
 
 // EXPORTS
 pub type Combination = Box<dyn Fn(&Noun) -> WordGroup>;
+pub type Construction = Vec<(Vec<NounCatId>, Vec<Combination>)>;
 
 pub fn get_with_intransitive_verb(verb_cats: Vec<VerbCatId>, number: Number) -> Combination {
     Box::new(move |noun| {

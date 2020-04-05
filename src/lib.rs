@@ -1,4 +1,8 @@
 // externals
+use wasm_bindgen::prelude::*;
+use js_sys::Array;
+use wasm_bindgen::JsValue;
+
 #[macro_use]
 extern crate lazy_static;
 use rand::seq::SliceRandom;
@@ -29,13 +33,15 @@ mod verb;
 mod verb_data;
 mod verb_enums;
 
-fn main() {
+#[wasm_bindgen]
+pub fn generate() -> Array {
     let mut rng = thread_rng();
    
     // prepare authorized sentence constructions
     let mut constructions: Constructions = get_constructions();
     constructions.shuffle(&mut rng);
     let haiku = generate_haiku(&constructions, &mut rng);
-    // display haiku
-    println!("Haïku:\n{}", haiku.join("\n"));
+
+    // return haiku
+    haiku.iter().map(JsValue::from).collect()
 }
