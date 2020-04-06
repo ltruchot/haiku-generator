@@ -5,11 +5,14 @@ use crate::verb_enums;
 use verb::Verb;
 use verb_enums::{VerbGroup, VerbCatId, VerbId};
 
-pub type StaticVerbs = [Verb; 6];
+pub type StaticVerbs = [Verb; 9];
 lazy_static! {
     pub static ref VERBS: StaticVerbs = [
+        Verb::new(VerbId::Rester, "rester", (2, 2), VerbGroup::First, false),
+        Verb::new(VerbId::Sembler, "sembler", (3, 3), VerbGroup::First, false),
+        Verb::new(VerbId::Demeurer, "demeurer", (3, 3), VerbGroup::First, false),
         Verb::new(VerbId::SAssoupir, "assoupir", (3, 3), VerbGroup::Second, true),
-        Verb::new(VerbId::SEvanouir, "évanouir", (3, 3), VerbGroup::Second, true),
+        Verb::new(VerbId::SEvanouir, "évanouir", (4, 4), VerbGroup::Second, true),
         Verb::new(VerbId::SEveiller, "éveiller", (3, 3), VerbGroup::First, true),
         Verb::new(VerbId::SEclipser, "éclipser", (3, 3), VerbGroup::First, true),
         Verb::new(VerbId::SeCoucher, "coucher", (2, 2), VerbGroup::First, true),
@@ -29,6 +32,14 @@ lazy_static! {
                 VerbId::SeCoucher,
                 VerbId::SeLever,
                 VerbId::SEvanouir,
+            ],
+        ),
+        (
+            VerbCatId::Etat,
+            vec![
+                VerbId::Rester,
+                VerbId::Sembler,
+                VerbId::Demeurer,
             ],
         ),
     ]

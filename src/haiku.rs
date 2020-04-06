@@ -1,18 +1,28 @@
+// IMPORTS
+// externals
 use unicode_segmentation::UnicodeSegmentation;
 use rand::seq::SliceRandom;
 use rand::rngs::{ThreadRng};
 
-use crate::word;
-use word::{WordGroup, add_words};
+// strings
+use crate::string;
+use string::{uppercase_first_letter};
+// wordgroups
+use crate::wordgroup;
+use wordgroup::{WordGroup, combine_word_options};
 
-use crate::combinations_data;
-use combinations_data::{Constructions};
+// combinations
+use crate::combination_data;
+use combination_data::{Constructions};
 
+// nouns
 use crate::noun_enums;
 use noun_enums::{NounId};
 use crate::noun;
 use noun::{pick_rand_noun};
 
+
+// EXPORTS
 pub fn check_haiku_form (haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> Option<String> {
     // ellision on final "e" implie foot max decrement
     let last = result.text.graphemes(true).last();
@@ -71,15 +81,13 @@ pub fn generate_haiku(constructions: &Constructions, rng: &mut ThreadRng) -> [St
                 .iter()
                 .fold(
                     WordGroup::new_empty(),
-                    |acc, wg_option| match wg_option {
-                        Some(wg) => add_words(&acc, &wg, acc.text != ""),
-                        None => acc,
-                    },
+                    combine_word_options,
                 );
 
             match check_haiku_form([5, 7, 5], nb, &result) {
                 Some(res) => {
-                    haiku[nb] = res;
+                    
+                    haiku[nb] = if nb == 0 { uppercase_first_letter(&res) } else { res };
                     is_running = false;
                     match current_noun_id {
                         Some(id) => noun_black_list.push(id),

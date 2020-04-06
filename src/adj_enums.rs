@@ -7,6 +7,8 @@ pub enum AdjCatId {
     ColorationRousse,
     Grandeur,
     Noblesse,
+    Agitation,
+    Calme,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -39,4 +41,19 @@ pub enum AdjId {
     Majestueux,
     Noble,
     Delicat,
+
+    // agitation
+    Inquiet,
+    AuxAbois,
+    Vigilant,
+    Perplexe,
+    Agite,
+    Emu,
+
+    // calme
+    Calme,
+    Sage,
+    Heureux,
+    Immobile,
+    EnPaix,
 }

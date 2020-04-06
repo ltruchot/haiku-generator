@@ -1,36 +1,8 @@
+// IMPORTS
+// externals
 use unicode_segmentation::UnicodeSegmentation;
 
-#[derive(Clone)]
-pub struct WordGroup {
-    pub text: String,
-    pub foots: (u8, u8), // min / max
-}
-
-impl WordGroup {
-    pub fn new_empty() -> WordGroup {
-        WordGroup {
-            text: String::from(""),
-            foots: (0, 0),
-        }
-    }
-}
-
-pub fn check_ellision (letter: &char) -> bool {
-    let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h'];
-    ellisions.contains(letter)
-}
-
-pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
-    WordGroup {
-        text: [
-            String::from(&a.text), 
-            String::from(&b.text)
-        ].join(if with_space {" "} else {""}),
-        foots: (a.foots.0 + b.foots.0, a.foots.1 + b.foots.1)
-    }
-}
-
-
+// EXPORTS
 pub fn take_last_grapheme(word: &str) -> String {
     let s = String::from(word);
     // check last
@@ -65,4 +37,12 @@ pub fn drop_last_graphemes(word: &str, n: usize) -> String {
         .collect::<Vec<&str>>()
         .join("");
     String::from(rev.graphemes(true).rev().collect::<Vec<&str>>().join(""))
+}
+
+pub fn uppercase_first_letter(s: &str) -> String {
+    let mut c = s.chars();
+    match c.next() {
+        None => String::new(),
+        Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+    }
 }

@@ -2,21 +2,23 @@
 use wasm_bindgen::prelude::*;
 use js_sys::Array;
 use wasm_bindgen::JsValue;
-
 #[macro_use]
 extern crate lazy_static;
-use rand::seq::SliceRandom;
 use rand::thread_rng;
+use rand::seq::SliceRandom;
 
 // commons
 mod common_enums;
-mod haikus;
-use haikus::{generate_haiku};
+mod wordgroup;
+mod string;
 
-mod word;
-mod combinations;
-mod combinations_data;
-use combinations_data::{get_constructions, Constructions};
+// haikus
+mod haiku;
+use haiku::{generate_haiku};
+
+mod combination;
+mod combination_data;
+use combination_data::{get_constructions, Constructions};
 
 // nouns
 mod noun;

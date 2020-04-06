@@ -6,11 +6,18 @@ pub enum VerbGroup {
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 pub enum VerbCatId {
-    EtatDEveil
+    Etat,
+    EtatDEveil,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 pub enum VerbId {
+    // Etat
+    Sembler,
+    Demeurer,
+    Rester,
+
+    // État d'éveil
     SAssoupir,
     SEveiller,
     SEclipser,

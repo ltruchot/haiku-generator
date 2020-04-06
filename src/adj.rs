@@ -1,17 +1,27 @@
+// IMPORTS
+// commons
 use crate::common_enums;
 use common_enums::{Gender, Number};
 
-use crate::word;
-use word::{
-    WordGroup,
+// wordgroups
+use crate::wordgroup;
+use wordgroup::{
+    WordGroup
+};
+
+// strings
+use crate::string;
+use string::{
     take_last_grapheme,
     take_last_graphemes,
     drop_last_graphemes,
 };
 
+// adjectives
 use crate::adj_enums;
 use adj_enums::{AdjId};
 
+// EXPORTS
 #[derive(Clone)]
 pub struct Adj {
     pub id: AdjId,

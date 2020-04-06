@@ -1,37 +1,42 @@
-use crate::common_enums;
-use common_enums::{Article, Number};
+// IMPORTS
 
-use crate::combinations;
-use combinations::{
-    get_as_noun_complement, get_with_adjective, get_with_intransitive_verb, get_with_rand_article,
-    Construction,
+// commons
+use crate::common_enums;
+use common_enums::{Number, Article};
+
+use crate::combination;
+use combination::{
+    get_as_noun_complement, get_with_adjective, get_with_linking_verb, get_with_rand_article,
+    get_with_verb, Construction,
 };
 
 // nouns
 use crate::noun;
+use crate::noun_data;
 use crate::noun_enums;
 use noun::{extract_wordgroup, get_apposition};
+use noun_data::NOUNS;
 use noun_enums::NounCatId;
-use crate::noun_data;
-use noun_data::{NOUNS};
 
 // verbs
 use crate::verb_enums;
 use verb_enums::VerbCatId;
 
-// adjectives
-use crate::adj_data;
-use adj_data::ADJ_CATS;
-
-pub type Constructions = [Construction; 5];
+// EXPORTS
+pub type Constructions = [Construction; 6];
 
 pub fn get_constructions() -> Constructions {
     [
         vec![(
             vec![NounCatId::Astre, NounCatId::Mammifere],
-            vec![get_with_intransitive_verb(
-                vec![VerbCatId::EtatDEveil],
-                Number::Singular,
+            vec![get_with_verb(vec![VerbCatId::EtatDEveil], Number::Singular)],
+        )],
+        vec![(
+            vec![NounCatId::Astre, NounCatId::Mammifere],
+            vec![get_with_linking_verb(
+                vec![VerbCatId::Etat],
+                Some(Number::Singular),
+                Some(Article::Definite),
             )],
         )],
         vec![
@@ -53,10 +58,10 @@ pub fn get_constructions() -> Constructions {
                 vec![NounCatId::Astre, NounCatId::PhenomeneLumineux],
                 vec![
                     Box::new(extract_wordgroup),
-                    get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
-                    get_with_adjective(&ADJ_CATS, Article::Definite, Number::Plural),
-                    get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
-                    get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Plural),
+                    get_with_adjective(Article::Definite, Number::Singular),
+                    get_with_adjective(Article::Definite, Number::Plural),
+                    get_with_adjective(Article::Indefinite, Number::Singular),
+                    get_with_adjective(Article::Indefinite, Number::Plural),
                 ],
             ),
             (
@@ -76,10 +81,10 @@ pub fn get_constructions() -> Constructions {
                 NounCatId::Mammifere,
             ],
             vec![
-                get_with_adjective(&ADJ_CATS, Article::Definite, Number::Singular),
-                get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
-                get_with_adjective(&ADJ_CATS, Article::Definite, Number::Plural),
-                get_with_adjective(&ADJ_CATS, Article::Indefinite, Number::Singular),
+                get_with_adjective(Article::Definite, Number::Singular),
+                get_with_adjective(Article::Indefinite, Number::Singular),
+                get_with_adjective(Article::Definite, Number::Plural),
+                get_with_adjective(Article::Indefinite, Number::Singular),
             ],
         )],
     ]

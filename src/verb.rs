@@ -1,15 +1,27 @@
+// IMPORTS
+// commons
 use crate::common_enums;
 use common_enums::{Number};
-use crate::word;
-use word::{
+
+// string
+use crate::string;
+use string::{drop_last_graphemes, take_last_graphemes};
+
+// wordgroup
+use crate::wordgroup;
+use wordgroup::{
     WordGroup,
     add_words,
-    drop_last_graphemes,
     check_ellision,
 };
+
+// verbs
 use crate::verb_enums;
 use verb_enums::{VerbId, VerbGroup};
 
+
+
+// EXPORTS
 #[derive(Clone)]
 pub struct Verb {
     pub id: VerbId,
@@ -41,10 +53,29 @@ impl Verb {
         let agreed_verb = match &self.group {
             VerbGroup::First => {
                 let root = drop_last_graphemes(&self.word.text, 2);
+                let last_two = take_last_graphemes(&root, 2).clone();
                 WordGroup {
-                    text: match number {
-                        Number::Singular => [&root, "e"].join(""),
-                        Number::Plural => [&root, "ent"].join(""),
+                    text: match number {                        
+                        Number::Singular => {                            
+                            if last_two == "ev" { 
+                                [
+                                    String::from(drop_last_graphemes(&root, 2)),
+                                    String::from("ève")
+                                ].join("")
+                            } else { 
+                                [&root, "e"].join("") 
+                            }
+                        },
+                        Number::Plural => {
+                            if last_two == "ev" { 
+                                [
+                                    String::from(drop_last_graphemes(&root, 2)),
+                                    String::from("ève")
+                                ].join("èvent")
+                            } else { 
+                                [&root, "ent"].join("") 
+                            }
+                        }
                     },
                     foots: (self.word.foots.0 - 1, self.word.foots.1)
                 }

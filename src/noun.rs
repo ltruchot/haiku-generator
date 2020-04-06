@@ -1,20 +1,25 @@
 use rand::seq::SliceRandom;
 use rand::rngs::{ThreadRng};
 
+// commons
 use crate::common_enums;
-use common_enums::{Article, Gender, Number};
+use common_enums::{Gender, Number, Article};
 
-use crate::word;
-use word::{WordGroup, add_words, check_ellision};
+// wordgroups
+use crate::wordgroup;
+use wordgroup::{WordGroup, add_words, check_ellision};
 
+// adjectives
 use crate::adj_enums;
 use adj_enums::{AdjCatId};
 
+// nouns
 use crate::noun_enums;
 use noun_enums::{NounId, NounCatId};
 use crate::noun_data;
 use noun_data::{NOUN_CATS, NOUNS};
 
+// verbs
 use crate::verb_enums;
 use verb_enums::{VerbCatId};
 use crate::verb;
@@ -24,6 +29,7 @@ use verb::{Verb};
 pub struct Noun {
     pub id: NounId,
     pub gender: Gender,
+    pub is: Vec<AdjCatId>,
     pub can_emit: Vec<NounCatId>,
     pub can_be: Vec<AdjCatId>,
     pub can_do: Vec<VerbCatId>,
@@ -35,17 +41,19 @@ impl Noun {
         id: NounId,
         lemme: &str,
         gender: Gender,
+        is: Vec<AdjCatId>,
         can_emit: Vec<NounCatId>,
         can_be: Vec<AdjCatId>,
         can_do: Vec<VerbCatId>,
         foots: (u8, u8),
     ) -> Noun {
         Noun {
-            id: id,
-            gender: gender,
-            can_emit: can_emit,
-            can_be: can_be,
-            can_do: can_do,
+            id,
+            gender,
+            is,
+            can_emit,
+            can_be,
+            can_do,
             word: WordGroup {
                 text: String::from(lemme),
                 foots: foots,
@@ -53,7 +61,7 @@ impl Noun {
         }
     }
 
-    pub fn with_intransitive_verb(self: &Self, verb: &Verb, number: Number) -> WordGroup {
+    pub fn with_verb(self: &Self, verb: &Verb, number: Number) -> WordGroup {
         let agreed_verb = verb.agreed(number);
         add_words(&self.word, &agreed_verb, true)
     }
@@ -105,34 +113,28 @@ impl Noun {
         };
         article
     }
-    
+    pub fn agreed(self: &Self, number: Number) -> WordGroup {
+        match number {
+            Number::Plural => {
+                let mut plural = String::from(&self.word.text);
+                plural.push('s');
+                WordGroup {
+                    text: plural,
+                    foots: (self.word.foots)
+                }
+            }
+            Number::Singular => self.word.clone(),
+        }
+    }
+    pub fn get_with_article(self:&Self, article: Article, number: Number) -> WordGroup {
+        let article = self.get_article(number, article);
+        let agreed_noun = self.agreed(number);
+        add_words(&article, &agreed_noun, false)
+    }
 }
 
 pub fn extract_wordgroup(noun: &Noun) -> WordGroup {
     noun.word.clone()
-}
-
-
-
-
-pub fn get_with_some_article(article: Article, number: Number, noun: &Noun) -> WordGroup {
-    let article = noun.get_article(number, article);
-    let agreed_noun = agree_noun(&noun, number);
-    add_words(&article, &agreed_noun, false)
-}
-
-pub fn agree_noun (noun: &Noun, number: Number) -> WordGroup {
-    match number {
-        Number::Plural => {
-            let mut plural = String::from(&noun.word.text);
-            plural.push('s');
-            WordGroup {
-                text: plural,
-                foots: (noun.word.foots)
-            }
-        }
-        Number::Singular => noun.word.clone(),
-    }
 }
 
 pub fn get_apposition(noun: &Noun) -> WordGroup {

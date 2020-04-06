@@ -16,4 +16,3 @@ pub enum Article {
     Indefinite,
 }
 
-// le soleil s'éclipse
