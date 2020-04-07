@@ -25,6 +25,12 @@ use verb_enums::{VerbCatId};
 use crate::verb;
 use verb::{Verb};
 
+// strings
+use crate::string;
+use string::{
+    get_plural,
+};
+
 #[derive(Clone)]
 pub struct Noun {
     pub id: NounId,
@@ -113,19 +119,19 @@ impl Noun {
         };
         article
     }
+
     pub fn agreed(self: &Self, number: Number) -> WordGroup {
         match number {
             Number::Plural => {
-                let mut plural = String::from(&self.word.text);
-                plural.push('s');
                 WordGroup {
-                    text: plural,
+                    text: get_plural(&self.word.text),
                     foots: (self.word.foots)
                 }
             }
             Number::Singular => self.word.clone(),
         }
     }
+
     pub fn get_with_article(self:&Self, article: Article, number: Number) -> WordGroup {
         let article = self.get_article(number, article);
         let agreed_noun = self.agreed(number);
@@ -162,7 +168,7 @@ pub fn pick_rand_noun (
     while noun.is_none() {
         let rand_noun = cats.choose(rng)
             .and_then(|choice| NOUN_CATS.get(&choice))
-            .and_then(|cat| cat.choose(rng))
+            .and_then(|cat| cat.nouns.choose(rng))
             .and_then(|id| NOUNS.iter().cloned().find(|item| &item.id == id));
         match rand_noun {
             Some(chosen) => if !blacklist.contains(&chosen.id) {

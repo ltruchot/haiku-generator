@@ -1,6 +1,6 @@
 [package]
 name = "haiku-generator"
-version = "0.0.4"
+version = "0.0.5"
 authors = ["Loïc TRUCHOT"]
 edition = "2018"
 repository = "https://github.com/ltruchot/haiku-generator"

@@ -15,6 +15,7 @@ use string::{
     take_last_grapheme,
     take_last_graphemes,
     drop_last_graphemes,
+    get_plural,
 };
 
 // adjectives
@@ -48,7 +49,7 @@ impl Adj {
                     foots: self.word.foots,
                 },
                 None => WordGroup {
-                    text: String::from([&self.word.text, "s"].join("")),
+                    text: get_plural(&self.word.text),
                     foots: self.word.foots,
                 },
             },
@@ -70,7 +71,7 @@ impl Adj {
                 None => {
                     let fem = get_feminine(&self.word.text);
                     WordGroup {
-                        text: String::from(get_plural(&fem)),
+                        text: get_plural(&fem),
                         foots: self.word.foots,
                     }
                 }
@@ -139,19 +140,5 @@ fn get_feminine(word: &str) -> String {
         new_lemme
     } else {
         String::from([word, "e"].join(""))
-    }
-}
-
-fn get_plural(word: &str) -> String {
-    let last = take_last_grapheme(word);
-    let last_two = take_last_graphemes(word, 2);
-    if &last == "s" || &last == "x" {
-        String::from(word)
-    } else if &last_two == "al" {
-        let mut new_lemme = drop_last_graphemes(word, 2);
-        new_lemme.push_str("aux");
-        new_lemme
-    } else {
-        String::from([word, "s"].join(""))
     }
 }

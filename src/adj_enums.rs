@@ -9,6 +9,7 @@ pub enum AdjCatId {
     Noblesse,
     Agitation,
     Calme,
+    Chaleur,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -56,4 +57,8 @@ pub enum AdjId {
     Heureux,
     Immobile,
     EnPaix,
+
+    // chaleur
+    Caniculaire,
+    Irradiant,
 }

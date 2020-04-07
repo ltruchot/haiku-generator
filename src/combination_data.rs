@@ -55,7 +55,7 @@ pub fn get_constructions() -> Constructions {
         ],
         vec![
             (
-                vec![NounCatId::Astre, NounCatId::PhenomeneLumineux],
+                vec![NounCatId::Astre, NounCatId::PhenomeneLumineux, NounCatId::Saison],
                 vec![
                     Box::new(extract_wordgroup),
                     get_with_adjective(Article::Definite, Number::Singular),

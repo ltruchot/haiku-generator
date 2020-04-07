@@ -128,7 +128,7 @@ pub fn get_as_noun_complement(nouns: &'static StaticNouns) -> Combination {
             .can_emit
             .choose(&mut rng)
             .and_then(|id| NOUN_CATS.get(id))
-            .and_then(|v| v.choose(&mut rng))
+            .and_then(|cat| cat.nouns.choose(&mut rng))
             .and_then(|id| nouns.iter().find(|item| &item.id == id))
             .and_then(|noun| {
                 Some(noun.get_with_article(

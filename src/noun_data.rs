@@ -30,7 +30,8 @@ lazy_static! {
                 AdjCatId::Coloration,
                 AdjCatId::ColorationRousse,
                 AdjCatId::Grandeur,
-                AdjCatId::Calme
+                AdjCatId::Calme,
+                AdjCatId::Chaleur,
             ],
             vec![VerbCatId::EtatDEveil],
             (1, 2),
@@ -46,7 +47,8 @@ lazy_static! {
                 AdjCatId::Coloration,
                 AdjCatId::ColorationRousse,
                 AdjCatId::Grandeur,
-                AdjCatId::Calme
+                AdjCatId::Calme,
+                AdjCatId::Chaleur,
             ],
             vec![VerbCatId::EtatDEveil],
             (2, 2),
@@ -57,7 +59,12 @@ lazy_static! {
             Gender::Female,
             vec![AdjCatId::Calme],
             vec![NounCatId::PhenomeneLumineux],
-            vec![AdjCatId::RelAUneSaison, AdjCatId::Coloration, AdjCatId::Calme],
+            vec![
+                AdjCatId::RelAUneSaison,
+                AdjCatId::Coloration,
+                AdjCatId::Calme,
+                AdjCatId::Chaleur
+            ],
             vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
@@ -97,7 +104,7 @@ lazy_static! {
             Gender::Female,
             vec![],
             vec![],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![VerbCatId::EtatDEveil],
             (2, 3),
         ),
@@ -107,7 +114,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![],
             (2, 2),
         ),
@@ -147,7 +154,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
@@ -157,7 +164,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
@@ -167,7 +174,7 @@ lazy_static! {
             Gender::Male,
             vec![],
             vec![NounCatId::Phenomene],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![VerbCatId::EtatDEveil],
             (2, 2),
         ),
@@ -283,7 +290,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif,
                 NounCatId::Phenomene
             ],
-            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse, AdjCatId::Chaleur,],
             vec![],
             (2, 2),
         ),
@@ -297,7 +304,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif,
                 NounCatId::Phenomene
             ],
-            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse],
+            vec![AdjCatId::Coloration, AdjCatId::ColorationRousse, AdjCatId::Chaleur,],
             vec![],
             (3, 4),
         ),
@@ -311,7 +318,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif,
                 NounCatId::Phenomene
             ],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![],
             (2, 2),
         ),
@@ -325,7 +332,7 @@ lazy_static! {
                 NounCatId::PhenomeneOlfactif,
                 NounCatId::Phenomene
             ],
-            vec![AdjCatId::Coloration],
+            vec![AdjCatId::Coloration, AdjCatId::Chaleur,],
             vec![],
             (2, 2),
         ),
@@ -595,50 +602,127 @@ lazy_static! {
         ),
     ];
 }
+/**
+ * Attributs et épithèthes sont séparé, 
+ * car "le cerf est grand" est peu poétique, 
+ * là ou "le grand cerf" l'est.
+ */
+#[derive(Clone)]
+pub struct NounRelations {
+    pub epithetes: Vec<AdjCatId>, // PEUT ÊTRE - dans groupe nominal (le grand cerf) 
+    pub attributes: Vec<AdjCatId>, // EST - après verbe d'état (le cerf est grand)
+    pub fonctions: Vec<VerbCatId>, // PEUT FAIRE - le cerf marche
+    pub emissions: Vec<NounCatId>, // PEUT emettre - l'odeur du cerf
+}
 
-pub type NounCatHashMap = HashMap<NounCatId, Vec<NounId>>;
+#[derive(Clone)]
+pub struct NounCategory {
+    pub id: NounCatId,
+    pub nouns: Vec<NounId>,
+    pub rel: NounRelations,
+}
+
+pub type NounCatHashMap = HashMap<NounCatId, NounCategory>;
 lazy_static! {
     pub static ref NOUN_CATS: NounCatHashMap = [
-        (
-            NounCatId::Astre,
-            vec![NounId::Lune, NounId::Soleil, NounId::Etoile],
-        ),
-        (
-            NounCatId::Phenomene,
-            vec![NounId::Bruit, NounId::Lumiere, NounId::Odeur],
-        ),
-        (
-            NounCatId::PhenomeneLumineux,
-            vec![NounId::Lumiere, NounId::Rayon],
-        ),
-        (
-            NounCatId::PhenomeneSonore,
-            vec![NounId::Bruit, NounId::Chant],
-        ),
-        (
-            NounCatId::PhenomeneSonoreFloral,
-            vec![NounId::Bruit, NounId::Bruissement],
-        ),
-        (
-            NounCatId::PhenomeneOlfactif,
-            vec![NounId::Odeur, NounId::Parfum, NounId::Arome],
-        ),
-        (
-            NounCatId::PhenomeneOlfactif,
-            vec![NounId::Odeur, NounId::Parfum, NounId::Arome],
-        ),
-        (
-            NounCatId::Saison,
-            vec![
+        (NounCatId::Astre, 
+        NounCategory {
+            id: NounCatId::Astre,
+            nouns: vec![NounId::Lune, NounId::Soleil, NounId::Etoile],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),
+    (NounCatId::Phenomene,
+        NounCategory {
+            id: NounCatId::Phenomene,
+            nouns: vec![NounId::Bruit, NounId::Lumiere, NounId::Odeur],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PhenomeneLumineux,
+        NounCategory {
+            id: NounCatId::PhenomeneLumineux,
+            nouns: vec![NounId::Lumiere, NounId::Rayon],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PhenomeneSonore,
+        NounCategory {
+            id: NounCatId::PhenomeneSonore,
+            nouns: vec![NounId::Bruit, NounId::Chant],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PhenomeneSonoreFloral,
+        NounCategory {
+            id: NounCatId::PhenomeneSonoreFloral,
+            nouns: vec![NounId::Bruit, NounId::Bruissement],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PhenomeneOlfactif,
+        NounCategory {
+            id: NounCatId::PhenomeneOlfactif,
+            nouns: vec![NounId::Odeur, NounId::Parfum, NounId::Arome],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PhenomeneOlfactif,
+        NounCategory {
+            id: NounCatId::PhenomeneOlfactif,
+            nouns: vec![NounId::Odeur, NounId::Parfum, NounId::Arome],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::Saison,
+        NounCategory {
+            id: NounCatId::Saison,
+            nouns: vec![
                 NounId::Printemps,
                 NounId::Ete,
                 NounId::Automne,
                 NounId::Hiver,
             ],
-        ),
-        (
-            NounCatId::PlanteAFleur,
-            vec![
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::PlanteAFleur,
+        NounCategory {
+            id: NounCatId::PlanteAFleur,
+            nouns: vec![
                 NounId::Prunier,
                 NounId::Cerisier,
                 NounId::Oeillet,
@@ -646,37 +730,65 @@ lazy_static! {
                 NounId::Pivoine,
                 NounId::Chevrefeuille,
             ],
-        ),
-        (
-            NounCatId::OrganeDePlante,
-            vec![
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::OrganeDePlante,
+        NounCategory {
+            id: NounCatId::OrganeDePlante,
+            nouns: vec![
                 NounId::Feuille,
                 NounId::Branche,
                 NounId::Petale,
                 NounId::Etamine,
             ],
-        ),
-        (
-            NounCatId::MomentDuJour,
-            vec![
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::MomentDuJour,
+        NounCategory {
+            id: NounCatId::MomentDuJour,
+            nouns: vec![
                 NounId::Aurore,
                 NounId::Crepuscule,
                 NounId::Midi,
                 NounId::Minuit
             ],
-        ),
-        (
-            NounCatId::Plante,
-            vec![
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::Plante,
+        NounCategory {
+            id: NounCatId::Plante,
+            nouns: vec![
                 NounId::Mousse,
                 NounId::Liane,
                 NounId::Lierre,
                 NounId::Chevrefeuille,
-            ]
-        ),
-        (
-            NounCatId::Oiseau,
-            vec![
+            ],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::Oiseau,
+        NounCategory {
+            id: NounCatId::Oiseau,
+            nouns: vec![
                 NounId::Alouette,
                 NounId::Mesange,
                 NounId::Grive,
@@ -686,11 +798,18 @@ lazy_static! {
                 NounId::Hirondelle,
                 NounId::Merle,
                 NounId::Pic,
-            ]
-        ),
-        (
-            NounCatId::Mammifere,
-            vec![
+            ],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    ),(NounCatId::Mammifere,
+        NounCategory {
+            id: NounCatId::Mammifere,
+            nouns: vec![
                 NounId::Cerf,
                 NounId::Ecureuil,
                 NounId::Belette,
@@ -700,8 +819,15 @@ lazy_static! {
                 NounId::Daim,
                 NounId::Chevreuil,
                 NounId::Renard,
-            ]
-        ),
+            ],
+            rel: NounRelations {
+                epithetes: vec![],
+                attributes: vec![],
+                fonctions: vec![],
+                emissions:vec![],
+            },
+        },
+    )
     ]
     .iter()
     .cloned()

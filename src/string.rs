@@ -46,3 +46,18 @@ pub fn uppercase_first_letter(s: &str) -> String {
         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
     }
 }
+
+
+pub fn get_plural(word: &str) -> String {
+    let last = take_last_grapheme(word);
+    let last_two = take_last_graphemes(word, 2);
+    if &last == "s" || &last == "x" {
+        String::from(word)
+    } else if &last_two == "al" {
+        let mut new_lemme = drop_last_graphemes(word, 2);
+        new_lemme.push_str("aux");
+        new_lemme
+    } else {
+        String::from([word, "s"].join(""))
+    }
+}

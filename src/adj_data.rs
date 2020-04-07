@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 30];
+pub type StaticAdjs = [Adj; 32];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -35,19 +35,25 @@ lazy_static! {
         Adj::new(AdjId::Majestueux, "majestueux", (4, 4)),
         Adj::new(AdjId::Noble, "noble", (1, 2)),
         Adj::new(AdjId::Delicat, "délicat", (3, 3)),
+
         // agitation
-        Adj::new(AdjId::Inquiet, "inquiet", (2, 3)),
+        Adj::new_special(AdjId::Inquiet, "inquiet", Some(String::from("inquiète")), None, None, false, (2, 3)),
         Adj::new_special(AdjId::AuxAbois, "aux abois", None, None, None, true, (3,3)),
         Adj::new(AdjId::Vigilant, "vigilant", (3, 3)),
         Adj::new(AdjId::Perplexe, "perplexe", (3, 4)),
         Adj::new(AdjId::Agite, "agité", (3, 3)),
         Adj::new(AdjId::Emu, "ému", (2, 2)),
+
         // calme
         Adj::new(AdjId::Calme, "calme", (1, 2)),
         Adj::new(AdjId::Sage, "sage", (1, 2)),
         Adj::new(AdjId::Heureux, "heureux", (2, 2)),
         Adj::new(AdjId::Immobile, "immobile", (3, 4)),
         Adj::new_special(AdjId::EnPaix, "en paix", None, None, None, true, (2, 2)),
+
+        // chaleur
+        Adj::new(AdjId::Caniculaire, "caniculaire", (4, 4)),
+        Adj::new(AdjId::Irradiant, "irradiant", (3, 4)),
     ];
 }
 
@@ -112,6 +118,13 @@ lazy_static! {
                 AdjId::Heureux,
                 AdjId::Immobile,
                 AdjId::EnPaix,
+            ]
+        ),
+        (
+            AdjCatId::Chaleur,
+            vec![
+                AdjId::Caniculaire,
+                AdjId::Irradiant,
             ]
         ),
     ]
