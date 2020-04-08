@@ -11,6 +11,7 @@ use rand::seq::SliceRandom;
 mod common_enums;
 mod wordgroup;
 mod string;
+mod random;
 
 // haikus
 mod haiku;
@@ -18,7 +19,7 @@ use haiku::{generate_haiku};
 
 mod combination;
 mod combination_data;
-use combination_data::{get_constructions, Constructions};
+use combination_data::{get_combinations, Combinations};
 
 // nouns
 mod noun;
@@ -39,11 +40,11 @@ mod verb_enums;
 pub fn generate() -> Array {
     let mut rng = thread_rng();
    
-    // prepare authorized sentence constructions
-    let mut constructions: Constructions = get_constructions();
-    constructions.shuffle(&mut rng);
-    let haiku = generate_haiku(&constructions, &mut rng);
+    // prepare authorized sentence combinations
+    let mut combinations: Combinations = get_combinations();
+    combinations.shuffle(&mut rng);
+    let haiku = generate_haiku(&combinations);
 
     // return haiku
-    haiku.iter().map(JsValue::from).collect()
+    haiku.unwrap_or([String::from(""),String::from(""),String::from(""),]).iter().map(JsValue::from).collect()
 }

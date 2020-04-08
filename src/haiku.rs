@@ -13,7 +13,7 @@ use wordgroup::{WordGroup, combine_word_options};
 
 // combinations
 use crate::combination_data;
-use combination_data::{Constructions};
+use combination_data::{Combinations};
 
 // nouns
 use crate::noun_enums;
@@ -52,52 +52,35 @@ pub fn check_haiku_form (haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> 
     }
 }
 
-pub fn generate_haiku(constructions: &Constructions, rng: &mut ThreadRng) -> [String; 3] {
-    let mut noun_black_list: Vec<NounId> = vec![];
+pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<String>> {
+    //let mut noun_black_list: Vec<NounId> = vec![];
     // compose haiku
     let mut haiku = [String::from(""), String::from(""), String::from("")];
     for nb in 0..3 {
         let mut is_running = true;
-        let mut current_noun_id: Option<NounId> = None;
+        // let mut current_noun_id: Option<NounId> = None;
         while is_running {
-            let random_result: Vec<Option<WordGroup>> = constructions
-                .get(nb)
-                .unwrap_or(&vec![])
-                .iter()
-                .map(|item| {
-                    let (noun_cats, callbacks) = &item;
-                    pick_rand_noun(noun_cats, rng, &noun_black_list)
-                        .and_then(|noun| {
-                            current_noun_id = Some(noun.id);
-                            
-                            callbacks
-                                .choose(rng)
-                                .and_then(|callback| Some(callback(&noun)))
-                        })
-                })
-                .collect();
-
-            let result = random_result
-                .iter()
-                .fold(
-                    WordGroup::new_empty(),
-                    combine_word_options,
-                );
-
-            match check_haiku_form([5, 7, 5], nb, &result) {
-                Some(res) => {
-                    
-                    haiku[nb] = if nb == 0 { uppercase_first_letter(&res) } else { res };
-                    is_running = false;
-                    match current_noun_id {
-                        Some(id) => noun_black_list.push(id),
-                        None => ()
-                    }   
-                }
+            let _res = match combinations.get(nb) {
+                Some(comb) => {
+                    comb().and_then(|wg|{
+                        match check_haiku_form([5, 7, 5], nb, &wg) {
+                            Some(s) => {
+                                let sentence = if nb == 0 { uppercase_first_letter(&s) } else { s };
+                                haiku[nb] = sentence;
+                                is_running = false;
+                                println!("{}", &haiku[nb]);
+                                Ok(haiku[nb].clone())
+                            }
+                            None => Err(vec![String::from("warn#generate_haiku#haiku not well formed. retry...")]),
+                        }
+                    });
+                },
                 None => (),
-            }
+            };
+            ()
             // println!("{} ({} - {})", result.text, result.foots.0, result.foots.1);
-        }
+        };
+        println!("{}", is_running);
     }
-    haiku
+    Ok(haiku)
 }

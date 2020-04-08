@@ -3,20 +3,20 @@ use std::collections::HashMap;
 use crate::verb;
 use crate::verb_enums;
 use verb::Verb;
-use verb_enums::{VerbGroup, VerbCatId, VerbId};
+use verb_enums::{VerbGroup, VerbCatId, VerbId, VerbKind};
 
 pub type StaticVerbs = [Verb; 9];
 lazy_static! {
     pub static ref VERBS: StaticVerbs = [
-        Verb::new(VerbId::Rester, "rester", (2, 2), VerbGroup::First, false),
-        Verb::new(VerbId::Sembler, "sembler", (3, 3), VerbGroup::First, false),
-        Verb::new(VerbId::Demeurer, "demeurer", (3, 3), VerbGroup::First, false),
-        Verb::new(VerbId::SAssoupir, "assoupir", (3, 3), VerbGroup::Second, true),
-        Verb::new(VerbId::SEvanouir, "évanouir", (4, 4), VerbGroup::Second, true),
-        Verb::new(VerbId::SEveiller, "éveiller", (3, 3), VerbGroup::First, true),
-        Verb::new(VerbId::SEclipser, "éclipser", (3, 3), VerbGroup::First, true),
-        Verb::new(VerbId::SeCoucher, "coucher", (2, 2), VerbGroup::First, true),
-        Verb::new(VerbId::SeLever, "lever", (2, 2), VerbGroup::First, true),
+        Verb::new(VerbId::Rester, "rester", (2, 2), VerbGroup::First, false, VerbKind::Copule),
+        Verb::new(VerbId::Sembler, "sembler", (3, 3), VerbGroup::First, false, VerbKind::Copule),
+        Verb::new(VerbId::Demeurer, "demeurer", (3, 3), VerbGroup::First, false, VerbKind::Copule),
+        Verb::new(VerbId::SAssoupir, "assoupir", (3, 3), VerbGroup::Second, true, VerbKind::Intransitive),
+        Verb::new(VerbId::SEvanouir, "évanouir", (4, 4), VerbGroup::Second, true, VerbKind::Intransitive),
+        Verb::new(VerbId::SEveiller, "éveiller", (3, 3), VerbGroup::First, true, VerbKind::Intransitive),
+        Verb::new(VerbId::SEclipser, "éclipser", (3, 3), VerbGroup::First, true, VerbKind::Intransitive),
+        Verb::new(VerbId::SeCoucher, "coucher", (2, 2), VerbGroup::First, true, VerbKind::Intransitive),
+        Verb::new(VerbId::SeLever, "lever", (2, 2), VerbGroup::First, true, VerbKind::Intransitive),
     ];
 }
 

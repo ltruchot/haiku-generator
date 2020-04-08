@@ -61,6 +61,8 @@ pub enum NounCatId {
     PhenomeneSonoreFloral,
     PhenomeneOlfactif,
     Saison,
+    SaisonChaude,
+    SaisonFroide,
     PlanteAFleur,
     OrganeDePlante,
     MomentDuJour,

@@ -4,6 +4,14 @@ pub enum VerbGroup {
     Second,
 }
 
+#[derive(Eq, PartialEq, Copy, Clone)]
+pub enum VerbKind {
+    Transitive,
+    Intransitive,
+    Labile,
+    Copule,
+}
+
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 pub enum VerbCatId {
     Etat,

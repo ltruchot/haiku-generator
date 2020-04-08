@@ -17,9 +17,9 @@ use wordgroup::{
 
 // verbs
 use crate::verb_enums;
-use verb_enums::{VerbId, VerbGroup};
-
-
+use verb_enums::{VerbId, VerbGroup, VerbCatId, VerbKind};
+use crate::verb_data;
+use verb_data::{VERB_CATS, VERBS};
 
 // EXPORTS
 #[derive(Clone)]
@@ -27,6 +27,7 @@ pub struct Verb {
     pub id: VerbId,
     pub group: VerbGroup,
     pub is_pronominal: bool,
+    pub kind: VerbKind,
     pub word: WordGroup,
 }
 
@@ -37,11 +38,13 @@ impl Verb {
         foots: (u8, u8),
         group: VerbGroup,
         is_pronominal: bool,
+        kind: VerbKind,
     ) -> Verb {
         Verb {
-            id: id,
-            group: group,
-            is_pronominal: is_pronominal,
+            id,
+            group,
+            is_pronominal,
+            kind,
             word: WordGroup {
                 text: String::from(infinitive),
                 foots: foots,
@@ -105,4 +108,19 @@ impl Verb {
         }
         agreed_verb
     }
+}
+
+pub fn get_verb_cat(id: &VerbCatId) -> Result<Vec<VerbId>, String> {
+    VERB_CATS
+        .get(id)
+        .and_then(|cat| Some(cat.clone()))
+        .ok_or(String::from("err#get_verb_cat#Can't fin category"))
+}
+
+pub fn get_verb(id: VerbId) -> Result<Verb, String> {
+    VERBS
+        .iter()
+        .find(|verb| id == verb.id)
+        .and_then(|cat| Some(cat.clone()))
+        .ok_or(String::from("err#get_verb_cat#Can't fin category"))
 }

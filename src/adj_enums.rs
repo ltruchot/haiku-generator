@@ -10,6 +10,7 @@ pub enum AdjCatId {
     Agitation,
     Calme,
     Chaleur,
+    Froideur,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -61,4 +62,10 @@ pub enum AdjId {
     // chaleur
     Caniculaire,
     Irradiant,
+    Aride,
+
+    // froideur
+    Glace,
+    Glacial,
+    Polaire,
 }

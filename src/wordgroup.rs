@@ -13,6 +13,12 @@ impl WordGroup {
     }
 }
 
+pub fn fold_wordgroups (wgs: Vec<WordGroup>) -> WordGroup {
+    wgs
+    .iter()
+    .fold(WordGroup::new_empty(), |acc, wg|add_words(&acc, wg, acc.text != ""))
+}
+
 pub fn check_ellision (letter: &char) -> bool {
     let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h'];
     ellisions.contains(letter)

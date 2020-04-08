@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 32];
+pub type StaticAdjs = [Adj; 36];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -54,6 +54,12 @@ lazy_static! {
         // chaleur
         Adj::new(AdjId::Caniculaire, "caniculaire", (4, 4)),
         Adj::new(AdjId::Irradiant, "irradiant", (3, 4)),
+        Adj::new(AdjId::Aride, "aride", (2, 3)),
+
+        // froideur
+        Adj::new(AdjId::Polaire, "polaire", (2, 3)),
+        Adj::new(AdjId::Glacial, "glacial", (2, 3)),
+        Adj::new(AdjId::Glace, "glacé", (2, 2)),
     ];
 }
 
@@ -125,6 +131,15 @@ lazy_static! {
             vec![
                 AdjId::Caniculaire,
                 AdjId::Irradiant,
+                AdjId::Aride,
+            ]
+        ),
+        (
+            AdjCatId::Froideur,
+            vec![
+                AdjId::Polaire,
+                AdjId::Glacial,
+                AdjId::Glace
             ]
         ),
     ]
