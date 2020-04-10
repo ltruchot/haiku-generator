@@ -1,6 +1,4 @@
 // IMPORTS
-use crate::common_enums;
-use common_enums::{Article, Number};
 use rand::rngs::ThreadRng;
 use rand::seq::SliceRandom;
 
@@ -9,26 +7,24 @@ use crate::verb;
 use crate::verb_data;
 use crate::verb_enums;
 use verb::Verb;
-use verb_data::{VERBS, VERB_CATS, VerbCatHashMap };
-use verb_enums::{VerbCatId, VerbId};
+use verb_data::{VERBS };
+use verb_enums::{VerbId};
 
 // adjs
 use crate::adj;
 use crate::adj_data;
 use crate::adj_enums;
 use adj::Adj;
-use adj_data::{ADJS, ADJ_CATS, AdjCatHashMap};
+use adj_data::{ADJS, ADJ_CATS};
 use adj_enums::{AdjCatId, AdjId};
 
-use crate::wordgroup;
-use wordgroup::{add_words, WordGroup};
 
 // nouns
 use crate::noun;
 use crate::noun_data;
 use crate::noun_enums;
-use noun::{get_apposition, Noun};
-use noun_data::{NounCategory, StaticNouns, NOUNS, NOUN_CATS};
+use noun::{Noun};
+use noun_data::{NounCategory, NOUNS, NOUN_CATS};
 use noun_enums::{NounCatId, NounId};
 
 

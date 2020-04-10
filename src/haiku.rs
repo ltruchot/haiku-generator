@@ -1,15 +1,13 @@
 // IMPORTS
 // externals
 use unicode_segmentation::UnicodeSegmentation;
-use rand::seq::SliceRandom;
-use rand::rngs::{ThreadRng};
 
 // strings
 use crate::string;
 use string::{uppercase_first_letter};
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{WordGroup, combine_word_options};
+use wordgroup::{WordGroup};
 
 // combinations
 use crate::combination_data;
@@ -44,7 +42,6 @@ pub fn check_haiku_form (haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> 
             foots: (0, 0)
         }
     };
-    // println!("{} ({}, {})", haiku_form[nb], wg.foots.0, wg.foots.1);
     if  haiku_form[nb] >= wg.foots.0 && haiku_form[nb] <= wg.foots.1 {
         Some(String::from(wg.text))
     } else {
@@ -68,7 +65,6 @@ pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<St
                                 let sentence = if nb == 0 { uppercase_first_letter(&s) } else { s };
                                 haiku[nb] = sentence;
                                 is_running = false;
-                                println!("{}", &haiku[nb]);
                                 Ok(haiku[nb].clone())
                             }
                             None => Err(vec![String::from("warn#generate_haiku#haiku not well formed. retry...")]),
@@ -78,9 +74,7 @@ pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<St
                 None => (),
             };
             ()
-            // println!("{} ({} - {})", result.text, result.foots.0, result.foots.1);
         };
-        println!("{}", is_running);
     }
     Ok(haiku)
 }

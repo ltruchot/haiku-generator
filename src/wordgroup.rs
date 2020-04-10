@@ -34,9 +34,3 @@ pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
     }
 }
 
-pub fn combine_word_options (acc: WordGroup, wg_option: &Option<WordGroup>) -> WordGroup {
-    match wg_option {
-        Some(wg) => add_words(&acc, &wg, acc.text != ""),
-        None => acc,
-    }
-}

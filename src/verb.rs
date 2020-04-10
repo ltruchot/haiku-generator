@@ -73,8 +73,8 @@ impl Verb {
                             if last_two == "ev" { 
                                 [
                                     String::from(drop_last_graphemes(&root, 2)),
-                                    String::from("ève")
-                                ].join("èvent")
+                                    String::from("èvent")
+                                ].join("")
                             } else { 
                                 [&root, "ent"].join("") 
                             }

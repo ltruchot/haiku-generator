@@ -12,6 +12,7 @@ pub enum Number {
 
 #[derive(Copy, Clone)]
 pub enum Article {
+    None,
     Definite,
     Indefinite,
 }

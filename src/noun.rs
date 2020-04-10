@@ -9,10 +9,6 @@ use common_enums::{Article, Gender, Number};
 use crate::wordgroup;
 use wordgroup::{add_words, check_ellision, WordGroup};
 
-// adjectives
-use crate::adj_enums;
-use adj_enums::AdjCatId;
-
 // nouns
 use crate::noun_data;
 use crate::noun_enums;
@@ -22,8 +18,7 @@ use noun_enums::{NounCatId, NounId};
 // verbs
 use crate::verb;
 use crate::verb_enums;
-use verb::{get_verb, Verb, get_verb_cat};
-use verb_enums::VerbCatId;
+use verb::{Verb};
 
 // strings
 use crate::string;
@@ -64,6 +59,7 @@ impl Noun {
                     text: String::from("des "),
                     foots: (1, 1),
                 },
+                Article::None => WordGroup::new_empty(),
             },
             Number::Singular => {
                 let first = self.word.text.chars().next();
@@ -98,6 +94,7 @@ impl Noun {
                             text: String::from("un "),
                             foots: (1, 1),
                         },
+                        Article::None => WordGroup::new_empty(),
                     },
                     Gender::Female => match article {
                         Article::Definite => match first {
@@ -125,6 +122,7 @@ impl Noun {
                             text: String::from("une "),
                             foots: (1, if has_ellision { 1 } else { 2 }),
                         },
+                        Article::None => WordGroup::new_empty(),
                     },
                 }
             }
@@ -149,15 +147,43 @@ impl Noun {
     }
 }
 
-pub fn get_cats_containing_attrs() -> Vec<NounCatId> {
+pub fn get_cats_containing_epithets_and_affiliations() -> Vec<NounCatId> {
+    NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
+        let (id, cat) = cur;
+        if cat.rel.epithets.len() > 0 && cat.rel.affiliations.len() > 0 {
+            acc.push(id.clone());
+        }
+        acc
+    })
+}
+
+pub fn get_cats_containing_epithets() -> Vec<NounCatId> {
+    NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
+        let (id, cat) = cur;
+        if cat.rel.epithets.len() > 0 {
+            acc.push(id.clone());
+        }
+        acc
+    })
+}
+
+pub fn get_cats_containing_attributes() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
         if cat.rel.attributes.len() > 0 {
             acc.push(id.clone());
-            acc
-        } else {
-            acc
         }
+        acc
+    })
+}
+
+pub fn get_cats_containing_affiliations() -> Vec<NounCatId> {
+    NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
+        let (id, cat) = cur;
+        if cat.rel.affiliations.len() > 0 {
+            acc.push(id.clone());
+        }
+        acc
     })
 }
 
@@ -167,36 +193,68 @@ pub fn get_cats_containing_int_verbs() -> Vec<NounCatId> {
         if cat.has_intransitive_verb() {
             acc.push(id.clone());
         }
-        acc   
+        acc
     })
 }
 
-pub fn extract_wordgroup(noun: &Noun) -> WordGroup {
-    noun.word.clone()
-}
-
-pub fn get_apposition(noun: &Noun) -> WordGroup {
+pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
     let first = noun.word.text.chars().next();
-    let apposition = match first {
-        Some(letter) => {
-            if check_ellision(&letter) {
-                WordGroup {
-                    text: String::from("d'"),
+    match article {
+        Article::None => {
+            let apposition = match first {
+                Some(letter) => {
+                    if check_ellision(&letter) {
+                        WordGroup {
+                            text: String::from("d'"),
+                            foots: (0, 0),
+                        }
+                    } else {
+                        WordGroup {
+                            text: String::from("de "),
+                            foots: (1, 1),
+                        }
+                    }
+                }
+                None => WordGroup {
+                    text: String::from("#error#get_apposition#No first letter#"),
                     foots: (0, 0),
-                }
-            } else {
-                WordGroup {
-                    text: String::from("de "),
+                },
+            };
+            add_words(&apposition, &noun.word, false)
+        }
+        Article::Definite => { 
+            match noun.gender {
+                Gender::Female => WordGroup {
+                    text: {
+                        [
+                            "de ",
+                            &noun
+                                .get_with_article(Article::Definite, Number::Singular)
+                                .text,
+                        ]
+                        .join("")
+                    },
+                    foots: (2, 2),
+                },
+                Gender::Male => WordGroup {
+                    text: ["du ", &noun.word.text].join(""),
                     foots: (1, 1),
-                }
+                },
             }
         }
-        None => WordGroup {
-            text: String::from("#error#get_apposition#No first letter#"),
-            foots: (0, 0),
-        },
-    };
-    add_words(&apposition, &noun.word, false)
+        Article::Indefinite => WordGroup {
+            text: {
+                [
+                    "d'",
+                    &noun
+                        .get_with_article(Article::Indefinite, Number::Singular)
+                        .text,
+                ]
+                .join("")
+            },
+            foots: (1, 1),
+        }
+    }
 }
 
 pub fn pick_rand_noun(
