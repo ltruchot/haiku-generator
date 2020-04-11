@@ -11,6 +11,7 @@ pub enum AdjCatId {
     Calme,
     Chaleur,
     Froideur,
+    CaractereMoqueur,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -68,4 +69,11 @@ pub enum AdjId {
     Glace,
     Glacial,
     Polaire,
+
+    // caractère moqueur
+    Moqueur,
+    Malicieux,
+    Narquois,
+    Railleur,
 }
+

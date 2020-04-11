@@ -1,6 +1,6 @@
 // IMPORTS
 use crate::common_enums;
-use common_enums::{Article, Number};
+use common_enums::{Article, Number, BlackLists};
 use rand::rngs::ThreadRng;
 use rand::seq::SliceRandom;
 
@@ -30,13 +30,13 @@ use crate::random;
 use random::{get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb};
 
 // EXPORTS
-pub type Combination = Box<dyn Fn() -> Result<WordGroup, Vec<String>>>;
+pub type Combination = Box<dyn Fn(&BlackLists) -> Result<(WordGroup, BlackLists), Vec<String>>>;
 
 pub fn get_with_adj_and_affiliation(
     number_opt: Option<Number>,
     articles_opt: Option<Vec<Article>>,
 ) -> Combination {
-    Box::new(move || {
+    Box::new(move |blacklists| {
         let mut rng = rand::thread_rng();
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
@@ -83,22 +83,29 @@ pub fn get_with_adj_and_affiliation(
 
         // find words and collect errors
         let wg_empty = WordGroup::new_empty();
+        let mut new_blacklists = BlackLists::new_empty();
         let (noun, adj, aff) = match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns) {
             Ok(noun) => {
+                new_blacklists.nouns.push(noun.id);
                 let noun_wg = noun.get_with_article(article_type, number);
                 let adj_wg = match get_rand_adj(&mut rng, &epithets) {
-                    Ok(adj) => adj.agreed(noun.gender, number),
+                    Ok(adj) => {
+                        new_blacklists.adjs.push(adj.id);
+                        adj.agreed(noun.gender, number)
+                    },
                     Err(err) => {
                         errs.push(err);
                         wg_empty.clone()
                     }
                 };
                 match get_rand_noun(&mut rng, &affiliations) {
-                    Ok(aff_noun) => (
+                    Ok(aff_noun) => {
+                        new_blacklists.nouns.push(aff_noun.id);
+                        (
                         noun_wg,
                         adj_wg,
                         get_apposition(&aff_noun, get_rand_article(&mut rng, &None)),
-                    ),
+                    )},
                     Err(err) => {
                         errs.push(err);
                         (noun_wg, wg_empty.clone(), wg_empty.clone())
@@ -116,7 +123,7 @@ pub fn get_with_adj_and_affiliation(
             return Err(errs);
         }
 
-        Ok(fold_wordgroups(vec![noun, adj, aff]))
+        Ok((fold_wordgroups(vec![noun, adj, aff]), new_blacklists))
     })
 }
 
@@ -124,7 +131,7 @@ pub fn get_with_affiliation(
     number_opt: Option<Number>,
     articles_opt: Option<Vec<Article>>,
 ) -> Combination {
-    Box::new(move || {
+    Box::new(move |blacklists|  {
         let mut rng = rand::thread_rng();
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
@@ -159,12 +166,17 @@ pub fn get_with_affiliation(
         }
 
         // find words and collect errors
+        let mut new_blacklists = BlackLists::new_empty();
         let wg_empty = WordGroup::new_empty();
         let (noun, aff) = match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns) {
             Ok(noun) => {
+                new_blacklists.nouns.push(noun.id);
                 let noun_wg = noun.get_with_article(article_type, number);
                 match get_rand_noun(&mut rng, &cat_affiliation) {
-                    Ok(aff_noun) => (noun_wg, get_apposition(&aff_noun, Article::None)),
+                    Ok(aff_noun) => {
+                        new_blacklists.nouns.push(aff_noun.id);
+                        (noun_wg, get_apposition(&aff_noun, Article::None))
+                    },
                     Err(err) => {
                         errs.push(err);
                         (noun_wg, wg_empty.clone())
@@ -181,8 +193,8 @@ pub fn get_with_affiliation(
         if errs.len() > 0 {
             return Err(errs);
         }
-
-        Ok(fold_wordgroups(vec![noun, aff]))
+        
+        Ok((fold_wordgroups(vec![noun, aff]), new_blacklists))
     })
 }
 
@@ -190,7 +202,7 @@ pub fn get_with_adjective(
     number_opt: Option<Number>,
     articles_opt: Option<Vec<Article>>,
 ) -> Combination {
-    Box::new(move || {
+    Box::new(move |blacklists|  {
         let mut rng = rand::thread_rng();
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
@@ -222,12 +234,17 @@ pub fn get_with_adjective(
         }
 
         // find words and collect errors
+        let mut new_blacklists = BlackLists::new_empty();
         let wg_empty = WordGroup::new_empty();
         let (noun, adj) = match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns) {
             Ok(noun) => {
+                new_blacklists.nouns.push(noun.id);
                 let noun_wg = noun.get_with_article(article_type, number);
                 match get_rand_adj(&mut rng, &cat_adj) {
-                    Ok(adj) => (noun_wg, adj.agreed(noun.gender, number)),
+                    Ok(adj) => {
+                        new_blacklists.adjs.push(adj.id);
+                        (noun_wg, adj.agreed(noun.gender, number))
+                    },
                     Err(err) => {
                         errs.push(err);
                         (noun_wg, wg_empty.clone())
@@ -245,7 +262,7 @@ pub fn get_with_adjective(
             return Err(errs);
         }
 
-        Ok(fold_wordgroups(vec![noun, adj]))
+        Ok((fold_wordgroups(vec![noun, adj]), new_blacklists))
     })
 }
 
@@ -253,7 +270,7 @@ pub fn get_with_linking_verb(
     number_opt: Option<Number>,
     articles_opt: Option<Vec<Article>>,
 ) -> Combination {
-    Box::new(move || {
+    Box::new(move |blacklists|  {
         let mut rng = rand::thread_rng();
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
@@ -291,6 +308,7 @@ pub fn get_with_linking_verb(
         }
 
         // find words and collect errors
+        let mut new_blacklists = BlackLists::new_empty();
         let wg_empty = WordGroup::new_empty();
         let linking_verb = match get_rand_verb(&mut rng, &cat_linking_verb) {
             Ok(verb) => verb.agreed(number),
@@ -321,7 +339,7 @@ pub fn get_with_linking_verb(
             return Err(errs);
         }
 
-        Ok(fold_wordgroups(vec![groupe_nominal, linking_verb, adj]))
+        Ok((fold_wordgroups(vec![groupe_nominal, linking_verb, adj]), new_blacklists))
     })
 }
 
@@ -329,7 +347,7 @@ pub fn get_with_intransitive_verb(
     number_opt: Option<Number>,
     articles_opt: Option<Vec<Article>>,
 ) -> Combination {
-    Box::new(move || {
+    Box::new(move |blacklists|  {
         let mut rng = rand::thread_rng();
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
@@ -352,6 +370,7 @@ pub fn get_with_intransitive_verb(
             .clone()
             .and_then(|cat| get_rand_noun(&mut rng, &cat.nouns));
 
+        let mut new_blacklists = BlackLists::new_empty();
         match noun_res {
             Ok(noun) => {
                 let wg_nominal = noun.get_with_article(article_type, number);
@@ -395,7 +414,7 @@ pub fn get_with_intransitive_verb(
                         .choose(&mut rng)
                         .and_then(|verb_id| VERBS.iter().find(|verb| verb_id.clone() == verb.id));
                     match verb_opt {
-                        Some(verb) => Ok(fold_wordgroups(vec![wg_nominal, verb.agreed(number)])),
+                        Some(verb) => Ok((fold_wordgroups(vec![wg_nominal, verb.agreed(number)]), new_blacklists)),
                         None => {
                             errs.push(String::from(
                                 "err#get_with_intransitive_verb#No intransitive verb for this noun",
@@ -417,17 +436,6 @@ pub fn get_with_intransitive_verb(
         }
     })
 }
-
-// pub fn get_with_verb(verb_cats: Vec<VerbCatId>, number: Number) -> Combination {
-//     Box::new(move |noun| {
-//         let mut rng = thread_rng();
-//         let rand_article = get_rand_article(&mut rng);
-//         let verb = get_rand_verb(&mut rng, &verb_cats);
-//         let article = noun.get_article(number, rand_article);
-//         let noun_with_verb = noun.with_verb(&verb, number);
-//         add_words(&article, &noun_with_verb, false)
-//     })
-// }
 
 pub fn get_rand_article(rng: &mut ThreadRng, articles_opt: &Option<Vec<Article>>) -> Article {
     articles_opt

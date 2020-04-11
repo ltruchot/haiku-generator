@@ -387,8 +387,8 @@ lazy_static! {
                     NounId::Pic,
                 ],
                 rel: NounRelations {
-                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation],
-                    epithets: vec![AdjCatId::Coloration, AdjCatId::Noblesse],
+                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation, AdjCatId::CaractereMoqueur],
+                    epithets: vec![AdjCatId::Coloration, AdjCatId::Noblesse, AdjCatId::CaractereMoqueur],
                     functions: vec![VerbCatId::EtatDEveil],
                     emissions: vec![NounCatId::PhenomeneSonore],
                     affiliations: vec![],
@@ -412,11 +412,12 @@ lazy_static! {
                     NounId::Renard,
                 ],
                 rel: NounRelations {
-                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation],
+                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation, AdjCatId::CaractereMoqueur],
                     epithets: vec![
                         AdjCatId::ColorationRousse,
                         AdjCatId::Noblesse,
-                        AdjCatId::Grandeur
+                        AdjCatId::Grandeur,
+                        AdjCatId::CaractereMoqueur,
                     ],
                     functions: vec![VerbCatId::EtatDEveil],
                     emissions: vec![],

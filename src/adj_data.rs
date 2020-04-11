@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 36];
+pub type StaticAdjs = [Adj; 39];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -17,7 +17,7 @@ lazy_static! {
         Adj::new(AdjId::Hivernal, "hivernal", (3, 3)),
         Adj::new(AdjId::Violet, "violet", (2, 3)),
         Adj::new(AdjId::Orange, "orange", (2, 3)),
-        Adj::new(AdjId::Brun, "brun", (2, 3)),
+        Adj::new(AdjId::Brun, "brun", (1, 1)),
         Adj::new(AdjId::Dore, "doré", (2, 2)),
         Adj::new(AdjId::Argente, "argenté", (3, 3)),
         Adj::new_special(
@@ -30,7 +30,7 @@ lazy_static! {
             (1, 2)
         ),
         Adj::new(AdjId::Ecarlate, "écarlate", (3, 4)),
-        Adj::new(AdjId::Grand, "grand", (1, 1)),
+        // Adj::new(AdjId::Grand, "grand", (1, 1)),
         Adj::new(AdjId::Immense, "immense", (2, 3)),
         Adj::new(AdjId::Majestueux, "majestueux", (4, 4)),
         Adj::new(AdjId::Noble, "noble", (1, 2)),
@@ -60,6 +60,13 @@ lazy_static! {
         Adj::new(AdjId::Polaire, "polaire", (2, 3)),
         Adj::new(AdjId::Glacial, "glacial", (2, 3)),
         Adj::new(AdjId::Glace, "glacé", (2, 2)),
+
+        // caractère 
+        Adj::new(AdjId::Moqueur, "moqueur", (2, 2)),
+        Adj::new(AdjId::Malicieux, "malicieux", (3, 4)),
+        Adj::new(AdjId::Narquois, "narquois", (2, 2)),
+        Adj::new(AdjId::Railleur, "railleur", (2, 2)),
+        //Adj::new(AdjId::Farouche, "farouche", (2, 3)),
     ];
 }
 
@@ -140,6 +147,15 @@ lazy_static! {
                 AdjId::Polaire,
                 AdjId::Glacial,
                 AdjId::Glace
+            ]
+        ),
+        (
+            AdjCatId::CaractereMoqueur,
+            vec![
+                AdjId::Moqueur,
+                AdjId::Malicieux,
+                AdjId::Narquois,
+                AdjId::Railleur,
             ]
         ),
     ]

@@ -17,8 +17,7 @@ use noun_enums::{NounCatId, NounId};
 
 // verbs
 use crate::verb;
-use crate::verb_enums;
-use verb::{Verb};
+use verb::Verb;
 
 // strings
 use crate::string;
@@ -199,62 +198,82 @@ pub fn get_cats_containing_int_verbs() -> Vec<NounCatId> {
 
 pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
     let first = noun.word.text.chars().next();
-    match article {
-        Article::None => {
-            let apposition = match first {
-                Some(letter) => {
-                    if check_ellision(&letter) {
-                        WordGroup {
-                            text: String::from("d'"),
-                            foots: (0, 0),
-                        }
-                    } else {
-                        WordGroup {
-                            text: String::from("de "),
-                            foots: (1, 1),
-                        }
+    let apposition = match article {
+        Article::None => match first {
+            Some(letter) => {
+                if check_ellision(&letter) {
+                    WordGroup {
+                        text: String::from("d'"),
+                        foots: (0, 0),
+                    }
+                } else {
+                    WordGroup {
+                        text: String::from("de "),
+                        foots: (1, 1),
                     }
                 }
-                None => WordGroup {
-                    text: String::from("#error#get_apposition#No first letter#"),
-                    foots: (0, 0),
-                },
-            };
-            add_words(&apposition, &noun.word, false)
-        }
-        Article::Definite => { 
-            match noun.gender {
-                Gender::Female => WordGroup {
-                    text: {
-                        [
-                            "de ",
-                            &noun
-                                .get_with_article(Article::Definite, Number::Singular)
-                                .text,
-                        ]
-                        .join("")
-                    },
-                    foots: (2, 2),
-                },
-                Gender::Male => WordGroup {
-                    text: ["du ", &noun.word.text].join(""),
-                    foots: (1, 1),
-                },
             }
-        }
-        Article::Indefinite => WordGroup {
-            text: {
-                [
-                    "d'",
-                    &noun
-                        .get_with_article(Article::Indefinite, Number::Singular)
-                        .text,
-                ]
-                .join("")
+            None => WordGroup {
+                text: String::from("#error#get_apposition#No first letter#"),
+                foots: (0, 0),
+            }         
+        },
+        Article::Definite => match noun.gender {
+            Gender::Female => WordGroup {
+                text: {
+                    [
+                        "de ",
+                        &noun
+                            .get_article(Number::Singular, Article::Definite)
+                            .text,
+                    ]
+                    .join("")
+                },
+                foots: (2, 2),
             },
-            foots: (1, 1),
+            Gender::Male => WordGroup {
+                text: match first {
+                    Some(letter) => {
+                        if check_ellision(&letter) {
+                            String::from("de l'")                    
+                        } else {  
+                            String::from("du ")
+                        }
+                    },
+                    None => String::from("#error#get_apposition#No first letter#"),
+                },
+                foots: (1, 1),                
+            }
+        },
+        Article::Indefinite => match noun.gender {
+            Gender::Female => WordGroup {
+                text: {
+                    [
+                        "d'",
+                        &noun
+                            .get_article(Number::Singular, Article::Indefinite)
+                            .text,
+                    ]
+                    .join("")
+                },
+                foots: (1, 2),
+            },
+            Gender::Male => WordGroup {
+                text: {
+                    [
+                        "d'",
+                        &noun
+                            .get_article(Number::Singular, Article::Indefinite)
+                            .text,
+                    ]
+                    .join("")
+                },
+                foots: (1, 1),
+            },
         }
-    }
+        
+    };
+    add_words(&apposition, &noun.word, false)
 }
 
 pub fn pick_rand_noun(
