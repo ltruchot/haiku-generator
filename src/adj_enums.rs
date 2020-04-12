@@ -63,7 +63,7 @@ pub enum AdjId {
     // chaleur
     Caniculaire,
     /* Irradiant, */
-    Aride,
+    Brulant,
 
     // froideur
     Glace,

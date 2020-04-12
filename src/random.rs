@@ -45,8 +45,12 @@ pub fn get_rand_adj_cat(rng: &mut ThreadRng, cats: &Vec<AdjCatId>) -> Result<Vec
         .ok_or(String::from("err#get_rand_adj_cat#Category not found"))
 }
 
-pub fn get_rand_adj(rng: &mut ThreadRng, adj_cat: &Vec<AdjId>) -> Result<Adj, String> {
+pub fn get_rand_adj(rng: &mut ThreadRng, adj_cat: &Vec<AdjId>, blacklist: &Vec<AdjId>) -> Result<Adj, String> {
     adj_cat
+        .iter()
+        .filter(|item| !blacklist.contains(&item))
+        .cloned()
+        .collect::<Vec<AdjId>>()
         .choose(rng)
         .and_then(|id| ADJS.iter().find(|item| &item.id == id))
         .and_then(|cat| Some(cat.clone()))
@@ -60,20 +64,24 @@ pub fn get_rand_noun(
 ) -> Result<Noun, String> {
     nouns
         .iter()
-        .filter(|noun| !blacklist.contains(&noun))
+        .filter(|item| !blacklist.contains(&item))
         .cloned()
         .collect::<Vec<NounId>>()
         .choose(rng)
         .and_then(|id| NOUNS.iter().find(|item| item.id == *id))
-        .and_then(|noun| Some(noun.clone()))
+        .and_then(|item| Some(item.clone()))
         .ok_or(String::from("err#get_rand_noun#Noun not found"))
 }
 
-pub fn get_rand_verb(rng: &mut ThreadRng, verbs: &Vec<VerbId>) -> Result<Verb, String> {
-    verbs
+pub fn get_rand_verb(rng: &mut ThreadRng, verbs: &Vec<VerbId>, blacklist: &Vec<VerbId>) -> Result<Verb, String> {
+        verbs
+        .iter()
+        .filter(|item| !blacklist.contains(&item))
+        .cloned()
+        .collect::<Vec<VerbId>>()
         .choose(rng)
         .and_then(|id| VERBS.iter().find(|item| &item.id == id))
-        .and_then(|noun| Some(noun.clone()))
+        .and_then(|item| Some(item.clone()))
         .ok_or(String::from("err#get_rand_verb#Verb not found"))
 }
 

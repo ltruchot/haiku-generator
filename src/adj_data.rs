@@ -54,7 +54,7 @@ lazy_static! {
         // chaleur
         Adj::new(AdjId::Caniculaire, "caniculaire", (4, 4)),
         // Adj::new(AdjId::Irradiant, "irradiant", (3, 4)),
-        Adj::new(AdjId::Aride, "aride", (2, 3)),
+        Adj::new(AdjId::Brulant, "brûlant", (2, 2)),
 
         // froideur
         Adj::new(AdjId::Polaire, "polaire", (2, 3)),
@@ -135,7 +135,7 @@ lazy_static! {
         ),
         (
             AdjCatId::Chaleur,
-            vec![AdjId::Caniculaire, /*AdjId::Irradiant,*/AdjId::Aride,]
+            vec![AdjId::Caniculaire, /*AdjId::Irradiant,*/AdjId::Brulant,]
         ),
         (
             AdjCatId::Froideur,

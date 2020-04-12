@@ -94,7 +94,7 @@ pub fn get_with_adj_and_affiliation(
                 Ok(noun) => {
                     new_blacklists.nouns.push(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
-                    let adj_wg = match get_rand_adj(&mut rng, &epithets) {
+                    let adj_wg = match get_rand_adj(&mut rng, &epithets, &blacklists.adjs) {
                         Ok(adj) => {
                             new_blacklists.adjs.push(adj.id);
                             adj.agreed(noun.gender, number)
@@ -249,7 +249,7 @@ pub fn get_with_adjective(
                 Ok(noun) => {
                     new_blacklists.nouns.push(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
-                    match get_rand_adj(&mut rng, &cat_adj) {
+                    match get_rand_adj(&mut rng, &cat_adj, &blacklists.adjs) {
                         Ok(adj) => {
                             new_blacklists.adjs.push(adj.id);
                             (noun_wg, adj.agreed(noun.gender, number))
@@ -319,7 +319,7 @@ pub fn get_with_linking_verb(
         // find words and collect errors
         let mut new_blacklists = BlackLists::new_empty();
         let wg_empty = WordGroup::new_empty();
-        let linking_verb = match get_rand_verb(&mut rng, &cat_linking_verb) {
+        let linking_verb = match get_rand_verb(&mut rng, &cat_linking_verb, &blacklists.verbs) {
             Ok(verb) => {
                 new_blacklists.verbs.push(verb.id);
                 verb.agreed(number)
@@ -334,7 +334,7 @@ pub fn get_with_linking_verb(
                 Ok(noun) => {
                     new_blacklists.nouns.push(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
-                    match get_rand_adj(&mut rng, &cat_adj) {
+                    match get_rand_adj(&mut rng, &cat_adj, &blacklists.adjs) {
                         Ok(adj) => {
                             new_blacklists.adjs.push(adj.id);
                             (noun_wg, adj.agreed(noun.gender, number))
