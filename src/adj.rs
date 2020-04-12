@@ -113,7 +113,7 @@ fn get_feminine(word: &str) -> String {
     let last_three = take_last_graphemes(word, 3);
     if &last == "e" {
         String::from(word)
-    } else if last_three == "eux" {
+    } else if last_three == "eux" || last_three == "eur" {
         let mut new_lemme = drop_last_graphemes(word, 3);
         new_lemme.push_str("euse");
         new_lemme
