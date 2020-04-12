@@ -1,6 +1,4 @@
-use rand::rngs::ThreadRng;
-use rand::seq::SliceRandom;
-
+// IMPORTS
 // commons
 use crate::common_enums;
 use common_enums::{Article, Gender, Number};
@@ -12,12 +10,8 @@ use wordgroup::{add_words, check_ellision, WordGroup};
 // nouns
 use crate::noun_data;
 use crate::noun_enums;
-use noun_data::{NOUNS, NOUN_CATS};
+use noun_data::{NOUN_CATS};
 use noun_enums::{NounCatId, NounId};
-
-// verbs
-use crate::verb;
-use verb::Verb;
 
 // strings
 use crate::string;
@@ -40,11 +34,6 @@ impl Noun {
                 foots: foots,
             },
         }
-    }
-
-    pub fn with_verb(self: &Self, verb: &Verb, number: Number) -> WordGroup {
-        let agreed_verb = verb.agreed(number);
-        add_words(&self.word, &agreed_verb, true)
     }
 
     pub fn get_article(self: &Self, number: Number, article: Article) -> WordGroup {
@@ -216,16 +205,14 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
             None => WordGroup {
                 text: String::from("#error#get_apposition#No first letter#"),
                 foots: (0, 0),
-            }         
+            },
         },
         Article::Definite => match noun.gender {
             Gender::Female => WordGroup {
                 text: {
                     [
                         "de ",
-                        &noun
-                            .get_article(Number::Singular, Article::Definite)
-                            .text,
+                        &noun.get_article(Number::Singular, Article::Definite).text,
                     ]
                     .join("")
                 },
@@ -235,24 +222,22 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
                 text: match first {
                     Some(letter) => {
                         if check_ellision(&letter) {
-                            String::from("de l'")                    
-                        } else {  
+                            String::from("de l'")
+                        } else {
                             String::from("du ")
                         }
-                    },
+                    }
                     None => String::from("#error#get_apposition#No first letter#"),
                 },
-                foots: (1, 1),                
-            }
+                foots: (1, 1),
+            },
         },
         Article::Indefinite => match noun.gender {
             Gender::Female => WordGroup {
                 text: {
                     [
                         "d'",
-                        &noun
-                            .get_article(Number::Singular, Article::Indefinite)
-                            .text,
+                        &noun.get_article(Number::Singular, Article::Indefinite).text,
                     ]
                     .join("")
                 },
@@ -262,40 +247,14 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
                 text: {
                     [
                         "d'",
-                        &noun
-                            .get_article(Number::Singular, Article::Indefinite)
-                            .text,
+                        &noun.get_article(Number::Singular, Article::Indefinite).text,
                     ]
                     .join("")
                 },
                 foots: (1, 1),
             },
-        }
-        
+        },
     };
     add_words(&apposition, &noun.word, false)
 }
 
-pub fn pick_rand_noun(
-    cats: &Vec<NounCatId>,
-    rng: &mut ThreadRng,
-    blacklist: &Vec<NounId>,
-) -> Option<Noun> {
-    let mut noun: Option<Noun> = None;
-    while noun.is_none() {
-        let rand_noun = cats
-            .choose(rng)
-            .and_then(|choice| NOUN_CATS.get(&choice))
-            .and_then(|cat| cat.nouns.choose(rng))
-            .and_then(|id| NOUNS.iter().cloned().find(|item| &item.id == id));
-        match rand_noun {
-            Some(chosen) => {
-                if !blacklist.contains(&chosen.id) {
-                    noun = Some(chosen);
-                }
-            }
-            None => (),
-        }
-    }
-    noun
-}

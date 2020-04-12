@@ -1,14 +1,14 @@
 // IMPORTS
 // externals
-use unicode_segmentation::UnicodeSegmentation;
+use crate::common_enums::merge_blacklists;
 
 // common
 use crate::common_enums;
-use common_enums::{BlackLists};
+use common_enums::BlackLists;
 
 // strings
 use crate::string;
-use string::uppercase_first_letter;
+use string::{uppercase_first_letter, take_last_grapheme, take_last_graphemes};
 // wordgroups
 use crate::wordgroup;
 use wordgroup::WordGroup;
@@ -20,26 +20,17 @@ use combination_data::Combinations;
 // EXPORTS
 pub fn check_haiku_form(haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> Option<String> {
     // ellision on final "e" implie foot max decrement
-    let last = result.text.graphemes(true).last();
-    let wg = match last {
-        Some(letter) => {
-            if letter == "e" {
-                WordGroup {
-                    text: String::from(&result.text),
-                    foots: (result.foots.0, result.foots.1 - 1),
-                }
-            } else {
-                WordGroup {
-                    text: String::from(&result.text),
-                    foots: (result.foots.0, result.foots.1),
-                }
-            }
+    let last = take_last_grapheme(&result.text);
+    let last_two = take_last_graphemes(&result.text, 2);
+    let wg =  WordGroup {
+        text: String::from(&result.text),
+        foots: if last == "e" || last_two == "es"  {
+            (result.foots.0, result.foots.1 - 1)
+        } else {
+            (result.foots.0, result.foots.1)
         }
-        None => WordGroup {
-            text: String::from("#error#check_haiku_form#last letter should exist"),
-            foots: (0, 0),
-        },
     };
+    
     if haiku_form[nb] >= wg.foots.0 && haiku_form[nb] <= wg.foots.1 {
         Some(String::from(wg.text))
     } else {
@@ -57,8 +48,8 @@ pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<St
         // let mut current_noun_id: Option<NounId> = None;
         while is_running {
             let _res = match combinations.get(nb) {
-                Some(comb) => {
-                    comb(&black_lists).and_then(|(wg, _bl)| match check_haiku_form([5, 7, 5], nb, &wg) {
+                Some(comb) => comb(&mut black_lists).and_then(|(wg, bl)| {
+                    match check_haiku_form([5, 7, 5], nb, &wg) {
                         Some(s) => {
                             let sentence = if nb == 0 {
                                 uppercase_first_letter(&s)
@@ -67,13 +58,14 @@ pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<St
                             };
                             haiku[nb] = sentence;
                             is_running = false;
+                            black_lists = merge_blacklists(&black_lists, &bl);
                             Ok(haiku[nb].clone())
                         }
                         None => Err(vec![String::from(
                             "warn#generate_haiku#haiku not well formed. retry...",
                         )]),
-                    })
-                }
+                    }
+                }),
                 None => Err(vec![String::from(
                     "warn#generate_haiku#combination not found",
                 )]),

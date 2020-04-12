@@ -66,6 +66,7 @@ pub enum NounCatId {
     PlanteAFleur,
     OrganeDePlante,
     MomentDuJour,
+    MiJour,
     Plante,
     Oiseau,
     Mammifere,

@@ -5,22 +5,15 @@ use common_enums::{Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{
-    WordGroup
-};
+use wordgroup::WordGroup;
 
 // strings
 use crate::string;
-use string::{
-    take_last_grapheme,
-    take_last_graphemes,
-    drop_last_graphemes,
-    get_plural,
-};
+use string::{drop_last_graphemes, get_plural, take_last_grapheme, take_last_graphemes};
 
 // adjectives
 use crate::adj_enums;
-use adj_enums::{AdjId};
+use adj_enums::AdjId;
 
 // EXPORTS
 #[derive(Clone)]
@@ -78,11 +71,7 @@ impl Adj {
             },
         }
     }
-    pub fn new(
-        id: AdjId,
-        masc: &str,
-        foots: (u8, u8),
-    ) -> Adj {
+    pub fn new(id: AdjId, masc: &str, foots: (u8, u8)) -> Adj {
         Adj {
             id: id,
             fem: None,
@@ -124,13 +113,11 @@ fn get_feminine(word: &str) -> String {
     let last_three = take_last_graphemes(word, 3);
     if &last == "e" {
         String::from(word)
-    } 
-    else if last_three == "eux" {
+    } else if last_three == "eux" {
         let mut new_lemme = drop_last_graphemes(word, 3);
         new_lemme.push_str("euse");
         new_lemme
-    }
-    else if &last_two == "er" {
+    } else if &last_two == "er" {
         let mut new_lemme = drop_last_graphemes(word, 2);
         new_lemme.push_str("ère");
         new_lemme

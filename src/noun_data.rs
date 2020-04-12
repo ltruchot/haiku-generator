@@ -81,7 +81,7 @@ lazy_static! {
 #[derive(Clone)]
 pub struct NounRelations {
     pub attributes: Vec<AdjCatId>, // EST - après verbe d'état (le cerf est grand)
-    pub epithets: Vec<AdjCatId>,  // PEUT ÊTRE - dans groupe nominal (le grand cerf)
+    pub epithets: Vec<AdjCatId>,   // PEUT ÊTRE - dans groupe nominal (le grand cerf)
     pub functions: Vec<VerbCatId>, // PEUT FAIRE - le cerf marche
     pub emissions: Vec<NounCatId>, // PEUT emettre - l'odeur du cerf
     pub affiliations: Vec<NounCatId>, // APPARTIENT À - après verbe d'état (le cerf du bois)
@@ -96,18 +96,22 @@ pub struct NounCategory {
 }
 impl NounCategory {
     pub fn has_intransitive_verb(&self) -> bool {
-        self.rel.functions.len() > 0 && self.rel
-            .functions
-            .iter()
-            .any(|verb_cat_id| match get_verb_cat(verb_cat_id) {
-                Ok(verb_cat) => verb_cat
-                    .iter()
-                    .any(|verb_id| match get_verb(verb_id.clone()) {
-                        Ok(_) => true,
-                        Err(_) => false,
-                    }),
-                Err(_) => false,
-            })
+        self.rel.functions.len() > 0
+            && self
+                .rel
+                .functions
+                .iter()
+                .any(|verb_cat_id| match get_verb_cat(verb_cat_id) {
+                    Ok(verb_cat) => {
+                        verb_cat
+                            .iter()
+                            .any(|verb_id| match get_verb(verb_id.clone()) {
+                                Ok(_) => true,
+                                Err(_) => false,
+                            })
+                    }
+                    Err(_) => false,
+                })
     }
 }
 
@@ -132,7 +136,7 @@ lazy_static! {
                     ],
                     functions: vec![VerbCatId::EtatDEveil],
                     emissions: vec![NounCatId::PhenomeneLumineux],
-                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour]
+                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour, NounCatId::MiJour]
                 },
             },
         ),
@@ -147,7 +151,7 @@ lazy_static! {
                     attributes: vec![],
                     functions: vec![],
                     emissions: vec![],
-                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour]
+                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour, NounCatId::MiJour]
                 },
             },
         ),
@@ -162,7 +166,7 @@ lazy_static! {
                     epithets: vec![AdjCatId::Coloration, AdjCatId::Chaleur],
                     functions: vec![],
                     emissions: vec![],
-                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour]
+                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour, NounCatId::MiJour]
                 },
             },
         ),
@@ -346,19 +350,48 @@ lazy_static! {
                 nouns: vec![
                     NounId::Aurore,
                     NounId::Crepuscule,
-                    NounId::Midi,
-                    NounId::Minuit
                 ],
                 rel: NounRelations {
                     attributes: vec![
                         AdjCatId::Coloration,
                         AdjCatId::ColorationRousse,
                         AdjCatId::Chaleur,
+                        AdjCatId::Froideur,
+                        AdjCatId::Calme,
                     ],
                     epithets: vec![
                         AdjCatId::Coloration,
                         AdjCatId::ColorationRousse,
                         AdjCatId::Chaleur,
+                        AdjCatId::Froideur,
+                        AdjCatId::Calme,
+                    ],
+                    functions: vec![],
+                    emissions: vec![
+                        NounCatId::PhenomeneLumineux,
+                        NounCatId::PhenomeneOlfactif,
+                        NounCatId::Phenomene
+                    ],
+                    affiliations: vec![NounCatId::Saison],
+                },
+            },
+        ),
+        (
+            NounCatId::MiJour,
+            NounCategory {
+                id: NounCatId::MiJour,
+                inherit: vec![],
+                nouns: vec![
+                    NounId::Midi,
+                    NounId::Minuit
+                ],
+                rel: NounRelations {
+                    attributes: vec![
+                    ],
+                    epithets: vec![
+                        AdjCatId::Chaleur,
+                        AdjCatId::Froideur,
+                        AdjCatId::Calme,
                     ],
                     functions: vec![],
                     emissions: vec![
@@ -387,8 +420,16 @@ lazy_static! {
                     NounId::Pic,
                 ],
                 rel: NounRelations {
-                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation, AdjCatId::CaractereMoqueur],
-                    epithets: vec![AdjCatId::Coloration, AdjCatId::Noblesse, AdjCatId::CaractereMoqueur],
+                    attributes: vec![
+                        AdjCatId::Calme,
+                        AdjCatId::Agitation,
+                        AdjCatId::CaractereMoqueur
+                    ],
+                    epithets: vec![
+                        AdjCatId::Coloration,
+                        AdjCatId::Noblesse,
+                        AdjCatId::CaractereMoqueur
+                    ],
                     functions: vec![VerbCatId::EtatDEveil],
                     emissions: vec![NounCatId::PhenomeneSonore],
                     affiliations: vec![],
@@ -412,7 +453,11 @@ lazy_static! {
                     NounId::Renard,
                 ],
                 rel: NounRelations {
-                    attributes: vec![AdjCatId::Calme, AdjCatId::Agitation, AdjCatId::CaractereMoqueur],
+                    attributes: vec![
+                        AdjCatId::Calme,
+                        AdjCatId::Agitation,
+                        AdjCatId::CaractereMoqueur
+                    ],
                     epithets: vec![
                         AdjCatId::ColorationRousse,
                         AdjCatId::Noblesse,

@@ -2,7 +2,7 @@
 
 // commons
 use crate::common_enums;
-use common_enums::{Article};
+use common_enums::Article;
 
 use crate::combination;
 use combination::{

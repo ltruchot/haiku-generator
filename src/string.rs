@@ -47,7 +47,6 @@ pub fn uppercase_first_letter(s: &str) -> String {
     }
 }
 
-
 pub fn get_plural(word: &str) -> String {
     let last = take_last_grapheme(word);
     let last_two = take_last_graphemes(word, 2);

@@ -62,7 +62,7 @@ pub enum AdjId {
 
     // chaleur
     Caniculaire,
-    Irradiant,
+    /* Irradiant, */
     Aride,
 
     // froideur
@@ -76,4 +76,3 @@ pub enum AdjId {
     Narquois,
     Railleur,
 }
-
