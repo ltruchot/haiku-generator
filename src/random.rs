@@ -1,4 +1,5 @@
 // IMPORTS
+use std::collections::HashSet;
 use crate::common_enums::Article;
 use crate::common_enums::Number;
 use rand::rngs::ThreadRng;
@@ -45,7 +46,7 @@ pub fn get_rand_adj_cat(rng: &mut ThreadRng, cats: &Vec<AdjCatId>) -> Result<Vec
         .ok_or(String::from("err#get_rand_adj_cat#Category not found"))
 }
 
-pub fn get_rand_adj(rng: &mut ThreadRng, adj_cat: &Vec<AdjId>, blacklist: &Vec<AdjId>) -> Result<Adj, String> {
+pub fn get_rand_adj(rng: &mut ThreadRng, adj_cat: &Vec<AdjId>, blacklist: &HashSet<AdjId>) -> Result<Adj, String> {
     adj_cat
         .iter()
         .filter(|item| !blacklist.contains(&item))
@@ -60,7 +61,7 @@ pub fn get_rand_adj(rng: &mut ThreadRng, adj_cat: &Vec<AdjId>, blacklist: &Vec<A
 pub fn get_rand_noun(
     rng: &mut ThreadRng,
     nouns: &Vec<NounId>,
-    blacklist: &Vec<NounId>,
+    blacklist: &HashSet<NounId>,
 ) -> Result<Noun, String> {
     nouns
         .iter()
@@ -73,7 +74,7 @@ pub fn get_rand_noun(
         .ok_or(String::from("err#get_rand_noun#Noun not found"))
 }
 
-pub fn get_rand_verb(rng: &mut ThreadRng, verbs: &Vec<VerbId>, blacklist: &Vec<VerbId>) -> Result<Verb, String> {
+pub fn get_rand_verb(rng: &mut ThreadRng, verbs: &Vec<VerbId>, blacklist: &HashSet<VerbId>) -> Result<Verb, String> {
         verbs
         .iter()
         .filter(|item| !blacklist.contains(&item))
@@ -85,10 +86,10 @@ pub fn get_rand_verb(rng: &mut ThreadRng, verbs: &Vec<VerbId>, blacklist: &Vec<V
         .ok_or(String::from("err#get_rand_verb#Verb not found"))
 }
 
-pub fn get_rand_article(rng: &mut ThreadRng, articles_opt: &Option<Vec<Article>>) -> Article {
+pub fn get_rand_article(rng: &mut ThreadRng, articles_opt: Option<&Vec<Article>>) -> Article {
     articles_opt
         .as_ref()
-        .unwrap_or(&vec![Article::None, Article::Definite, Article::Indefinite])
+        .unwrap_or(&&vec![Article::None, Article::Definite, Article::Indefinite])
         .choose(rng)
         .unwrap_or(&Article::Indefinite)
         .clone()

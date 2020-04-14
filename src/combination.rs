@@ -5,6 +5,7 @@ use rand::seq::SliceRandom;
 // common
 use crate::common_enums;
 use common_enums::{Article, BlackLists, Number};
+use crate::hashsets::merge_hashsets;
 
 // random
 use crate::random::get_rand_article;
@@ -46,7 +47,7 @@ pub fn get_with_adj_and_affiliation(
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
         let number = number_opt.unwrap_or(get_rand_number(&mut rng));
-        let article_type = get_rand_article(&mut rng, &articles_opt);
+        let article_type = get_rand_article(&mut rng, articles_opt.as_ref());
 
         // extract categories with attributes
         let cond_cats = get_cats_containing_epithets_and_affiliations();
@@ -92,11 +93,11 @@ pub fn get_with_adj_and_affiliation(
         let (noun, adj, aff) =
             match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns, &blacklists.nouns) {
                 Ok(noun) => {
-                    new_blacklists.nouns.push(noun.id);
+                    new_blacklists.nouns.insert(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
                     let adj_wg = match get_rand_adj(&mut rng, &epithets, &blacklists.adjs) {
                         Ok(adj) => {
-                            new_blacklists.adjs.push(adj.id);
+                            new_blacklists.adjs.insert(adj.id);
                             adj.agreed(noun.gender, number)
                         }
                         Err(err) => {
@@ -104,14 +105,14 @@ pub fn get_with_adj_and_affiliation(
                             wg_empty.clone()
                         }
                     };
-                    let ext_bl_nouns = [&blacklists.nouns[..], &new_blacklists.nouns[..]].concat();
+                    let ext_bl_nouns= merge_hashsets(&blacklists.nouns, &new_blacklists.nouns);
                     match get_rand_noun(&mut rng, &affiliations, &ext_bl_nouns) {
                         Ok(aff_noun) => {
-                            new_blacklists.nouns.push(aff_noun.id);
+                            new_blacklists.nouns.insert(aff_noun.id);
                             (
                                 noun_wg,
                                 adj_wg,
-                                get_apposition(&aff_noun, get_rand_article(&mut rng, &None)),
+                                get_apposition(&aff_noun, get_rand_article(&mut rng, None)),
                             )
                         }
                         Err(err) => {
@@ -144,7 +145,7 @@ pub fn get_with_affiliation(
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
         let number = number_opt.unwrap_or(get_rand_number(&mut rng));
-        let article_type = get_rand_article(&mut rng, &articles_opt);
+        let article_type = get_rand_article(&mut rng, articles_opt.as_ref());
 
         // extract categories with affiliations
         let cats_with_affiliations = get_cats_containing_affiliations();
@@ -179,11 +180,11 @@ pub fn get_with_affiliation(
         let (noun, aff) =
             match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns, &blacklists.nouns) {
                 Ok(noun) => {
-                    new_blacklists.nouns.push(noun.id);
+                    new_blacklists.nouns.insert(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
                     match get_rand_noun(&mut rng, &cat_affiliation, &blacklists.nouns) {
                         Ok(aff_noun) => {
-                            new_blacklists.nouns.push(aff_noun.id);
+                            new_blacklists.nouns.insert(aff_noun.id);
                             (noun_wg, get_apposition(&aff_noun, Article::None))
                         }
                         Err(err) => {
@@ -215,7 +216,7 @@ pub fn get_with_adjective(
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
         let number = number_opt.unwrap_or(get_rand_number(&mut rng));
-        let article_type = get_rand_article(&mut rng, &articles_opt);
+        let article_type = get_rand_article(&mut rng, articles_opt.as_ref());
 
         // extract categories with epithets
         let cats_with_epithets = get_cats_containing_epithets();
@@ -247,11 +248,11 @@ pub fn get_with_adjective(
         let (noun, adj) =
             match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns, &blacklists.nouns) {
                 Ok(noun) => {
-                    new_blacklists.nouns.push(noun.id);
+                    new_blacklists.nouns.insert(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
                     match get_rand_adj(&mut rng, &cat_adj, &blacklists.adjs) {
                         Ok(adj) => {
-                            new_blacklists.adjs.push(adj.id);
+                            new_blacklists.adjs.insert(adj.id);
                             (noun_wg, adj.agreed(noun.gender, number))
                         }
                         Err(err) => {
@@ -284,7 +285,7 @@ pub fn get_with_linking_verb(
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
         let number = number_opt.unwrap_or(get_rand_number(&mut rng));
-        let article_type = get_rand_article(&mut rng, &articles_opt);
+        let article_type = get_rand_article(&mut rng, articles_opt.as_ref());
 
         // extract categories with attributes
         let cats_with_attributes = get_cats_containing_attributes();
@@ -321,7 +322,7 @@ pub fn get_with_linking_verb(
         let wg_empty = WordGroup::new_empty();
         let linking_verb = match get_rand_verb(&mut rng, &cat_linking_verb, &blacklists.verbs) {
             Ok(verb) => {
-                new_blacklists.verbs.push(verb.id);
+                new_blacklists.verbs.insert(verb.id);
                 verb.agreed(number)
             }
             Err(err) => {
@@ -332,11 +333,11 @@ pub fn get_with_linking_verb(
         let (groupe_nominal, adj) =
             match get_rand_noun(&mut rng, &cat_noun_opt.unwrap().nouns, &blacklists.nouns) {
                 Ok(noun) => {
-                    new_blacklists.nouns.push(noun.id);
+                    new_blacklists.nouns.insert(noun.id);
                     let noun_wg = noun.get_with_article(article_type, number);
                     match get_rand_adj(&mut rng, &cat_adj, &blacklists.adjs) {
                         Ok(adj) => {
-                            new_blacklists.adjs.push(adj.id);
+                            new_blacklists.adjs.insert(adj.id);
                             (noun_wg, adj.agreed(noun.gender, number))
                         }
                         Err(err) => {
@@ -372,7 +373,7 @@ pub fn get_with_intransitive_verb(
         let mut errs: Vec<String> = vec![];
         // pick optional number and article
         let number = number_opt.unwrap_or(get_rand_number(&mut rng));
-        let article_type = get_rand_article(&mut rng, &articles_opt);
+        let article_type = get_rand_article(&mut rng, articles_opt.as_ref());
 
         // extract categories with intransitive verbs
         let cats_with_int_verbs = get_cats_containing_int_verbs();
@@ -393,7 +394,7 @@ pub fn get_with_intransitive_verb(
         let mut new_blacklists = BlackLists::new_empty();
         match noun_res {
             Ok(noun) => {
-                new_blacklists.nouns.push(noun.id);
+                new_blacklists.nouns.insert(noun.id);
                 let wg_nominal = noun.get_with_article(article_type, number);
                 let intransitive_verbs: Vec<VerbId> = match cat_res {
                     Ok(cat) => cat
@@ -436,7 +437,7 @@ pub fn get_with_intransitive_verb(
                         .and_then(|verb_id| VERBS.iter().find(|verb| verb_id.clone() == verb.id));
                     match verb_opt {
                         Some(verb) => {
-                            new_blacklists.verbs.push(verb.id);
+                            new_blacklists.verbs.insert(verb.id);
                             Ok((
                                 fold_wordgroups(vec![wg_nominal, verb.agreed(number)]),
                                 new_blacklists,

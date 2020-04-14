@@ -9,6 +9,7 @@ mod common_enums;
 mod random;
 mod string;
 mod wordgroup;
+mod hashsets;
 
 // haikus
 mod haiku;
