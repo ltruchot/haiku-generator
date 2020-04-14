@@ -11,7 +11,7 @@ pub type HashSetClosure<T> = Box<dyn Fn(&HashSet<T>) -> HashSet<T>>;
 
 pub fn closure<T> (u: Option<Vec<String>>) -> HashSetClosure<T> where T: Eq + Hash + Clone {
     Box::new(move |hs| {
-        println!("{:?}", u.as_ref().unwrap());
+        // println!("{:?}", u.as_ref().unwrap());
         HashSet::from_iter(hs.iter().cloned())
     })
 }
@@ -22,6 +22,6 @@ fn main () {
     let cl = closure(v);
     for nb in 0..3 {
         let new_hs = cl(&hs);
-        println!("{:?}", hs);
+        // !("{:?}", hs);
     }
 }

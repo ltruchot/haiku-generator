@@ -51,10 +51,6 @@ impl Noun {
             },
             Number::Singular => {
                 let first = self.word.text.chars().next();
-                let has_ellision = match first {
-                    Some(letter) => check_ellision(&letter),
-                    None => false,
-                };
                 match self.gender {
                     Gender::Male => match article {
                         Article::Definite => match first {
@@ -108,7 +104,7 @@ impl Noun {
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("une "),
-                            foots: (1, if has_ellision { 1 } else { 2 }),
+                            foots: (1, 1),
                         },
                         Article::None => WordGroup::new_empty(),
                     },

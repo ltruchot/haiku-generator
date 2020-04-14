@@ -80,7 +80,7 @@ impl Verb {
                             }
                         }
                     },
-                    foots: (self.word.foots.0 - 1, self.word.foots.1)
+                    foots: (self.word.foots.0 - 1, self.word.foots.1 - 1)
                 }
             },
             VerbGroup::Second => {
@@ -90,7 +90,7 @@ impl Verb {
                         Number::Singular => [&root, "it"].join(""),
                         Number::Plural => [&root, "issent"].join(""),
                     },
-                    foots: (self.word.foots.0, self.word.foots.1 + 1)
+                    foots: (self.word.foots.0, self.word.foots.1)
                 }
             },
         };

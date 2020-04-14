@@ -50,6 +50,10 @@ pub enum NounId {
     Daim,
     Chevreuil,
     Renard,
+    Plume,
+    Duvet,
+    Reflet,
+    Eclat,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -57,6 +61,7 @@ pub enum NounCatId {
     Astre,
     Phenomene,
     PhenomeneLumineux,
+    EffetLumineux,
     PhenomeneSonore,
     PhenomeneSonoreFloral,
     PhenomeneOlfactif,
@@ -70,4 +75,5 @@ pub enum NounCatId {
     Plante,
     Oiseau,
     Mammifere,
+    PartieDOiseau,
 }

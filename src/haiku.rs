@@ -20,19 +20,20 @@ use combination_data::Combinations;
 // EXPORTS
 pub fn check_haiku_form(haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> Option<String> {
     // ellision on final "e" implie foot max decrement
-    let last = take_last_grapheme(&result.text);
-    let last_two = take_last_graphemes(&result.text, 2);
-    let wg =  WordGroup {
-        text: String::from(&result.text),
-        foots: if last == "e" || last_two == "es"  {
-            (result.foots.0, result.foots.1 - 1)
-        } else {
-            (result.foots.0, result.foots.1)
-        }
-    };
+    // let last = take_last_grapheme(&result.text);
+    // let last_two = take_last_graphemes(&result.text, 2);
+    // let wg =  WordGroup {
+    //     text: String::from(&result.text),
+    //     foots: if last == "e" || last_two == "es"  {
+    //         (result.foots.0 - 1, result.foots.1 - 1)
+    //     } else {
+    //         (result.foots.0, result.foots.1)
+    //     }
+    // };
     
-    if haiku_form[nb] >= wg.foots.0 && haiku_form[nb] <= wg.foots.1 {
-        Some(String::from(wg.text))
+    if haiku_form[nb] >= result.foots.0 && haiku_form[nb] <= result.foots.1 {
+        println!("{:?}", &result.foots);
+        Some(String::from(&result.text))
     } else {
         None
     }

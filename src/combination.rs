@@ -1,5 +1,6 @@
 // IMPORTS
 //externals
+use crate::string::take_last_graphemes;
 use rand::seq::SliceRandom;
 
 // common
@@ -131,7 +132,6 @@ pub fn get_with_adj_and_affiliation(
         if errs.len() > 0 {
             return Err(errs);
         }
-
         Ok((fold_wordgroups(vec![noun, adj, aff]), new_blacklists))
     })
 }
@@ -357,8 +357,20 @@ pub fn get_with_linking_verb(
             return Err(errs);
         }
 
+        // plural verb needs a foot update
+        println!("linking verb: {}", linking_verb.text);
+        let final_verb = if take_last_graphemes(&linking_verb.text, 3) == "ent" { 
+            println!("has ent and is longer");            
+            WordGroup {
+                text: String::from(&linking_verb.text),
+                foots: (&linking_verb.foots.0 + 1, &linking_verb.foots.1 + 1)
+            }
+        } else {
+            linking_verb
+        };
+
         Ok((
-            fold_wordgroups(vec![groupe_nominal, linking_verb, adj]),
+            fold_wordgroups(vec![groupe_nominal, final_verb, adj]),
             new_blacklists,
         ))
     })
@@ -438,10 +450,21 @@ pub fn get_with_intransitive_verb(
                     match verb_opt {
                         Some(verb) => {
                             new_blacklists.verbs.insert(verb.id);
-                            Ok((
-                                fold_wordgroups(vec![wg_nominal, verb.agreed(number)]),
-                                new_blacklists,
-                            ))
+                            let agreed_verb = verb.agreed(number);
+                            Ok({
+                                // let final_verb = if take_last_graphemes(&agreed_verb.text, 3) == "ent" {
+                                //     WordGroup {
+                                //         text: String::from(&agreed_verb.text),
+                                //         foots: (agreed_verb.foots.0 - 1,agreed_verb.foots.1 -1)
+                                //     }
+                                // } else {
+                                //     agreed_verb
+                                // };
+                                (
+                                    fold_wordgroups(vec![wg_nominal, agreed_verb]),
+                                    new_blacklists,
+                                )
+                            })
                         }
                         None => {
                             errs.push(String::from(

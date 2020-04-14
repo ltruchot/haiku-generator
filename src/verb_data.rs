@@ -9,7 +9,7 @@ pub type StaticVerbs = [Verb; 9];
 lazy_static! {
     pub static ref VERBS: StaticVerbs = [
         Verb::new(VerbId::Rester, "rester", (2, 2), VerbGroup::First, false, VerbKind::Copule),
-        Verb::new(VerbId::Sembler, "sembler", (3, 3), VerbGroup::First, false, VerbKind::Copule),
+        Verb::new(VerbId::Sembler, "sembler", (2, 2), VerbGroup::First, false, VerbKind::Copule),
         Verb::new(VerbId::Demeurer, "demeurer", (3, 3), VerbGroup::First, false, VerbKind::Copule),
         Verb::new(VerbId::SAssoupir, "assoupir", (3, 3), VerbGroup::Second, true, VerbKind::Intransitive),
         Verb::new(VerbId::SEvanouir, "évanouir", (4, 4), VerbGroup::Second, true, VerbKind::Intransitive),

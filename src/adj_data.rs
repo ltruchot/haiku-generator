@@ -9,14 +9,14 @@ pub type StaticAdjs = [Adj; 38];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
-        Adj::new(AdjId::Libre, "libre", (1, 2)),
-        Adj::new(AdjId::Sauvage, "sauvage", (2, 3)),
+        Adj::new(AdjId::Libre, "libre", (1, 1)),
+        Adj::new(AdjId::Sauvage, "sauvage", (2, 2)),
         Adj::new(AdjId::Printanier, "printanier", (3, 4)),
         Adj::new(AdjId::Estival, "estival", (3, 3)),
         Adj::new(AdjId::Automnal, "automnal", (3, 3)),
         Adj::new(AdjId::Hivernal, "hivernal", (3, 3)),
         Adj::new(AdjId::Violet, "violet", (2, 3)),
-        Adj::new(AdjId::Orange, "orange", (2, 3)),
+        Adj::new(AdjId::Orange, "orange", (2, 2)),
         Adj::new(AdjId::Brun, "brun", (1, 1)),
         Adj::new(AdjId::Dore, "doré", (2, 2)),
         Adj::new(AdjId::Argente, "argenté", (3, 3)),
@@ -27,28 +27,28 @@ lazy_static! {
             Some(String::from("roux")),
             Some(String::from("rousses")),
             false,
-            (1, 2)
+            (1, 1)
         ),
-        Adj::new(AdjId::Ecarlate, "écarlate", (3, 4)),
+        Adj::new(AdjId::Ecarlate, "écarlate", (3, 3)),
         // Adj::new(AdjId::Grand, "grand", (1, 1)),
         Adj::new(AdjId::Immense, "immense", (2, 3)),
         Adj::new(AdjId::Majestueux, "majestueux", (4, 4)),
-        Adj::new(AdjId::Noble, "noble", (1, 2)),
+        Adj::new(AdjId::Noble, "noble", (1, 1)),
         Adj::new(AdjId::Delicat, "délicat", (3, 3)),
 
         // agitation
         Adj::new_special(AdjId::Inquiet, "inquiet", Some(String::from("inquiète")), None, None, false, (2, 3)),
         Adj::new_special(AdjId::AuxAbois, "aux abois", None, None, None, true, (3,3)),
         Adj::new(AdjId::Vigilant, "vigilant", (3, 3)),
-        Adj::new(AdjId::Perplexe, "perplexe", (3, 4)),
+        Adj::new(AdjId::Perplexe, "perplexe", (3, 3)),
         Adj::new(AdjId::Agite, "agité", (3, 3)),
         Adj::new(AdjId::Emu, "ému", (2, 2)),
 
         // calme
-        Adj::new(AdjId::Calme, "calme", (1, 2)),
-        Adj::new(AdjId::Sage, "sage", (1, 2)),
+        Adj::new(AdjId::Calme, "calme", (1, 1)),
+        Adj::new(AdjId::Sage, "sage", (1, 1)),
         Adj::new(AdjId::Heureux, "heureux", (2, 2)),
-        Adj::new(AdjId::Immobile, "immobile", (3, 4)),
+        Adj::new(AdjId::Immobile, "immobile", (3, 3)),
         Adj::new_special(AdjId::EnPaix, "en paix", None, None, None, true, (2, 2)),
 
         // chaleur
@@ -57,7 +57,7 @@ lazy_static! {
         Adj::new(AdjId::Brulant, "brûlant", (2, 2)),
 
         // froideur
-        Adj::new(AdjId::Polaire, "polaire", (2, 3)),
+        Adj::new(AdjId::Polaire, "polaire", (2, 2)),
         Adj::new_special(AdjId::Glacial, "glacial", None, Some(String::from("glacials")), None, false, (2, 3)),
         Adj::new(AdjId::Glace, "glacé", (2, 2)),
 
