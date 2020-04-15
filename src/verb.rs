@@ -101,10 +101,10 @@ impl Verb {
                 None => false
             };
             let pronoun = WordGroup {
-                text: String::from(if has_ellision { "s'" } else { "se "}),
+                text: String::from(if has_ellision { "s'" } else { "se"}),
                 foots: if has_ellision { (0, 0) } else { (1, 1) }
             };
-            return add_words(&pronoun, &agreed_verb, false);
+            return add_words(&pronoun, &agreed_verb);
         }
         agreed_verb
     }

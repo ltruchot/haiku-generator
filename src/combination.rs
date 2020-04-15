@@ -358,9 +358,9 @@ pub fn get_with_linking_verb(
         }
 
         // plural verb needs a foot update
-        println!("linking verb: {}", linking_verb.text);
+        // println!("linking verb: {}", linking_verb.text);
         let final_verb = if take_last_graphemes(&linking_verb.text, 3) == "ent" { 
-            println!("has ent and is longer");            
+            // println!("has ent and is longer");            
             WordGroup {
                 text: String::from(&linking_verb.text),
                 foots: (&linking_verb.foots.0 + 1, &linking_verb.foots.1 + 1)

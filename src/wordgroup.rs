@@ -3,13 +3,19 @@
 use unicode_segmentation::UnicodeSegmentation;
 use crate::string::{take_last_graphemes, take_last_grapheme};
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct WordGroup {
     pub text: String,
     pub foots: (u8, u8), // min / max
 }
 
 impl WordGroup {
+    pub fn new(text: &str, foots_base: u8) -> WordGroup {
+        WordGroup {
+            text: String::from(text),
+            foots: (foots_base, foots_base)
+        }
+    }
     pub fn new_empty() -> WordGroup {
         WordGroup {
             text: String::from(""),
@@ -21,7 +27,7 @@ impl WordGroup {
 pub fn fold_wordgroups (wgs: Vec<WordGroup>) -> WordGroup {
     wgs
     .iter()
-    .fold(WordGroup::new_empty(), |acc, wg|add_words(&acc, wg, acc.text != ""))
+    .fold(WordGroup::new_empty(), |acc, wg|add_words(&acc, wg))
 }
 
 pub fn check_ellision (letter: &char) -> bool {
@@ -29,14 +35,28 @@ pub fn check_ellision (letter: &char) -> bool {
     ellisions.contains(letter)
 }
 
-pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
+pub fn add_words (a: &WordGroup, b: &WordGroup) -> WordGroup {
     // println!("add {} {}", a.text, b.text);
     // "e" muet en français
-    let should_amend_foots = if a.text.trim().graphemes(true).count() > 2 && a.text.trim() != "les" {
+    // shortcircuit for des, de, les, le , se
+    let last = take_last_grapheme(&a.text);
+    let three_last = take_last_graphemes(&a.text, 3);
+    let shortcircuit = three_last == " le" ||
+    three_last == " de" || three_last == " se" ||
+     a.text.graphemes(true).count() <= 3 && (
+        a.text == "le" ||
+        a.text == "se" ||
+        a.text == "de" ||
+        a.text == "les" ||
+        a.text == "des"
+    );
+    // println!("{}", shortcircuit);
+    let with_space = last != "'" && &a.text != "";
+
+    let should_amend_foots = if !shortcircuit {
         let consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s","t", "v", "w", "x", "z"];
-        let last = take_last_grapheme(&a.text.trim());
-        let two_last = take_last_graphemes(&a.text.trim(), 2);
-        println!("lasts: {} {}", last, two_last);
+        let two_last = take_last_graphemes(&a.text, 2);
+        // println!("lasts: {} {}", last, two_last);
         let penultimate_opt = if last == "e"  {
             a.text.trim().graphemes(true).rev().nth(1)
         } else if two_last == "es" {
@@ -46,7 +66,7 @@ pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
         };
         match penultimate_opt{
             Some(prev) => {
-                println!("penultieme {}", prev);
+                // println!("penultieme {}", prev);
                 consonants.contains(&prev) && ({
                     match b.text.trim().graphemes(true).nth(0) {
                         Some(letter) => {
@@ -62,7 +82,7 @@ pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
     } else {
         false
     };
-    println!("add {} {} {}", a.text, b.text, should_amend_foots);
+    // println!("add {} {} {}", a.text, b.text, should_amend_foots);
     // combination
     WordGroup {
         text: [
@@ -79,3 +99,28 @@ pub fn add_words (a: &WordGroup, b: &WordGroup, with_space: bool) -> WordGroup {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn addword_works() {
+        let arti = super::WordGroup::new("le", 1);
+        let nou1 = super::WordGroup::new("bruissement", 3);
+        let appo = super::WordGroup::new("de", 1);
+        let nou2 = super::WordGroup::new("feuille", 1);
+        let res1 = super::WordGroup::new("le bruissement", 4);
+        let res2 = super::WordGroup::new("le bruissement de", 5);
+        let res3 = super::WordGroup::new("le bruissement de feuille", 6);
+        assert_eq!(
+            super::add_words(&arti, &nou1), 
+            res1                
+        );
+        assert_eq!(
+            super::add_words(&res1, &appo), 
+            res2              
+        );
+        assert_eq!(
+            super::add_words(&res2, &nou2), 
+            res3              
+        );
+    }
+}

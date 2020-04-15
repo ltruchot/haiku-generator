@@ -1,8 +1,6 @@
 // externals
 #[macro_use]
 extern crate lazy_static;
-use rand::seq::SliceRandom;
-use rand::thread_rng;
 
 // commons
 mod common_enums;
@@ -39,11 +37,9 @@ mod verb_enums;
 // use exemple::{get_total};
 
 fn main() {
-    let mut rng = thread_rng();
     // prepare authorized sentence combinations
     let mut combinations: Combinations = get_combinations();
-    combinations.shuffle(&mut rng);
-    match generate_haiku(&combinations) {
+    match generate_haiku(&mut combinations) {
         Ok(haiku) => println!("Haïku:\n{}", haiku.join("\n")),
         Err(errs) => println!("{:?}", errs),
     }

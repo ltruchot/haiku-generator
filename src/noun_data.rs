@@ -18,7 +18,7 @@ use verb::{get_verb, get_verb_cat};
 use verb_enums::VerbCatId;
 
 // EXPORTS
-pub type StaticNouns = [Noun; 54];
+pub type StaticNouns = [Noun; 65];
 lazy_static! {
     pub static ref NOUNS: StaticNouns = [
         Noun::new(NounId::Lune, "lune", Gender::Female, (1, 1),),
@@ -72,9 +72,23 @@ lazy_static! {
         Noun::new(NounId::Chevreuil, "chevreuil", Gender::Male, (2, 2),),
         Noun::new(NounId::Renard, "renard", Gender::Male, (2, 2),),
         Noun::new(NounId::Plume, "plume", Gender::Female, (1,1)),
-        Noun::new(NounId::Duvet, "duvet", Gender::Male, (2, 2)),
+       /* Noun::new(NounId::Duvet, "duvet", Gender::Male, (2, 2)), */
         Noun::new(NounId::Reflet, "reflet", Gender::Male, (2,2)),
         Noun::new(NounId::Eclat, "éclat", Gender::Male, (2, 2)),
+        Noun::new(NounId::Moment, "moment", Gender::Male, (2, 2)),
+        Noun::new(NounId::Heure, "heure", Gender::Female, (1, 1)),
+        Noun::new(NounId::Minute, "minute", Gender::Female, (2, 2)),
+        Noun::new(NounId::Calme, "calme", Gender::Male, (1, 1)),
+        Noun::new(NounId::Paix, "paix", Gender::Female, (1, 1)),
+        Noun::new(NounId::Serenite, "sérénité", Gender::Female, (4, 4)),
+        Noun::new(NounId::Pluie, "pluie", Gender::Female, (1, 1)),
+        Noun::new(NounId::Bruine, "bruine", Gender::Female, (2, 2)),
+        /* Noun::new(NounId::Rosee, "rosée", Gender::Female, (2, 2)),*/
+        Noun::new(NounId::Orage, "orage", Gender::Male, (2, 2)),
+        Noun::new(NounId::Averse, "averse", Gender::Female, (2, 2)),
+        Noun::new(NounId::Embellie, "embellie", Gender::Female, (3, 3)),
+        Noun::new(NounId::Brume, "brume", Gender::Female, (1, 1)),
+
     ];
 }
 /**
@@ -481,7 +495,7 @@ lazy_static! {
                 inherit: vec![],
                 nouns: vec![
                     NounId::Plume,
-                    NounId::Duvet,
+                    /* NounId::Duvet, */
                 ],
                 rel: NounRelations {
                     attributes: vec![],
@@ -517,6 +531,73 @@ lazy_static! {
                     functions: vec![],
                     emissions: vec![],
                     affiliations: vec![NounCatId::PartieDOiseau, NounCatId::Astre],
+                },
+            },
+        ),
+        (
+            NounCatId::PortionDeTemps,
+            NounCategory {
+                id: NounCatId::PortionDeTemps,
+                inherit: vec![],
+                nouns: vec![
+                    NounId::Moment,
+                    NounId::Heure,
+                    NounId::Minute,
+                ],
+                rel: NounRelations {
+                    attributes: vec![
+                    ],
+                    epithets: vec![
+                        AdjCatId::Noblesse,
+                    ],
+                    functions: vec![],
+                    emissions: vec![],
+                    affiliations: vec![NounCatId::Calme, NounCatId::Astre, NounCatId::PhenomeneMeteo],
+                },
+            },
+        ),
+        (
+            NounCatId::Calme,
+            NounCategory {
+                id: NounCatId::Calme,
+                inherit: vec![],
+                nouns: vec![
+                    NounId::Paix,
+                    NounId::Calme,
+                    NounId::Serenite,
+                ],
+                rel: NounRelations {
+                    attributes: vec![
+                    ],
+                    epithets: vec![
+                    ],
+                    functions: vec![],
+                    emissions: vec![],
+                    affiliations: vec![NounCatId::Saison],
+                },
+            },
+        ),
+        (
+            NounCatId::PhenomeneMeteo,
+            NounCategory {
+                id: NounCatId::PhenomeneMeteo,
+                inherit: vec![],
+                nouns: vec![
+                    NounId::Pluie,
+                    NounId::Bruine,
+                    NounId::Orage,
+                    NounId::Averse,
+                    NounId::Embellie,
+                    NounId::Brume,
+                ],
+                rel: NounRelations {
+                    attributes: vec![
+                    ],
+                    epithets: vec![
+                    ],
+                    functions: vec![],
+                    emissions: vec![],
+                    affiliations: vec![NounCatId::Saison],
                 },
             },
         )

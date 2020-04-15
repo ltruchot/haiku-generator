@@ -40,11 +40,11 @@ impl Noun {
         let article = match number {
             Number::Plural => match article {
                 Article::Definite => WordGroup {
-                    text: String::from("les "),
+                    text: String::from("les"),
                     foots: (1, 1),
                 },
                 Article::Indefinite => WordGroup {
-                    text: String::from("des "),
+                    text: String::from("des"),
                     foots: (1, 1),
                 },
                 Article::None => WordGroup::new_empty(),
@@ -62,7 +62,7 @@ impl Noun {
                                     }
                                 } else {
                                     WordGroup {
-                                        text: String::from("le "),
+                                        text: String::from("le"),
                                         foots: (1, 1),
                                     }
                                 }
@@ -75,7 +75,7 @@ impl Noun {
                             },
                         },
                         Article::Indefinite => WordGroup {
-                            text: String::from("un "),
+                            text: String::from("un"),
                             foots: (1, 1),
                         },
                         Article::None => WordGroup::new_empty(),
@@ -90,7 +90,7 @@ impl Noun {
                                     }
                                 } else {
                                     WordGroup {
-                                        text: String::from("la "),
+                                        text: String::from("la"),
                                         foots: (1, 1),
                                     }
                                 }
@@ -103,7 +103,7 @@ impl Noun {
                             },
                         },
                         Article::Indefinite => WordGroup {
-                            text: String::from("une "),
+                            text: String::from("une"),
                             foots: (1, 1),
                         },
                         Article::None => WordGroup::new_empty(),
@@ -127,7 +127,7 @@ impl Noun {
     pub fn get_with_article(self: &Self, article: Article, number: Number) -> WordGroup {
         let article = self.get_article(number, article);
         let agreed_noun = self.agreed(number);
-        add_words(&article, &agreed_noun, false)
+        add_words(&article, &agreed_noun)
     }
 }
 
@@ -193,7 +193,7 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
                     }
                 } else {
                     WordGroup {
-                        text: String::from("de "),
+                        text: String::from("de"),
                         foots: (1, 1),
                     }
                 }
@@ -220,7 +220,7 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
                         if check_ellision(&letter) {
                             String::from("de l'")
                         } else {
-                            String::from("du ")
+                            String::from("du")
                         }
                     }
                     None => String::from("#error#get_apposition#No first letter#"),
@@ -251,6 +251,6 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
             },
         },
     };
-    add_words(&apposition, &noun.word, false)
+    add_words(&apposition, &noun.word)
 }
 

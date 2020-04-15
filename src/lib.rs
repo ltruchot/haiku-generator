@@ -4,8 +4,6 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
 #[macro_use]
 extern crate lazy_static;
-use rand::seq::SliceRandom;
-use rand::thread_rng;
 
 // commons
 mod common_enums;
@@ -39,11 +37,9 @@ mod verb_enums;
 
 #[wasm_bindgen]
 pub fn generate() -> Array {
-    let mut rng = thread_rng();
     // prepare authorized sentence combinations
     let mut combinations: Combinations = get_combinations();
-    combinations.shuffle(&mut rng);
-    let haiku = generate_haiku(&combinations);
+    let haiku = generate_haiku(&mut combinations);
 
     // return haiku
     haiku
@@ -52,3 +48,4 @@ pub fn generate() -> Array {
         .map(JsValue::from)
         .collect()
 }
+

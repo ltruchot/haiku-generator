@@ -1,6 +1,8 @@
 // IMPORTS
 // externals
 use crate::common_enums::merge_blacklists;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 // common
 use crate::common_enums;
@@ -8,7 +10,7 @@ use common_enums::{BlackLists, adjust_blacklist};
 
 // strings
 use crate::string;
-use string::{uppercase_first_letter, take_last_grapheme, take_last_graphemes};
+use string::{uppercase_first_letter};
 // wordgroups
 use crate::wordgroup;
 use wordgroup::WordGroup;
@@ -19,33 +21,24 @@ use combination_data::Combinations;
 
 // EXPORTS
 pub fn check_haiku_form(haiku_form: [u8; 3], nb: usize, result: &WordGroup) -> Option<String> {
-    // ellision on final "e" implie foot max decrement
-    // let last = take_last_grapheme(&result.text);
-    // let last_two = take_last_graphemes(&result.text, 2);
-    // let wg =  WordGroup {
-    //     text: String::from(&result.text),
-    //     foots: if last == "e" || last_two == "es"  {
-    //         (result.foots.0 - 1, result.foots.1 - 1)
-    //     } else {
-    //         (result.foots.0, result.foots.1)
-    //     }
-    // };
-    
     if haiku_form[nb] >= result.foots.0 && haiku_form[nb] <= result.foots.1 {
-        println!("{:?}", &result.foots);
+        // println!("{:?}", &result.foots);
         Some(String::from(&result.text))
     } else {
         None
     }
 }
 
-pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<String>> {
+pub fn generate_haiku(combinations: &mut Combinations) -> Result<[String; 3], Vec<String>> {
+    let mut rng = thread_rng();
+    combinations.shuffle(&mut rng);
     //let mut noun_black_list: Vec<NounId> = vec![];
     // compose haiku
     let mut haiku = [String::from(""), String::from(""), String::from("")];
     let mut black_lists = BlackLists::new_empty();
     for nb in 0..3 {
         let mut is_running = true;
+        let mut count = 0;
         // let mut current_noun_id: Option<NounId> = None;
         while is_running {
             let res = match combinations.get(nb) {
@@ -70,6 +63,15 @@ pub fn generate_haiku(combinations: &Combinations) -> Result<[String; 3], Vec<St
                     None => (),
                 },
                 Err(_) => (),
+            }
+            count = count + 1;
+            // security
+            if count == 100 {
+                combinations.shuffle(&mut rng);
+            }
+            if count > 1000 {
+                haiku[nb] = String::from("#err#generate_haiku#no combination found");
+                is_running = false;
             }
             ()
         }
