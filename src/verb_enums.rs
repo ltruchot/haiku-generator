@@ -6,9 +6,9 @@ pub enum VerbGroup {
 
 #[derive(Eq, PartialEq, Copy, Clone)]
 pub enum VerbKind {
-    Transitive,
+    /* Transitive, */
     Intransitive,
-    Labile,
+    /* Labile, */
     Copule,
 }
 

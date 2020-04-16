@@ -1,9 +1,11 @@
 [package]
 name = "haiku-generator"
-version = "0.0.5"
+version = "0.0.7"
 authors = ["Loïc TRUCHOT"]
 edition = "2018"
 repository = "https://github.com/ltruchot/haiku-generator"
+description = "A gererator of haikus"
+license = "CC-BY-NC-4.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

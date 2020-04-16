@@ -39,13 +39,6 @@ impl BlackLists {
             verbs: HashSet::new(),
         }
     }
-    pub fn copy(&self) -> BlackLists {
-        BlackLists {
-            verbs: HashSet::from_iter(self.verbs.iter().cloned()),
-            adjs: HashSet::from_iter(self.adjs.iter().cloned()),
-            nouns: HashSet::from_iter(self.nouns.iter().cloned()),
-        }
-    }
 }
 
 pub fn merge_blacklists(a: &BlackLists, b: &BlackLists) -> BlackLists {

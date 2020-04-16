@@ -51,9 +51,10 @@ pub enum NounId {
     Chevreuil,
     Renard,
     Plume,
-   /* Duvet, */
+    Duvet,
     Reflet,
     Eclat,
+    Raie,
     Moment,
     Heure,
     Minute,

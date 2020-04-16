@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 38];
+pub type StaticAdjs = [Adj; 47];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -67,6 +67,19 @@ lazy_static! {
         Adj::new(AdjId::Narquois, "narquois", (2, 2)),
         Adj::new(AdjId::Railleur, "railleur", (2, 2)),
         //Adj::new(AdjId::Farouche, "farouche", (2, 3)),
+
+        // coloration sombre
+        Adj::new(AdjId::Noir, "noir", (1, 1)),
+        Adj::new(AdjId::Sombre, "sombre", (1, 1)),
+        Adj::new(AdjId::Gris, "gris", (1, 1)),
+        Adj::new(AdjId::Ebene, "ébène", (2, 2)),
+
+        // coloration diaprée
+        Adj::new(AdjId::Diapre, "diapré", (2, 3)),
+        Adj::new(AdjId::Moire, "moiré", (2, 2)),
+        Adj::new(AdjId::Irise, "irisé", (3, 3)),
+        Adj::new(AdjId::Hale, "halé", (2, 2)),
+        Adj::new(AdjId::Hale, "bigarré", (3, 3)),
     ];
 }
 
@@ -150,6 +163,35 @@ lazy_static! {
                 AdjId::Railleur,
             ]
         ),
+        (
+            AdjCatId::ColorationSombre,
+            vec![
+                AdjId::Noir,
+                AdjId::Sombre,
+                AdjId::Gris,
+                AdjId::Ebene,
+            ]
+        ),
+        (
+            AdjCatId::ColorationDiapree,
+            vec![
+                AdjId::Diaphane,
+                AdjId::Diapre,
+                AdjId::Moire,
+                AdjId::Irise,
+                AdjId::Hale,
+                AdjId::Bigarre,
+            ]
+        ),
+        (
+            AdjCatId::Delicatesse,
+            vec![
+                AdjId::Delicat,
+                AdjId::Noble,
+            ]
+        ),
+
+
     ]
     .iter()
     .cloned()

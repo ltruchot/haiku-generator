@@ -42,7 +42,7 @@ pub fn generate_haiku(combinations: &mut Combinations) -> Result<[String; 3], Ve
         // let mut current_noun_id: Option<NounId> = None;
         while is_running {
             let res = match combinations.get(nb) {
-                Some(comb) => comb(&black_lists),
+                Some(comb) => comb(&mut rng, &black_lists),
                 None => Err(vec![String::from(
                     "warn#generate_haiku#combination not found",
                 )]),
@@ -66,10 +66,10 @@ pub fn generate_haiku(combinations: &mut Combinations) -> Result<[String; 3], Ve
             }
             count = count + 1;
             // security
-            if count == 100 {
+            if count == 1000 {
                 combinations.shuffle(&mut rng);
             }
-            if count > 1000 {
+            if count > 10000 {
                 haiku[nb] = String::from("#err#generate_haiku#no combination found");
                 is_running = false;
             }

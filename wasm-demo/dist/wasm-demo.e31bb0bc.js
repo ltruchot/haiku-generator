@@ -229,19 +229,48 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"package.json":[function(require,module,exports) {
+module.exports = {
+  "name": "wasm-demo",
+  "version": "1.0.4",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx parcel index.html",
+    "build": "rm -rf dist && npx parcel build index.html",
+    "deploy": "aws s3 sync ./dist s3://aiku.wtf --acl public-read --follow-symlinks --delete",
+    "invalidation": "aws cloudfront create-invalidation --distribution-id EUNAAQUCJOCXW --paths '/*'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "1.2.0"
+  },
+  "devDependencies": {
+    "parcel": "1.12.4",
+    "parcel-bundler": "1.12.4",
+    "parcel-plugin-asset-copier": "^1.0.0",
+    "parcel-plugin-wasm.rs": "1.2.15",
+    "sass": "1.26.3"
+  },
+  "assetsPath": "static"
+};
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _Cargo = require("./../Cargo.toml");
 
 require("./index.scss");
 
-// haiku generator
+var _package = require("./package.json");
+
+console.log("parcel build: ".concat(_package.version)); // haiku generator
+
 var generate_haiku = function generate_haiku() {
   var haiku = (0, _Cargo.generate)().join("<br/>");
   var haikuContainer = document.getElementById("haiku");
   haikuContainer.innerHTML = haiku;
-  console.log("haiku", haikuContainer);
 };
 
 generate_haiku();
@@ -276,7 +305,7 @@ tweet.addEventListener("click", function (e) {
   window.location = url;
   return false;
 });
-},{"./../Cargo.toml":"../Cargo.toml","./index.scss":"index.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./../Cargo.toml":"../Cargo.toml","./index.scss":"index.scss","./package.json":"package.json"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -304,7 +333,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58502" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50756" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

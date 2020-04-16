@@ -1,12 +1,13 @@
-import { generate } from './../Cargo.toml';
+import { generate} from './../Cargo.toml';
 import "./index.scss";
+import { version } from "./package.json";
+console.log(`parcel build: ${version}`);
 
 // haiku generator
 const generate_haiku = () => {
     const haiku = generate().join("<br/>");
     const haikuContainer = document.getElementById("haiku");
     haikuContainer.innerHTML = haiku;
-    console.log("haiku", haikuContainer)
 }
 generate_haiku();
 const btn = document.getElementById("btn-generate-haiku");

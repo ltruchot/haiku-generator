@@ -5,7 +5,7 @@ use common_enums::{Article, Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, WordGroup};
+use wordgroup::{add_words, check_ellision, WordGroup, get_plural};
 
 // nouns
 use crate::noun_data;
@@ -13,9 +13,6 @@ use crate::noun_enums;
 use noun_data::{NOUN_CATS};
 use noun_enums::{NounCatId, NounId};
 
-// strings
-use crate::string;
-use string::get_plural;
 
 #[derive(Clone)]
 pub struct Noun {
@@ -37,16 +34,10 @@ impl Noun {
     }
 
     pub fn get_article(self: &Self, number: Number, article: Article) -> WordGroup {
-        let article = match number {
+        match number {
             Number::Plural => match article {
-                Article::Definite => WordGroup {
-                    text: String::from("les"),
-                    foots: (1, 1),
-                },
-                Article::Indefinite => WordGroup {
-                    text: String::from("des"),
-                    foots: (1, 1),
-                },
+                Article::Definite => WordGroup::new("les", 1),
+                Article::Indefinite => WordGroup::new("des", 1),
                 Article::None => WordGroup::new_empty(),
             },
             Number::Singular => {
@@ -110,17 +101,18 @@ impl Noun {
                     },
                 }
             }
-        };
-        article
+        }
     }
 
     pub fn agreed(self: &Self, number: Number) -> WordGroup {
         match number {
-            Number::Plural => WordGroup {
-                text: get_plural(&self.word.text),
-                foots: (self.word.foots),
+            Number::Plural => {
+                get_plural(&self.word)
+            }
+            ,
+            Number::Singular => {
+                self.word.clone()
             },
-            Number::Singular => self.word.clone(),
         }
     }
 
@@ -130,6 +122,78 @@ impl Noun {
         add_words(&article, &agreed_noun)
     }
 }
+
+// pub fn get_article<'a>(noun: &'a Noun, number: Number, article: Article) -> &'a WordGroup {
+//     let article = match number {
+//         Number::Plural => match article {
+//             Article::Definite => WordGroup::new("les", 1),
+//             Article::Indefinite => WordGroup::new("des", 1),
+//             Article::None => WordGroup::new_empty(),
+//         },
+//         Number::Singular => {
+//             let first = noun.word.text.chars().next();
+//             match noun.gender {
+//                 Gender::Male => match article {
+//                     Article::Definite => match first {
+//                         Some(letter) => {
+//                             if check_ellision(&letter) {
+//                                 WordGroup {
+//                                     text: String::from("l'"),
+//                                     foots: (0, 0),
+//                                 }
+//                             } else {
+//                                 WordGroup {
+//                                     text: String::from("le"),
+//                                     foots: (1, 1),
+//                                 }
+//                             }
+//                         }
+//                         None => WordGroup {
+//                             text: String::from(
+//                                 "#error#get_with_some_article#No first letter for ellision#",
+//                             ),
+//                             foots: (0, 0),
+//                         },
+//                     },
+//                     Article::Indefinite => WordGroup {
+//                         text: String::from("un"),
+//                         foots: (1, 1),
+//                     },
+//                     Article::None => WordGroup::new_empty(),
+//                 },
+//                 Gender::Female => match article {
+//                     Article::Definite => match first {
+//                         Some(letter) => {
+//                             if check_ellision(&letter) {
+//                                 WordGroup {
+//                                     text: String::from("l'"),
+//                                     foots: (0, 0),
+//                                 }
+//                             } else {
+//                                 WordGroup {
+//                                     text: String::from("la"),
+//                                     foots: (1, 1),
+//                                 }
+//                             }
+//                         }
+//                         None => WordGroup {
+//                             text: String::from(
+//                                 "#error#get_with_some_article#No first letter for ellision#",
+//                             ),
+//                             foots: (0, 0),
+//                         },
+//                     },
+//                     Article::Indefinite => WordGroup {
+//                         text: String::from("une"),
+//                         foots: (1, 1),
+//                     },
+//                     Article::None => WordGroup::new_empty(),
+//                 },
+//             }
+//         }
+//     };
+//     &article
+// }
 
 pub fn get_cats_containing_epithets_and_affiliations() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {

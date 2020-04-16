@@ -5,8 +5,11 @@ pub enum AdjCatId {
     RelAUneSaison,
     Coloration,
     ColorationRousse,
+    ColorationSombre,
+    ColorationDiapree,
     Grandeur,
     Noblesse,
+    Delicatesse,
     Agitation,
     Calme,
     Chaleur,
@@ -75,4 +78,18 @@ pub enum AdjId {
     Malicieux,
     Narquois,
     Railleur,
+
+    // coloration sombre
+    Noir,
+    Sombre,
+    Gris,
+    Ebene,
+
+    // coloration diaphane
+    Diaphane,
+    Diapre,
+    Moire,
+    Irise,
+    Hale,
+    Bigarre,
 }

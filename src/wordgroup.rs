@@ -1,7 +1,7 @@
 // IMPORTS
 // externals
 use unicode_segmentation::UnicodeSegmentation;
-use crate::string::{take_last_graphemes, take_last_grapheme};
+use crate::string::{take_last_graphemes, take_last_grapheme, drop_last_graphemes};
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct WordGroup {
@@ -24,7 +24,7 @@ impl WordGroup {
     }
 }
 
-pub fn fold_wordgroups (wgs: Vec<WordGroup>) -> WordGroup {
+pub fn fold_wordgroups (wgs: Vec<&WordGroup>) -> WordGroup {
     wgs
     .iter()
     .fold(WordGroup::new_empty(), |acc, wg|add_words(&acc, wg))
@@ -122,5 +122,24 @@ mod tests {
             super::add_words(&res2, &nou2), 
             res3              
         );
+    }
+}
+
+pub fn get_plural(wg: &WordGroup) -> WordGroup {
+    let last = take_last_grapheme(&wg.text);
+    let last_two = take_last_graphemes(&wg.text, 2);
+    if &last == "s" || &last == "x" {
+        wg.clone()
+    } else if &last_two == "al" {
+        let new_lemme = &drop_last_graphemes(&wg.text, 2);
+        WordGroup {
+            text: [new_lemme, "aux"].join(""),
+            foots: wg.foots
+        }
+    } else {
+        WordGroup {
+            text: [&wg.text, "s"].join(""),
+            foots: wg.foots
+        }
     }
 }
