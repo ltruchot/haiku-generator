@@ -51,7 +51,7 @@ pub enum NounId {
     Chevreuil,
     Renard,
     Plume,
-    Duvet,
+   /* Duvet,*/
     Reflet,
     Eclat,
     Raie,
@@ -63,11 +63,12 @@ pub enum NounId {
     Serenite,
     Pluie,
     Bruine,
-    /* Rosee, */
+    Rosee, 
     Orage,
     Averse,
     Embellie,
     Brume,
+    Saveur,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -93,4 +94,5 @@ pub enum NounCatId {
     PortionDeTemps,
     Calme,
     PhenomeneMeteo,
+    PhenomeneTactile,
 }

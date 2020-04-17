@@ -1,6 +1,6 @@
 {
   "name": "wasm-demo",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "npx parcel index.html",
     "build": "rm -rf dist && npx parcel build index.html",
     "deploy": "aws s3 sync ./dist s3://aiku.wtf --acl public-read --follow-symlinks --delete",
-    "invalidation": "aws cloudfront create-invalidation --distribution-id EUNAAQUCJOCXW --paths '/*'"
+    "invalidation": "aws cloudfront create-invalidation --distribution-id EUNAAQUCJOCXW --paths \"/*\""
   },
   "author": "",
   "license": "ISC",

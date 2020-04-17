@@ -3,10 +3,12 @@ pub enum AdjCatId {
     EtatDeFloraison,
     Liberte,
     RelAUneSaison,
-    Coloration,
+    ColorationTexture,
+    ColorationDiapree,
+    ColorationBleue,
     ColorationRousse,
     ColorationSombre,
-    ColorationDiapree,
+    ColorationBrillante,
     Grandeur,
     Noblesse,
     Delicatesse,
@@ -15,6 +17,8 @@ pub enum AdjCatId {
     Chaleur,
     Froideur,
     CaractereMoqueur,
+    Anonymat,
+    Saveur,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -38,6 +42,18 @@ pub enum AdjId {
     Argente,
     Roux,
     Ecarlate,
+    Ocre,
+    Pastel,
+    Bleu,
+    Rose,
+
+    // coloration diaphane
+    Diaphane,
+    Diapre,
+    Moire,
+    Irise,
+    Hale,
+    Bigarre,
 
     // taille
     Grand,
@@ -85,11 +101,14 @@ pub enum AdjId {
     Gris,
     Ebene,
 
-    // coloration diaphane
-    Diaphane,
-    Diapre,
-    Moire,
-    Irise,
-    Hale,
-    Bigarre,
+    // anonymat
+    Anonyme,
+    Etrange,
+    Etranger,
+
+    // saveur
+    Epice,
+    Sucre,
+
+
 }

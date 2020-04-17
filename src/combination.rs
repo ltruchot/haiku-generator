@@ -180,10 +180,11 @@ pub fn get_with_affiliation(
                 match get_rand_noun(rng, &cat_affiliation, &blacklists.nouns) {
                     Ok(aff_noun) => {
                         new_blacklists.nouns.insert(aff_noun.id);
+                        let noun_wg = noun.agreed(number);
                         Ok((
                             fold_wordgroups(vec![
                                 &article,
-                                &noun.word,
+                                &noun_wg,
                                 &get_apposition(&aff_noun, Article::None),
                             ]),
                             new_blacklists,
@@ -318,7 +319,7 @@ pub fn get_with_linking_verb(
                         match get_rand_verb(rng, &cat_linking_verb, &blacklists.verbs) {
                             Ok(verb) => {
                                 new_blacklists.verbs.insert(verb.id);
-                                let linking_verb = verb.agreed(number);
+                                let linking_verb = verb.agree(&number);
                                 // plural verb needs a foot update
                                 // println!("linking verb: {}", linking_verb.text);
                                 let final_verb =
@@ -441,7 +442,7 @@ pub fn get_with_intransitive_verb(
                     match verb_opt {
                         Some(verb) => {
                             new_blacklists.verbs.insert(verb.id);
-                            let agreed_verb = verb.agreed(number);
+                            let agreed_verb = verb.agree(&number);
                             Ok({
                                 (
                                     fold_wordgroups(vec![&wg_nominal, &agreed_verb]),

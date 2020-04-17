@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 47];
+pub type StaticAdjs = [Adj; 56];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -17,7 +17,10 @@ lazy_static! {
         Adj::new(AdjId::Hivernal, "hivernal", (3, 3)),
         Adj::new(AdjId::Violet, "violet", (2, 3)),
         Adj::new(AdjId::Orange, "orange", (2, 2)),
+        Adj::new(AdjId::Ocre, "ocre", (1, 1)),
+        Adj::new_special(AdjId::Pastel, "pastel", None, None, None, true, (2,2)),
         Adj::new(AdjId::Brun, "brun", (1, 1)),
+        Adj::new(AdjId::Bleu, "bleu", (1, 1)),
         Adj::new(AdjId::Dore, "doré", (2, 2)),
         Adj::new(AdjId::Argente, "argenté", (3, 3)),
         Adj::new_special(
@@ -80,6 +83,16 @@ lazy_static! {
         Adj::new(AdjId::Irise, "irisé", (3, 3)),
         Adj::new(AdjId::Hale, "halé", (2, 2)),
         Adj::new(AdjId::Hale, "bigarré", (3, 3)),
+
+        // anonymat
+        Adj::new(AdjId::Anonyme, "anonyme", (3, 3)),
+        Adj::new(AdjId::Etrange, "étrange", (2, 2)),
+        Adj::new(AdjId::Etranger, "étranger", (3, 3)),
+
+        // saveur
+        Adj::new(AdjId::Epice, "épicé", (3,3)),
+        Adj::new(AdjId::Sucre, "sucré", (2, 2)),
+        Adj::new(AdjId::Rose, "rose", (1, 1)),
     ];
 }
 
@@ -98,11 +111,21 @@ lazy_static! {
             ],
         ),
         (
-            AdjCatId::Coloration,
+            AdjCatId::ColorationTexture,
             vec![
+                AdjId::Pastel,
+            ],
+        ),
+        (
+            AdjCatId::ColorationBleue,
+            vec![
+                AdjId::Bleu,
                 AdjId::Violet,
-                AdjId::Orange,
-                AdjId::Brun,
+            ],
+        ),
+        (
+            AdjCatId::ColorationBrillante,
+            vec![
                 AdjId::Dore,
                 AdjId::Argente,
             ],
@@ -115,7 +138,19 @@ lazy_static! {
                 AdjId::Roux,
                 AdjId::Ecarlate,
                 AdjId::Brun,
+                AdjId::Ocre,
+                AdjId::Violet,
+                AdjId::Rose,
             ],
+        ),
+        (
+            AdjCatId::ColorationSombre,
+            vec![
+                AdjId::Noir,
+                AdjId::Sombre,
+                AdjId::Gris,
+                AdjId::Ebene,
+            ]
         ),
         (
             AdjCatId::Grandeur,
@@ -164,15 +199,6 @@ lazy_static! {
             ]
         ),
         (
-            AdjCatId::ColorationSombre,
-            vec![
-                AdjId::Noir,
-                AdjId::Sombre,
-                AdjId::Gris,
-                AdjId::Ebene,
-            ]
-        ),
-        (
             AdjCatId::ColorationDiapree,
             vec![
                 AdjId::Diaphane,
@@ -190,7 +216,21 @@ lazy_static! {
                 AdjId::Noble,
             ]
         ),
-
+        (
+            AdjCatId::Anonymat,
+            vec![
+                AdjId::Anonyme,
+                AdjId::Etrange,
+                AdjId::Etranger,
+            ]
+        ),
+        (
+            AdjCatId::Saveur,
+            vec![
+                AdjId::Sucre,
+                AdjId::Epice,
+            ]
+        )
 
     ]
     .iter()

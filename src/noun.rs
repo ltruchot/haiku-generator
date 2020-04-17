@@ -58,12 +58,7 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup {
-                                text: String::from(
-                                    "#error#get_with_some_article#No first letter for ellision#",
-                                ),
-                                foots: (0, 0),
-                            },
+                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("un"),
@@ -86,12 +81,7 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup {
-                                text: String::from(
-                                    "#error#get_with_some_article#No first letter for ellision#",
-                                ),
-                                foots: (0, 0),
-                            },
+                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("une"),
@@ -122,78 +112,6 @@ impl Noun {
         add_words(&article, &agreed_noun)
     }
 }
-
-// pub fn get_article<'a>(noun: &'a Noun, number: Number, article: Article) -> &'a WordGroup {
-//     let article = match number {
-//         Number::Plural => match article {
-//             Article::Definite => WordGroup::new("les", 1),
-//             Article::Indefinite => WordGroup::new("des", 1),
-//             Article::None => WordGroup::new_empty(),
-//         },
-//         Number::Singular => {
-//             let first = noun.word.text.chars().next();
-//             match noun.gender {
-//                 Gender::Male => match article {
-//                     Article::Definite => match first {
-//                         Some(letter) => {
-//                             if check_ellision(&letter) {
-//                                 WordGroup {
-//                                     text: String::from("l'"),
-//                                     foots: (0, 0),
-//                                 }
-//                             } else {
-//                                 WordGroup {
-//                                     text: String::from("le"),
-//                                     foots: (1, 1),
-//                                 }
-//                             }
-//                         }
-//                         None => WordGroup {
-//                             text: String::from(
-//                                 "#error#get_with_some_article#No first letter for ellision#",
-//                             ),
-//                             foots: (0, 0),
-//                         },
-//                     },
-//                     Article::Indefinite => WordGroup {
-//                         text: String::from("un"),
-//                         foots: (1, 1),
-//                     },
-//                     Article::None => WordGroup::new_empty(),
-//                 },
-//                 Gender::Female => match article {
-//                     Article::Definite => match first {
-//                         Some(letter) => {
-//                             if check_ellision(&letter) {
-//                                 WordGroup {
-//                                     text: String::from("l'"),
-//                                     foots: (0, 0),
-//                                 }
-//                             } else {
-//                                 WordGroup {
-//                                     text: String::from("la"),
-//                                     foots: (1, 1),
-//                                 }
-//                             }
-//                         }
-//                         None => WordGroup {
-//                             text: String::from(
-//                                 "#error#get_with_some_article#No first letter for ellision#",
-//                             ),
-//                             foots: (0, 0),
-//                         },
-//                     },
-//                     Article::Indefinite => WordGroup {
-//                         text: String::from("une"),
-//                         foots: (1, 1),
-//                     },
-//                     Article::None => WordGroup::new_empty(),
-//                 },
-//             }
-//         }
-//     };
-//     &article
-// }
 
 pub fn get_cats_containing_epithets_and_affiliations() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
@@ -262,10 +180,7 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
                     }
                 }
             }
-            None => WordGroup {
-                text: String::from("#error#get_apposition#No first letter#"),
-                foots: (0, 0),
-            },
+            None => WordGroup::new("#error#get_apposition#No first letter#", 0),
         },
         Article::Definite => match noun.gender {
             Gender::Female => WordGroup {

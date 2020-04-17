@@ -2,6 +2,7 @@
 pub enum VerbGroup {
     First,
     Second,
+    Third,
 }
 
 #[derive(Eq, PartialEq, Copy, Clone)]
@@ -24,6 +25,9 @@ pub enum VerbId {
     Sembler,
     Demeurer,
     Rester,
+    Etre,
+    AvoirLAir,
+    Paraitre,
 
     // État d'éveil
     SAssoupir,
@@ -32,4 +36,5 @@ pub enum VerbId {
     SeCoucher,
     SeLever,
     SEvanouir,
+    SEndormir,
 }
