@@ -34,13 +34,13 @@ lazy_static! {
         ),
         Adj::new(AdjId::Ecarlate, "écarlate", (3, 3)),
         // Adj::new(AdjId::Grand, "grand", (1, 1)),
-        Adj::new(AdjId::Immense, "immense", (2, 3)),
+        Adj::new(AdjId::Immense, "immense", (2, 2)),
         Adj::new(AdjId::Majestueux, "majestueux", (4, 4)),
         Adj::new(AdjId::Noble, "noble", (1, 1)),
         Adj::new(AdjId::Delicat, "délicat", (3, 3)),
 
         // agitation
-        Adj::new_special(AdjId::Inquiet, "inquiet", Some(String::from("inquiète")), None, None, false, (2, 3)),
+        Adj::new_special(AdjId::Inquiet, "inquiet", Some(String::from("inquiète")), None, Some(String::from("inquiètes")), false, (2, 3)),
         Adj::new_special(AdjId::AuxAbois, "aux abois", None, None, None, true, (3,3)),
         Adj::new(AdjId::Vigilant, "vigilant", (3, 3)),
         Adj::new(AdjId::Perplexe, "perplexe", (3, 3)),
