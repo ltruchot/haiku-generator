@@ -31,7 +31,7 @@ pub fn fold_wordgroups (wgs: Vec<&WordGroup>) -> WordGroup {
 }
 
 pub fn check_ellision (letter: &char) -> bool {
-    let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h'];
+    let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h', 'â'];
     ellisions.contains(letter)
 }
 

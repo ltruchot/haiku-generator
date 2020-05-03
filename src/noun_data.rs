@@ -18,7 +18,7 @@ use verb::{get_verb, get_verb_cat};
 use verb_enums::VerbCatId;
 
 // EXPORTS
-pub type StaticNouns = [Noun; 68];
+pub type StaticNouns = [Noun; 71];
 lazy_static! {
     pub static ref NOUNS: StaticNouns = [
         Noun::new(NounId::Lune, "lune", Gender::Female, (1, 1),),
@@ -61,7 +61,7 @@ lazy_static! {
         Noun::new(NounId::Fauvette, "fauvette", Gender::Female, (2, 2),),
         Noun::new(NounId::Hirondelle, "hirondelle", Gender::Female, (3, 3),),
         Noun::new(NounId::Merle, "merle", Gender::Male, (1, 1),),
-        Noun::new(NounId::Pic, "pic", Gender::Male, (1, 1),),
+        Noun::new(NounId::Pie, "pie", Gender::Female, (1, 1),),
         Noun::new(NounId::Cerf, "cerf", Gender::Male, (1, 1),),
         Noun::new(NounId::Biche, "biche", Gender::Female, (1, 1),),
         Noun::new(NounId::Faon, "faon", Gender::Male, (1, 1),),
@@ -90,6 +90,9 @@ lazy_static! {
         Noun::new(NounId::Embellie, "embellie", Gender::Female, (3, 3)),
         Noun::new(NounId::Brume, "brume", Gender::Female, (1, 1)),
         Noun::new(NounId::Saveur, "saveur", Gender::Female, (2, 2)),
+        Noun::new(NounId::Esprit, "esprit", Gender::Male, (2, 2)),
+        Noun::new(NounId::Ame, "âme", Gender::Female, (1, 1)),
+        Noun::new(NounId::Coeur, "cœur", Gender::Male, (1, 1)),
     ];
 }
 /**
@@ -514,7 +517,7 @@ lazy_static! {
                     NounId::Fauvette,
                     NounId::Hirondelle,
                     NounId::Merle,
-                    NounId::Pic,
+                    NounId::Pie,
                 ],
                 rel: NounRelations {
                     attributes: vec![
@@ -606,7 +609,6 @@ lazy_static! {
                 rel: NounRelations {
                     attributes: vec![],
                     epithets: vec![
-                        AdjCatId::ColorationSombre,
                         AdjCatId::ColorationDiapree,
                         AdjCatId::ColorationBleue,
                         AdjCatId::ColorationRousse,
@@ -669,6 +671,24 @@ lazy_static! {
                     attributes: vec![],
                     epithets: vec![],
                     functions: vec![],
+                    emissions: vec![],
+                    affiliations: vec![NounCatId::Saison],
+                },
+            },
+        ),
+        (
+            NounCatId::EspritHumain,
+            NounCategory {
+                id: NounCatId::EspritHumain,
+                nouns: vec![
+                    NounId::Ame,
+                    NounId::Coeur,
+                    NounId::Esprit,
+                ],
+                rel: NounRelations {
+                    attributes: vec![],
+                    epithets: vec![AdjCatId::Calme, AdjCatId::Delicatesse],
+                    functions: vec![VerbCatId::EtatDEveil],
                     emissions: vec![],
                     affiliations: vec![NounCatId::Saison],
                 },

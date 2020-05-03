@@ -63,6 +63,8 @@ pub enum AdjId {
     Majestueux,
     Noble,
     Delicat,
+    Leger,
+    Doux,
 
     // agitation
     Inquiet,
@@ -78,6 +80,7 @@ pub enum AdjId {
     Heureux,
     Immobile,
     EnPaix,
+    Paisible,
 
     // chaleur
     Caniculaire,

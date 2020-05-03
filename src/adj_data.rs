@@ -5,7 +5,7 @@ use crate::adj_enums;
 use adj::Adj;
 use adj_enums::{AdjCatId, AdjId};
 
-pub type StaticAdjs = [Adj; 56];
+pub type StaticAdjs = [Adj; 59];
 lazy_static! {
     pub static ref ADJS: StaticAdjs = [
         Adj::new_special(AdjId::EnFleur, "en fleur", None, None, None, true, (2, 2)),
@@ -93,6 +93,9 @@ lazy_static! {
         Adj::new(AdjId::Epice, "épicé", (3,3)),
         Adj::new(AdjId::Sucre, "sucré", (2, 2)),
         Adj::new(AdjId::Rose, "rose", (1, 1)),
+        Adj::new(AdjId::Paisible, "paisible", (2,2)),
+        Adj::new(AdjId::Leger, "léger", (2, 2)),
+        Adj::new(AdjId::Paisible, "doux", (1,1))
     ];
 }
 
@@ -179,6 +182,7 @@ lazy_static! {
                 AdjId::Heureux,
                 AdjId::Immobile,
                 AdjId::EnPaix,
+                AdjId::Paisible,
             ]
         ),
         (
@@ -214,6 +218,8 @@ lazy_static! {
             vec![
                 AdjId::Delicat,
                 AdjId::Noble,
+                AdjId::Leger,
+                AdjId::Doux,
             ]
         ),
         (

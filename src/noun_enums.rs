@@ -40,7 +40,7 @@ pub enum NounId {
     Fauvette,
     Hirondelle,
     Merle,
-    Pic,
+    Pie,
     Cerf,
     Biche,
     Faon,
@@ -69,6 +69,9 @@ pub enum NounId {
     Embellie,
     Brume,
     Saveur,
+    Coeur,
+    Ame,
+    Esprit,
 }
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -95,4 +98,5 @@ pub enum NounCatId {
     Calme,
     PhenomeneMeteo,
     PhenomeneTactile,
+    EspritHumain,
 }

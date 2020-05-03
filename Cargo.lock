@@ -26,7 +26,7 @@ dependencies = [
 
 [[package]]
 name = "haiku-generator"
-version = "0.0.7"
+version = "0.0.8"
 dependencies = [
  "js-sys",
  "lazy_static",
