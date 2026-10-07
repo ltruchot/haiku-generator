@@ -1,0 +1,14 @@
+# Single source of truth for the Rust and wasm toolchain.
+# Node and pnpm are owned by Vite+ (.node-version, devEngines): never list them here.
+# No rust-toolchain.toml: mise exports RUSTUP_TOOLCHAIN, which would shadow it.
+[settings]
+lockfile = true
+
+[tools]
+rust = { version = "1.99.0", profile = "minimal", targets = "wasm32-unknown-unknown", components = "rustfmt,clippy" }
+# Must equal the wasm-bindgen crate version in Cargo.toml (scripts/check-versions.sh).
+"github:wasm-bindgen/wasm-bindgen" = "0.2.129"
+# Provides wasm-opt.
+"aqua:WebAssembly/binaryen" = "133"
+# Dev and CI only: the Render build does not install it.
+"cargo:cargo-audit" = "0.22.2"
