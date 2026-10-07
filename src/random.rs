@@ -2,7 +2,7 @@
 use crate::common_enums::Article;
 use crate::common_enums::Number;
 use rand::rngs::ThreadRng;
-use rand::Rng;
+use rand::RngExt;
 use std::collections::HashSet;
 
 // verbs
