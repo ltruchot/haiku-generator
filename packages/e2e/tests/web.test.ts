@@ -23,6 +23,11 @@ type Compared = {
 const accepted = (): void => {
   const shareLinks = 'a[href*="facebook.com/sharer"], #tweeter-link, a[href*="short-edition.com"]';
   for (const link of document.querySelectorAll(shareLinks)) link.remove();
+  // Three icons left: spread over the width they looked lost. They follow the text:
+  // centered on a phone, at the left on a wide screen.
+  const icons = document.querySelector("#question-link")?.parentElement;
+  icons?.classList.remove("justify-between");
+  icons?.classList.add("justify-center", "lg:justify-start", "gap-6");
   // The image of a shared link: aiku.wtf is gone, the page has a new address.
   document
     .querySelector('meta[property="og:image"]')
