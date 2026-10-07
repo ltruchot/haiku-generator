@@ -13,6 +13,7 @@
     "@types/node": "catalog:",
     "playwright": "catalog:",
     "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "web": "workspace:*"
   }
 }

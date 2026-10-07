@@ -6,7 +6,7 @@
   "license": "CC-BY-NC-4.0",
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r ready",
+    "ready": "mise run rust-check && mise run wasm && vp check && vp run -r ready",
     "prepare": "vp config"
   },
   "devDependencies": {

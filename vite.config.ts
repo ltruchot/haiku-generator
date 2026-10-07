@@ -9,8 +9,10 @@ const FROZEN = [
   "tests/golden/**",
   // Tailwind 1.2.0 as shipped: its bytes are the rendering.
   "**/vendor/**",
-  // The Parcel 1 app, untouched until it moves to apps/web.
-  "wasm-demo/**",
+  // The page's markup is the 2020 one, tabs and invalid nesting included.
+  "apps/web/index.html",
+  // Written by wasm-bindgen (scripts/build-wasm.sh).
+  "apps/web/src/wasm/**",
   "target/**",
   // Managed by qol-mini (.claude/qol-mini.lock.json): one entry per managed
   // skill, never .claude/skills/ as a whole (local skills are checked).

@@ -12,3 +12,18 @@ rust = { version = "1.99.0", profile = "minimal", targets = "wasm32-unknown-unkn
 "aqua:WebAssembly/binaryen" = "133"
 # Dev and CI only: the Render build does not install it.
 "cargo:cargo-audit" = "0.22.2"
+
+[tasks.wasm]
+description = "Build the wasm module into apps/web/src/wasm"
+run = "bash scripts/build-wasm.sh"
+
+[tasks.rust-check]
+description = "The Rust gate: versions, format, clippy, tests in both profiles, audit"
+run = [
+  "bash scripts/check-versions.sh",
+  "cargo fmt --check",
+  "cargo clippy --all-targets -- -D warnings",
+  "cargo test",
+  "cargo test --release",
+  "cargo audit",
+]

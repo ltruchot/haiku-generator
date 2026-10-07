@@ -11,14 +11,14 @@
 	<meta name="author" content="Loïc TRUCHOT" />
 	<meta property="og:title" content="A.I.ku: un poète artificiel" />
 	<meta property="og:image" content="https://aiku.wtf/robot-profil.jpg" />
-	<link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png" />
-	<link rel="icon" type="image/png" sizes="32x32" href="./public/favicon-32x32.png" />
-	<link rel="icon" type="image/png" sizes="16x16" href="./public/favicon-16x16.png" />
-	<link rel="manifest" href="./public/site.webmanifest" />
-	<link rel="mask-icon" href="./public/safari-pinned-tab.svg" color="#5bbad5" />
+	<link rel="apple-touch-icon" sizes="180x180" href="./src/assets/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="./src/assets/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="./src/assets/favicon-16x16.png" />
+	<link rel="manifest" href="/site.webmanifest" />
+	<link rel="mask-icon" href="./src/assets/safari-pinned-tab.svg" color="#5bbad5" />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
-	<link rel="stylesheet" href="./node_modules/tailwindcss/dist/tailwind.min.css" />
+	<link rel="stylesheet" href="/vendor/tailwind-1.2.0.min.css" />
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40583718-3"></script>
 	<script>
@@ -31,17 +31,14 @@
 	</script>
 </head>
 
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="
-      background-image: url('./public/rosie-fraser-1L71sPT5XKc-unsplash.jpg');
-    ">
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover">
 	<div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
 		<!--Main Col-->
 		<div id="profile"
 			class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
 			<div class="p-4 md:p-12 text-center lg:text-left">
 				<!-- Image for mobile view-->
-				<div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-					style="background-image: url('./public/robot-profil.jpg');"></div>
+				<div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"></div>
 
 				<h1 class="text-3xl font-bold pt-8 lg:pt-0">A.I.ku</h1>
 				<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
@@ -92,7 +89,7 @@
 							xmlns="http://www.w3.org/2000/svg">
 							<title>Twitter</title>
 							<path
-								d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z" />
+								d="M23.954 4.569a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.691 8.094 4.066 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.061a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
 						</svg></a>
 
 					<a class="link" target="_blank" href="https://github.com/ltruchot/haiku-generator"><svg
@@ -110,7 +107,7 @@
 								d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
 						</svg></a>
 					<a class="link" target="_blank" href="https://short-edition.com/fr/auteur/swannouchka-rust-ai"><img
-							src="./public/logo-short-editon-dark.png" style="width: 100px;" alt="short-edition" /></a>
+							src="./src/assets/logo-short-editon-dark.png" alt="short-edition" /></a>
 				</div>
 			</div>
 		</div>
@@ -118,7 +115,7 @@
 		<!--Img Col-->
 		<div class="w-full lg:w-2/5">
 			<!-- Big profile image for side bar (desktop) -->
-			<img src="/public/franck-v-YKW0JjP7rlU-unsplash.jpg"
+			<img src="./src/assets/franck-v-YKW0JjP7rlU-unsplash.jpg"
 				class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
 				alt="https://unsplash.com/photos/YKW0JjP7rlU" />
 			<!-- Image from: https://unsplash.com/photos/YKW0JjP7rlU -->
@@ -223,7 +220,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="index.js"></script>
+	<script type="module" src="./src/main.ts"></script>
 </body>
 
 </html>

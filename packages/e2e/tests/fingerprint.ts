@@ -35,11 +35,19 @@ const read = (): Pick<Fingerprint, "dom" | "layout"> => {
     element.tagName === "SCRIPT" ||
     element.tagName === "STYLE" ||
     (element.tagName === "LINK" &&
-      /stylesheet|modulepreload/u.test(element.getAttribute("rel") ?? ""));
+      /stylesheet|modulepreload/u.test(element.getAttribute("rel") ?? "")) ||
+    (element.tagName === "title" && element.parentElement?.tagName === "svg");
+  // The 2020 minifier rewrote the icons: path data reshaped (a thousandth of
+  // a pixel), `role`, `<title>` and a redundant `viewBox` dropped. The source
+  // keeps them (they name the links); the shapes are compared by the screenshots.
+  // oxlint-disable-next-line unicorn/consistent-function-scoping -- must stay in the page function
+  const isIconDetail = (element: Element, name: string): boolean =>
+    (element.tagName === "svg" && ["role", "viewBox"].includes(name)) ||
+    (element.tagName === "path" && name === "d");
   const attributes = (element: Element): string =>
     [...element.attributes]
       // Inline styles are compared as computed styles.
-      .filter((attribute) => attribute.name !== "style")
+      .filter((attribute) => attribute.name !== "style" && !isIconDetail(element, attribute.name))
       .map((attribute) => {
         const value = ["href", "src"].includes(attribute.name)
           ? assetUrl(attribute.value)
@@ -54,7 +62,7 @@ const read = (): Pick<Fingerprint, "dom" | "layout"> => {
   const walk = (element: Element, path: string, depth: number): void => {
     const indent = "  ".repeat(depth);
     dom.push(`${indent}<${element.tagName.toLowerCase()} ${attributes(element)}>`);
-    if (path.startsWith("html/body")) {
+    if (path.startsWith("html/body") && element.tagName !== "path") {
       const style = getComputedStyle(element);
       const box = element.getBoundingClientRect();
       const entry: Record<string, string> = {
