@@ -2,7 +2,7 @@
 name = "haiku-generator"
 version = "0.0.8"
 authors = ["Loïc TRUCHOT"]
-edition = "2018"
+edition = "2021"
 repository = "https://github.com/ltruchot/haiku-generator"
 description = "A gererator of haikus"
 license = "CC-BY-NC-4.0"
