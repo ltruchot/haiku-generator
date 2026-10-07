@@ -40,13 +40,13 @@ pub struct RandChooser(ThreadRng);
 
 impl RandChooser {
     pub fn new() -> RandChooser {
-        RandChooser(rand::thread_rng())
+        RandChooser(rand::rng())
     }
 }
 
 impl Chooser for RandChooser {
     fn index(&mut self, len: usize) -> usize {
-        self.0.gen_range(0..len)
+        self.0.random_range(0..len)
     }
 }
 
