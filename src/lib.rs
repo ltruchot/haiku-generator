@@ -33,14 +33,20 @@ mod verb;
 mod verb_data;
 mod verb_enums;
 
-#[wasm_bindgen]
-pub fn generate() -> Array {
+#[cfg(test)]
+mod characterization;
+
+/// Three lines of 5, 7 and 5 feet.
+pub fn compose() -> Result<[String; 3], Vec<String>> {
     // prepare authorized sentence combinations
     let mut combinations: Combinations = get_combinations();
-    let haiku = generate_haiku(&mut combinations);
+    generate_haiku(&mut combinations)
+}
 
-    // return haiku
-    haiku
+/// The haiku for the page: an array of three strings.
+#[wasm_bindgen]
+pub fn generate() -> Array {
+    compose()
         .unwrap_or([String::from(""), String::from(""), String::from("")])
         .iter()
         .map(JsValue::from)
