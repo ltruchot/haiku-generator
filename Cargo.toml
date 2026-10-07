@@ -3,6 +3,7 @@ name = "haiku-generator"
 version = "0.0.8"
 authors = ["Loïc TRUCHOT"]
 edition = "2021"
+rust-version = "1.99"
 repository = "https://github.com/ltruchot/haiku-generator"
 description = "A gererator of haikus"
 license = "CC-BY-NC-4.0"
@@ -16,5 +17,5 @@ crate-type = ["cdylib"]
 rand = { version = "0.7.3", features = ["wasm-bindgen"] }
 unicode-segmentation = "1.6.0"
 lazy_static = "1.4.0"
-wasm-bindgen = "0.2.60"
-js-sys = "0.3.37"
+wasm-bindgen = "=0.2.129"
+js-sys = "0.3.106"
