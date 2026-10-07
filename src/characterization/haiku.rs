@@ -19,8 +19,8 @@ use crate::string::uppercase_first_letter;
 use crate::verb::get_verb_cat;
 use crate::verb_enums::VerbCatId;
 
-use super::labels::{adj_label, noun_label, verb_label};
 use super::enumeration::enumerate;
+use super::labels::{adj_label, noun_label, verb_label};
 use super::seam::draw;
 
 const HAIKUS: usize = 3_000;
@@ -108,8 +108,16 @@ fn season_adjs() -> Vec<String> {
 fn season_words(parsed: &Parsed) -> usize {
     let nouns = season_nouns();
     let adjs = season_adjs();
-    parsed.nouns.iter().filter(|n| nouns.iter().any(|s| s == *n)).count()
-        + parsed.adjs.iter().filter(|a| adjs.iter().any(|s| s == *a)).count()
+    parsed
+        .nouns
+        .iter()
+        .filter(|n| nouns.iter().any(|s| s == *n))
+        .count()
+        + parsed
+            .adjs
+            .iter()
+            .filter(|a| adjs.iter().any(|s| s == *a))
+            .count()
 }
 
 #[test]
@@ -292,8 +300,18 @@ fn no_noun_or_adjective_is_used_twice_and_verbs_almost_never() {
                 verbs_outside_intransitive.extend(line.verbs.iter().cloned());
             }
         }
-        assert!(duplicates(&nouns).is_empty(), "{:?} nouns {:?}", haiku, nouns);
-        assert!(duplicates(&adjs).is_empty(), "{:?} adjectives {:?}", haiku, adjs);
+        assert!(
+            duplicates(&nouns).is_empty(),
+            "{:?} nouns {:?}",
+            haiku,
+            nouns
+        );
+        assert!(
+            duplicates(&adjs).is_empty(),
+            "{:?} adjectives {:?}",
+            haiku,
+            adjs
+        );
         assert!(
             duplicates(&verbs_outside_intransitive).is_empty(),
             "{:?} verbs {:?}",
@@ -317,7 +335,8 @@ fn no_noun_or_adjective_is_used_twice_and_verbs_almost_never() {
 #[test]
 fn the_same_pattern_can_serve_two_lines() {
     // (lines with 5 feet, lines with 7 feet) among the Ok lines of each golden
-    let expected: [(usize, usize); 5] = [(2243, 940), (399, 1991), (144, 58), (518, 254), (203, 8497)];
+    let expected: [(usize, usize); 5] =
+        [(2243, 940), (399, 1991), (144, 58), (518, 254), (203, 8497)];
     let mut counts = [(0, 0); 5];
     for parsed in index().by_text.values() {
         let line = &parsed[0];
@@ -353,7 +372,12 @@ fn at_most_one_line_mentions_a_season() {
         let counts: Vec<usize> = words(&parsed).into_iter().map(season_words).collect();
         let lines_with_season = counts.iter().filter(|count| **count > 0).count();
         assert!(lines_with_season <= 1, "{:?} {:?}", haiku, counts);
-        assert!(counts.iter().sum::<usize>() <= 2, "{:?} {:?}", haiku, counts);
+        assert!(
+            counts.iter().sum::<usize>() <= 2,
+            "{:?} {:?}",
+            haiku,
+            counts
+        );
     }
 }
 

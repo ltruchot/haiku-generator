@@ -67,7 +67,11 @@ pub fn diff_hint(expected: &str, actual: &str) -> Option<String> {
     }
     let exp: Vec<&str> = expected.lines().collect();
     let act: Vec<&str> = actual.lines().collect();
-    let common = if exp.len() < act.len() { exp.len() } else { act.len() };
+    let common = if exp.len() < act.len() {
+        exp.len()
+    } else {
+        act.len()
+    };
     let mut first = common;
     for i in 0..common {
         if exp[i] != act[i] {

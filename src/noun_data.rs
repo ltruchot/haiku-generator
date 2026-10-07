@@ -336,7 +336,7 @@ lazy_static! {
                 nouns: vec![NounId::Printemps, NounId::Hiver, NounId::Automne,],
                 rel: NounRelations {
                     attributes: vec![AdjCatId::Froideur],
-                    epithets: vec![AdjCatId::Froideur,                        
+                    epithets: vec![AdjCatId::Froideur,
                     AdjCatId::ColorationDiapree,
                     AdjCatId::ColorationBrillante,
                     AdjCatId::ColorationBleue],

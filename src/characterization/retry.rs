@@ -256,7 +256,12 @@ fn blacklists_flow_from_line_to_line() {
     assert_eq!(run(patterns, &mut script), haiku(["Zero", "one", "two"]));
 
     let set = |nouns: &[NounId]| -> HashSet<NounId> { HashSet::from_iter(nouns.iter().cloned()) };
-    let seasons = [NounId::Printemps, NounId::Ete, NounId::Automne, NounId::Hiver];
+    let seasons = [
+        NounId::Printemps,
+        NounId::Ete,
+        NounId::Automne,
+        NounId::Hiver,
+    ];
     let mut with_midi = seasons.to_vec();
     with_midi.extend([NounId::Midi, NounId::Minuit].iter().cloned());
     // (nouns, number of adjectives, number of verbs) seen by each try

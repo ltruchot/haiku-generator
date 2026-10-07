@@ -5,7 +5,7 @@ use common_enums::{Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{WordGroup, get_plural};
+use wordgroup::{get_plural, WordGroup};
 
 // strings
 use crate::string;
@@ -41,7 +41,7 @@ impl Adj {
                     text: String::from(masc),
                     foots: self.word.foots,
                 },
-                None => get_plural(&self.word)
+                None => get_plural(&self.word),
             },
             ToAgree::Form(Gender::Female, Number::Singular) => match &self.fem {
                 Some(fem) => WordGroup {
@@ -55,9 +55,7 @@ impl Adj {
                     text: String::from(fem_plur),
                     foots: self.word.foots,
                 },
-                None => {
-                    get_plural(&get_feminine(&self.word))
-                }
+                None => get_plural(&get_feminine(&self.word)),
             },
         }
     }
@@ -106,22 +104,22 @@ fn get_feminine(wg: &WordGroup) -> WordGroup {
     } else if last_three == "eux" || last_three == "eur" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 3), "euse"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else if &last_two == "er" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 2), "ère"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else if &last_two == "et" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 2), "ette"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else {
         WordGroup {
             text: [&wg.text, "e"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     }
 }

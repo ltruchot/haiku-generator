@@ -30,7 +30,11 @@ impl Odometer {
     pub fn advance(&mut self) -> bool {
         // a replayed prefix leads to the same questions: the run consumed
         // the whole recorded path
-        assert_eq!(self.position, self.path.len(), "the tree is not deterministic");
+        assert_eq!(
+            self.position,
+            self.path.len(),
+            "the tree is not deterministic"
+        );
         self.position = 0;
         while let Some((choice, len)) = self.path.pop() {
             if choice + 1 < len {
@@ -42,7 +46,10 @@ impl Odometer {
     }
 
     pub fn probability(&self) -> f64 {
-        self.path.iter().map(|(_, len)| 1.0 / (*len as f64)).product()
+        self.path
+            .iter()
+            .map(|(_, len)| 1.0 / (*len as f64))
+            .product()
     }
 
     /// The number of options of each decision of the current path.

@@ -33,9 +33,9 @@ use std::time::Instant;
 use crate::combination_data::get_combinations;
 use crate::common_enums::BlackLists;
 
+use super::enumeration::{distribution, enumerate, err_line, ok_line, PATTERN_NAMES};
 use super::golden::{assert_golden_lines, read_golden_lines, updating};
 use super::grammar::graphemes_differ_from_chars;
-use super::enumeration::{distribution, enumerate, err_line, ok_line, PATTERN_NAMES};
 use super::seam::draw;
 
 pub fn golden_name(index: usize) -> String {

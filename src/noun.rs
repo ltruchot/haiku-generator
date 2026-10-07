@@ -5,14 +5,13 @@ use common_enums::{Article, Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, WordGroup, get_plural};
+use wordgroup::{add_words, check_ellision, get_plural, WordGroup};
 
 // nouns
 use crate::noun_data;
 use crate::noun_enums;
-use noun_data::{NOUN_CATS};
+use noun_data::NOUN_CATS;
 use noun_enums::{NounCatId, NounId};
-
 
 #[derive(Clone)]
 pub struct Noun {
@@ -58,7 +57,10 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
+                            None => WordGroup::new(
+                                "#error#get_with_some_article#No first letter for ellision#",
+                                0,
+                            ),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("un"),
@@ -81,7 +83,10 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
+                            None => WordGroup::new(
+                                "#error#get_with_some_article#No first letter for ellision#",
+                                0,
+                            ),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("une"),
@@ -96,13 +101,8 @@ impl Noun {
 
     pub fn agreed(self: &Self, number: Number) -> WordGroup {
         match number {
-            Number::Plural => {
-                get_plural(&self.word)
-            }
-            ,
-            Number::Singular => {
-                self.word.clone()
-            },
+            Number::Plural => get_plural(&self.word),
+            Number::Singular => self.word.clone(),
         }
     }
 
@@ -232,4 +232,3 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
     };
     add_words(&apposition, &noun.word)
 }
-

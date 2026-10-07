@@ -23,8 +23,8 @@ use crate::verb_data::{VERBS, VERB_CATS};
 use super::golden::assert_golden_lines;
 use super::labels::{adj_label, join, noun_label, opt_str, opt_wg, verb_label, wg};
 use super::names::{
-    adj_cat_name, adj_id_name, article_name, gender_name, noun_cat_name, noun_id_name,
-    number_name, verb_cat_name, verb_group_name, verb_id_name, verb_kind_name,
+    adj_cat_name, adj_id_name, article_name, gender_name, noun_cat_name, noun_id_name, number_name,
+    verb_cat_name, verb_group_name, verb_id_name, verb_kind_name,
 };
 
 pub const NUMBERS: [Number; 2] = [Number::Singular, Number::Plural];
@@ -320,7 +320,11 @@ fn every_table_string_has_one_char_per_grapheme() {
         .filter(|(_, text)| graphemes_differ_from_chars(text))
         .map(|(origin, text)| format!("{} {:?}", origin, text))
         .collect();
-    assert!(offenders.is_empty(), "graphemes != chars for {:?}", offenders);
+    assert!(
+        offenders.is_empty(),
+        "graphemes != chars for {:?}",
+        offenders
+    );
 }
 
 // Same check on everything the grammar derives from the tables (plurals,
@@ -334,5 +338,9 @@ fn every_derived_form_has_one_char_per_grapheme() {
         .iter()
         .filter(|line| graphemes_differ_from_chars(line))
         .collect();
-    assert!(offenders.is_empty(), "graphemes != chars for {:?}", offenders);
+    assert!(
+        offenders.is_empty(),
+        "graphemes != chars for {:?}",
+        offenders
+    );
 }

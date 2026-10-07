@@ -72,6 +72,10 @@ pub fn join<T, F: Fn(&T) -> String>(items: &[T], label: F) -> String {
     if items.is_empty() {
         String::from("-")
     } else {
-        items.iter().map(|item| label(item)).collect::<Vec<String>>().join(", ")
+        items
+            .iter()
+            .map(|item| label(item))
+            .collect::<Vec<String>>()
+            .join(", ")
     }
 }

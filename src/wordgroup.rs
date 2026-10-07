@@ -1,7 +1,7 @@
 // IMPORTS
 // externals
+use crate::string::{drop_last_graphemes, take_last_grapheme, take_last_graphemes};
 use unicode_segmentation::UnicodeSegmentation;
-use crate::string::{take_last_graphemes, take_last_grapheme, drop_last_graphemes};
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct WordGroup {
@@ -13,7 +13,7 @@ impl WordGroup {
     pub fn new(text: &str, foots_base: u8) -> WordGroup {
         WordGroup {
             text: String::from(text),
-            foots: (foots_base, foots_base)
+            foots: (foots_base, foots_base),
         }
     }
     pub fn new_empty() -> WordGroup {
@@ -24,60 +24,67 @@ impl WordGroup {
     }
 }
 
-pub fn fold_wordgroups (wgs: Vec<&WordGroup>) -> WordGroup {
-    wgs
-    .iter()
-    .fold(WordGroup::new_empty(), |acc, wg|add_words(&acc, wg))
+pub fn fold_wordgroups(wgs: Vec<&WordGroup>) -> WordGroup {
+    wgs.iter()
+        .fold(WordGroup::new_empty(), |acc, wg| add_words(&acc, wg))
 }
 
-pub fn check_ellision (letter: &char) -> bool {
+pub fn check_ellision(letter: &char) -> bool {
     let ellisions = ['a', 'e', 'i', 'o', 'u', 'é', 'h', 'â'];
     ellisions.contains(letter)
 }
 
-pub fn add_words (a: &WordGroup, b: &WordGroup) -> WordGroup {
+pub fn add_words(a: &WordGroup, b: &WordGroup) -> WordGroup {
     // println!("add {} {}", a.text, b.text);
     // "e" muet en français
     // shortcircuit for des, de, les, le , se
     let last = take_last_grapheme(&a.text);
     let three_last = take_last_graphemes(&a.text, 3);
-    let shortcircuit = three_last == " le" ||
-    three_last == " de" || three_last == " se" ||
-     a.text.graphemes(true).count() <= 3 && (
-        a.text == "le" ||
-        a.text == "se" ||
-        a.text == "de" ||
-        a.text == "les" ||
-        a.text == "des"
-    );
+    let shortcircuit = three_last == " le"
+        || three_last == " de"
+        || three_last == " se"
+        || a.text.graphemes(true).count() <= 3
+            && (a.text == "le"
+                || a.text == "se"
+                || a.text == "de"
+                || a.text == "les"
+                || a.text == "des");
     // println!("{}", shortcircuit);
     let with_space = last != "'" && &a.text != "";
 
     let should_amend_foots = if !shortcircuit {
-        let consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s","t", "v", "w", "x", "z"];
+        let consonants = [
+            "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v",
+            "w", "x", "z",
+        ];
         let two_last = take_last_graphemes(&a.text, 2);
         // println!("lasts: {} {}", last, two_last);
-        let penultimate_opt = if last == "e"  {
+        let penultimate_opt = if last == "e" {
             a.text.trim().graphemes(true).rev().nth(1)
         } else if two_last == "es" {
             a.text.trim().graphemes(true).rev().nth(2)
         } else {
             None
         };
-        match penultimate_opt{
+        match penultimate_opt {
             Some(prev) => {
                 // println!("penultieme {}", prev);
-                consonants.contains(&prev) && ({
-                    match b.text.trim().graphemes(true).nth(0) {
-                        Some(letter) => {
-                            // println!("next is {}", letter);
-                            if two_last == "es" { true } else { consonants.contains(&letter) }
+                consonants.contains(&prev)
+                    && ({
+                        match b.text.trim().graphemes(true).nth(0) {
+                            Some(letter) => {
+                                // println!("next is {}", letter);
+                                if two_last == "es" {
+                                    true
+                                } else {
+                                    consonants.contains(&letter)
+                                }
+                            }
+                            None => false,
                         }
-                        None => false,
-                    }
-                })
-            },
-            None => false
+                    })
+            }
+            None => false,
         }
     } else {
         false
@@ -85,17 +92,23 @@ pub fn add_words (a: &WordGroup, b: &WordGroup) -> WordGroup {
     // println!("add {} {} {}", a.text, b.text, should_amend_foots);
     // combination
     WordGroup {
-        text: [
-            String::from(&a.text), 
-            String::from(&b.text)
-        ].join(if with_space {" "} else {""}),
+        text: [String::from(&a.text), String::from(&b.text)].join(if with_space {
+            " "
+        } else {
+            ""
+        }),
         foots: {
             let modifier = if should_amend_foots {
                 // println!("should amend {}", a.text);
                 1
-            } else { 0 };
-            (a.foots.0 + b.foots.0 + modifier , a.foots.1 + b.foots.1 + modifier)
-        }
+            } else {
+                0
+            };
+            (
+                a.foots.0 + b.foots.0 + modifier,
+                a.foots.1 + b.foots.1 + modifier,
+            )
+        },
     }
 }
 
@@ -110,18 +123,9 @@ mod tests {
         let res1 = super::WordGroup::new("le bruissement", 4);
         let res2 = super::WordGroup::new("le bruissement de", 5);
         let res3 = super::WordGroup::new("le bruissement de feuille", 6);
-        assert_eq!(
-            super::add_words(&arti, &nou1), 
-            res1                
-        );
-        assert_eq!(
-            super::add_words(&res1, &appo), 
-            res2              
-        );
-        assert_eq!(
-            super::add_words(&res2, &nou2), 
-            res3              
-        );
+        assert_eq!(super::add_words(&arti, &nou1), res1);
+        assert_eq!(super::add_words(&res1, &appo), res2);
+        assert_eq!(super::add_words(&res2, &nou2), res3);
     }
 }
 
@@ -134,12 +138,12 @@ pub fn get_plural(wg: &WordGroup) -> WordGroup {
         let new_lemme = &drop_last_graphemes(&wg.text, 2);
         WordGroup {
             text: [new_lemme, "aux"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else {
         WordGroup {
             text: [&wg.text, "s"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     }
 }

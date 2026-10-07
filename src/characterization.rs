@@ -31,10 +31,10 @@ mod labels;
 mod names;
 mod seam;
 
+mod enumeration;
 mod grammar;
 mod haiku;
 mod helpers;
-mod enumeration;
 mod odometer;
 mod patterns;
 mod retry;

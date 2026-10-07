@@ -100,8 +100,16 @@ fn add_words_table() {
         // leading blanks of the right side are skipped when looking at its first letter
         (wg("lune", 1), wg(" calme", 1), wg("lune  calme", 3)),
         // --- mute e, plural: "<consonant>es" counts one more whatever follows
-        (wg("les lunes", 2), wg("calmes", 1), wg("les lunes calmes", 4)),
-        (wg("les lunes", 2), wg("immenses", 2), wg("les lunes immenses", 5)),
+        (
+            wg("les lunes", 2),
+            wg("calmes", 1),
+            wg("les lunes calmes", 4),
+        ),
+        (
+            wg("les lunes", 2),
+            wg("immenses", 2),
+            wg("les lunes immenses", 5),
+        ),
         // ... not when the letter before "es" is a vowel
         (wg("les pies", 2), wg("noires", 1), wg("les pies noires", 3)),
         (wg("es", 1), wg("lune", 1), wg("es lune", 2)),
@@ -114,8 +122,16 @@ fn add_words_table() {
         (wg("les", 1), wg("lunes", 1), wg("les lunes", 2)),
         (wg("des", 1), wg("lunes", 1), wg("des lunes", 2)),
         // ... nor a left side ending with " le", " de", " se"
-        (wg("le bruissement de", 5), wg("feuille", 1), wg("le bruissement de feuille", 6)),
-        (wg("la lune se", 3), wg("couche", 1), wg("la lune se couche", 4)),
+        (
+            wg("le bruissement de", 5),
+            wg("feuille", 1),
+            wg("le bruissement de feuille", 6),
+        ),
+        (
+            wg("la lune se", 3),
+            wg("couche", 1),
+            wg("la lune se couche", 4),
+        ),
         (wg("voit le", 2), wg("cerf", 1), wg("voit le cerf", 3)),
         // ... but " les" / " des" inside a group, or other short words, do
         (wg("voit les", 2), wg("cerfs", 1), wg("voit les cerfs", 4)),
@@ -145,7 +161,12 @@ fn fold_wordgroups_table() {
     assert_eq!(fold_wordgroups(vec![]), wg("", 0));
     assert_eq!(fold_wordgroups(vec![&wg("lune", 1)]), wg("lune", 1));
     assert_eq!(
-        fold_wordgroups(vec![&wg("", 0), &wg("lune", 1), &wg("de", 1), &wg("printemps", 2)]),
+        fold_wordgroups(vec![
+            &wg("", 0),
+            &wg("lune", 1),
+            &wg("de", 1),
+            &wg("printemps", 2)
+        ]),
         wg("lune de printemps", 5)
     );
     assert_eq!(
@@ -180,8 +201,14 @@ fn get_plural_table() {
         assert_eq!(get_plural(&wg(singular, 2)), wg(plural, 2), "{}", singular);
     }
     // the feet range is kept as is
-    assert_eq!(get_plural(&range("cerisier", 3, 4)), range("cerisiers", 3, 4));
-    assert_eq!(get_plural(&range("automnal", 3, 4)), range("automnaux", 3, 4));
+    assert_eq!(
+        get_plural(&range("cerisier", 3, 4)),
+        range("cerisiers", 3, 4)
+    );
+    assert_eq!(
+        get_plural(&range("automnal", 3, 4)),
+        range("automnaux", 3, 4)
+    );
 }
 
 // ----------------------------------------------------------------- adjectives
@@ -222,7 +249,10 @@ fn feminine_and_plural_rules_table() {
         assert_eq!(agreed(Gender::Male, Number::Singular), range(masc, 2, 3));
         assert_eq!(agreed(Gender::Female, Number::Singular), range(fem, 2, 3));
         assert_eq!(agreed(Gender::Male, Number::Plural), range(masc_plur, 2, 3));
-        assert_eq!(agreed(Gender::Female, Number::Plural), range(fem_plur, 2, 3));
+        assert_eq!(
+            agreed(Gender::Female, Number::Plural),
+            range(fem_plur, 2, 3)
+        );
     }
 }
 
@@ -238,20 +268,57 @@ fn special_adjective_forms_win_over_the_rules() {
         false,
         (1, 2),
     );
-    assert_eq!(adj.agreed(Gender::Male, Number::Singular), range("roux", 1, 2));
-    assert_eq!(adj.agreed(Gender::Female, Number::Singular), range("rousse", 1, 2));
-    assert_eq!(adj.agreed(Gender::Male, Number::Plural), range("ROUX", 1, 2));
-    assert_eq!(adj.agreed(Gender::Female, Number::Plural), range("rousses", 1, 2));
+    assert_eq!(
+        adj.agreed(Gender::Male, Number::Singular),
+        range("roux", 1, 2)
+    );
+    assert_eq!(
+        adj.agreed(Gender::Female, Number::Singular),
+        range("rousse", 1, 2)
+    );
+    assert_eq!(
+        adj.agreed(Gender::Male, Number::Plural),
+        range("ROUX", 1, 2)
+    );
+    assert_eq!(
+        adj.agreed(Gender::Female, Number::Plural),
+        range("rousses", 1, 2)
+    );
 
     // a missing special form falls back to the rule, each form on its own:
     // the feminine plural is NOT derived from the special feminine
-    let adj = Adj::new_special(AdjId::Inquiet, "inquiet", some("inquiète"), None, None, false, (2, 3));
-    assert_eq!(adj.agreed(Gender::Female, Number::Singular), range("inquiète", 2, 3));
-    assert_eq!(adj.agreed(Gender::Male, Number::Plural), range("inquiets", 2, 3));
-    assert_eq!(adj.agreed(Gender::Female, Number::Plural), range("inquiettes", 2, 3));
+    let adj = Adj::new_special(
+        AdjId::Inquiet,
+        "inquiet",
+        some("inquiète"),
+        None,
+        None,
+        false,
+        (2, 3),
+    );
+    assert_eq!(
+        adj.agreed(Gender::Female, Number::Singular),
+        range("inquiète", 2, 3)
+    );
+    assert_eq!(
+        adj.agreed(Gender::Male, Number::Plural),
+        range("inquiets", 2, 3)
+    );
+    assert_eq!(
+        adj.agreed(Gender::Female, Number::Plural),
+        range("inquiettes", 2, 3)
+    );
 
     // invariable wins over everything, special forms included
-    let adj = Adj::new_special(AdjId::Pastel, "pastel", some("x"), some("y"), some("z"), true, (2, 2));
+    let adj = Adj::new_special(
+        AdjId::Pastel,
+        "pastel",
+        some("x"),
+        some("y"),
+        some("z"),
+        true,
+        (2, 2),
+    );
     for gender in [Gender::Male, Gender::Female].iter() {
         for number in [Number::Singular, Number::Plural].iter() {
             assert_eq!(adj.agreed(*gender, *number), wg("pastel", 2));
@@ -289,8 +356,24 @@ fn noun_articles_table() {
         (&etoile, p, Article::Definite, wg("les", 1)),
         (&cerf, p, Article::Indefinite, wg("des", 1)),
         // empty lemma: an error marker as text, for the singular definite only
-        (&empty, s, Article::Definite, wg("#error#get_with_some_article#No first letter for ellision#", 0)),
-        (&empty_male, s, Article::Definite, wg("#error#get_with_some_article#No first letter for ellision#", 0)),
+        (
+            &empty,
+            s,
+            Article::Definite,
+            wg(
+                "#error#get_with_some_article#No first letter for ellision#",
+                0,
+            ),
+        ),
+        (
+            &empty_male,
+            s,
+            Article::Definite,
+            wg(
+                "#error#get_with_some_article#No first letter for ellision#",
+                0,
+            ),
+        ),
         (&empty, s, Article::Indefinite, wg("une", 1)),
         (&empty, p, Article::Definite, wg("les", 1)),
     ];
@@ -355,8 +438,16 @@ fn apposition_table() {
         (&cerf, Article::Indefinite, range("d'un cerf", 2, 2)),
         (&hiver, Article::Indefinite, range("d'un hiver", 3, 3)),
         // empty lemma: error markers as text
-        (&empty, Article::None, range("#error#get_apposition#No first letter# ", 0, 0)),
-        (&empty, Article::Definite, range("#error#get_apposition#No first letter# ", 1, 1)),
+        (
+            &empty,
+            Article::None,
+            range("#error#get_apposition#No first letter# ", 0, 0),
+        ),
+        (
+            &empty,
+            Article::Definite,
+            range("#error#get_apposition#No first letter# ", 1, 1),
+        ),
     ];
     for (noun, article, expected) in cases.iter() {
         assert_eq!(
@@ -388,16 +479,44 @@ fn verb_agree_table() {
     let p = Number::Plural;
     let cases = [
         // first group: -er -> -e / -ent, one foot less than the infinitive
-        (verb("rester", 2, VerbGroup::First, false), s, wg("reste", 1)),
-        (verb("rester", 2, VerbGroup::First, false), p, wg("restent", 1)),
-        (verb("demeurer", 3, VerbGroup::First, false), p, wg("demeurent", 2)),
+        (
+            verb("rester", 2, VerbGroup::First, false),
+            s,
+            wg("reste", 1),
+        ),
+        (
+            verb("rester", 2, VerbGroup::First, false),
+            p,
+            wg("restent", 1),
+        ),
+        (
+            verb("demeurer", 3, VerbGroup::First, false),
+            p,
+            wg("demeurent", 2),
+        ),
         // first group in -ever: è
         (verb("lever", 2, VerbGroup::First, false), s, wg("lève", 1)),
-        (verb("lever", 2, VerbGroup::First, false), p, wg("lèvent", 1)),
-        (verb("achever", 3, VerbGroup::First, false), s, wg("achève", 2)),
+        (
+            verb("lever", 2, VerbGroup::First, false),
+            p,
+            wg("lèvent", 1),
+        ),
+        (
+            verb("achever", 3, VerbGroup::First, false),
+            s,
+            wg("achève", 2),
+        ),
         // second group: -ir -> -it / -issent, same feet as the infinitive
-        (verb("assoupir", 3, VerbGroup::Second, false), s, wg("assoupit", 3)),
-        (verb("assoupir", 3, VerbGroup::Second, false), p, wg("assoupissent", 3)),
+        (
+            verb("assoupir", 3, VerbGroup::Second, false),
+            s,
+            wg("assoupit", 3),
+        ),
+        (
+            verb("assoupir", 3, VerbGroup::Second, false),
+            p,
+            wg("assoupissent", 3),
+        ),
         // third group without irregular forms: an error marker as text
         (
             verb("dormir", 2, VerbGroup::Third, false),
@@ -410,10 +529,26 @@ fn verb_agree_table() {
             wg("error#Verb::agree#third group is not implemented yet", 0),
         ),
         // pronominal: "se" (1 foot) or "s'" (0 foot) in front
-        (verb("lever", 2, VerbGroup::First, true), s, wg("se lève", 2)),
-        (verb("coucher", 2, VerbGroup::First, true), p, wg("se couchent", 2)),
-        (verb("éveiller", 3, VerbGroup::First, true), s, wg("s'éveille", 2)),
-        (verb("assoupir", 3, VerbGroup::Second, true), p, wg("s'assoupissent", 3)),
+        (
+            verb("lever", 2, VerbGroup::First, true),
+            s,
+            wg("se lève", 2),
+        ),
+        (
+            verb("coucher", 2, VerbGroup::First, true),
+            p,
+            wg("se couchent", 2),
+        ),
+        (
+            verb("éveiller", 3, VerbGroup::First, true),
+            s,
+            wg("s'éveille", 2),
+        ),
+        (
+            verb("assoupir", 3, VerbGroup::Second, true),
+            p,
+            wg("s'assoupissent", 3),
+        ),
         // QUIRK: the pronoun is put in front of the error marker too, and "e" elides
         (
             verb("dormir", 2, VerbGroup::Third, true),
@@ -479,8 +614,14 @@ fn as_pronominal_table() {
 
 #[test]
 fn verb_lookups() {
-    assert_eq!(get_verb(VerbId::Etre).ok().map(|v| v.word), Some(wg("être", 1)));
-    assert_eq!(get_verb(VerbId::SeLever).ok().map(|v| v.word), Some(wg("lever", 2)));
+    assert_eq!(
+        get_verb(VerbId::Etre).ok().map(|v| v.word),
+        Some(wg("être", 1))
+    );
+    assert_eq!(
+        get_verb(VerbId::SeLever).ok().map(|v| v.word),
+        Some(wg("lever", 2))
+    );
     assert_eq!(get_verb_cat(&VerbCatId::Etat).map(|c| c.len()), Ok(6));
     assert_eq!(get_verb_cat(&VerbCatId::EtatDEveil).map(|c| c.len()), Ok(7));
 }
@@ -578,7 +719,11 @@ fn blacklists_new_empty_and_merge() {
     let merged = merge_blacklists(&a, &b);
     assert!(same(
         &merged,
-        &blacklists(&[NounId::Lune, NounId::Cerf], &[AdjId::Bleu], &[VerbId::Etre])
+        &blacklists(
+            &[NounId::Lune, NounId::Cerf],
+            &[AdjId::Bleu],
+            &[VerbId::Etre]
+        )
     ));
     assert!(same(&merge_blacklists(&a, &empty), &a));
 }
@@ -596,8 +741,16 @@ fn adjust_blacklist_table() {
         // nothing special: unchanged
         (blacklists(&[], &[], &[]), blacklists(&[], &[], &[])),
         (
-            blacklists(&[NounId::Lune, NounId::Aurore], &[AdjId::Bleu], &[VerbId::Etre]),
-            blacklists(&[NounId::Lune, NounId::Aurore], &[AdjId::Bleu], &[VerbId::Etre]),
+            blacklists(
+                &[NounId::Lune, NounId::Aurore],
+                &[AdjId::Bleu],
+                &[VerbId::Etre],
+            ),
+            blacklists(
+                &[NounId::Lune, NounId::Aurore],
+                &[AdjId::Bleu],
+                &[VerbId::Etre],
+            ),
         ),
         // a season noun: the four season nouns AND the four season adjectives
         (
@@ -605,7 +758,11 @@ fn adjust_blacklist_table() {
             all_seasons(&[], &[], &[]),
         ),
         (
-            blacklists(&[NounId::Hiver, NounId::Lune], &[AdjId::Bleu], &[VerbId::Etre]),
+            blacklists(
+                &[NounId::Hiver, NounId::Lune],
+                &[AdjId::Bleu],
+                &[VerbId::Etre],
+            ),
             all_seasons(&[NounId::Lune], &[AdjId::Bleu], &[VerbId::Etre]),
         ),
         // a season adjective: same thing
@@ -624,7 +781,11 @@ fn adjust_blacklist_table() {
         ),
         (
             blacklists(&[NounId::Minuit, NounId::Cerf], &[AdjId::Bleu], &[]),
-            blacklists(&[NounId::Midi, NounId::Minuit, NounId::Cerf], &[AdjId::Bleu], &[]),
+            blacklists(
+                &[NounId::Midi, NounId::Minuit, NounId::Cerf],
+                &[AdjId::Bleu],
+                &[],
+            ),
         ),
         // both rules at once
         (
@@ -759,7 +920,10 @@ fn rand_noun_edges() {
         assert_eq!(lemma(&[NounId::Lune, NounId::Cerf], &all), not_found);
         // the blacklist filters before the draw
         let lune: HashSet<NounId> = HashSet::from_iter([NounId::Lune].iter().cloned());
-        assert_eq!(lemma(&[NounId::Lune, NounId::Cerf], &lune), Ok(String::from("cerf")));
+        assert_eq!(
+            lemma(&[NounId::Lune, NounId::Cerf], &lune),
+            Ok(String::from("cerf"))
+        );
         // CURRENT BEHAVIOUR: "raie" is declared with the id of "éclat"
         // (noun_data.rs), so NounId::Raie has no entry and NounId::Eclat is
         // always "éclat"
@@ -780,7 +944,10 @@ fn rand_adj_edges() {
         assert_eq!(lemma(&[], &none), not_found);
         let bleu: HashSet<AdjId> = HashSet::from_iter([AdjId::Bleu].iter().cloned());
         assert_eq!(lemma(&[AdjId::Bleu], &bleu), not_found);
-        assert_eq!(lemma(&[AdjId::Bleu, AdjId::Brun], &bleu), Ok(String::from("brun")));
+        assert_eq!(
+            lemma(&[AdjId::Bleu, AdjId::Brun], &bleu),
+            Ok(String::from("brun"))
+        );
         // CURRENT BEHAVIOUR: ids without an entry in ADJS ...
         for missing in [AdjId::Grand, AdjId::Diaphane, AdjId::Bigarre, AdjId::Doux].iter() {
             assert_eq!(lemma(&[*missing], &none), not_found);
@@ -788,7 +955,10 @@ fn rand_adj_edges() {
         // ... two of them because "bigarré" and "doux" are declared with the
         // ids of "halé" and "paisible" (adj_data.rs)
         assert_eq!(lemma(&[AdjId::Hale], &none), Ok(String::from("halé")));
-        assert_eq!(lemma(&[AdjId::Paisible], &none), Ok(String::from("paisible")));
+        assert_eq!(
+            lemma(&[AdjId::Paisible], &none),
+            Ok(String::from("paisible"))
+        );
     }
 }
 
@@ -804,7 +974,10 @@ fn rand_verb_edges() {
         assert_eq!(lemma(&[], &none), not_found);
         let etre: HashSet<VerbId> = HashSet::from_iter([VerbId::Etre].iter().cloned());
         assert_eq!(lemma(&[VerbId::Etre], &etre), not_found);
-        assert_eq!(lemma(&[VerbId::Etre, VerbId::Rester], &etre), Ok(String::from("rester")));
+        assert_eq!(
+            lemma(&[VerbId::Etre, VerbId::Rester], &etre),
+            Ok(String::from("rester"))
+        );
     }
 }
 
@@ -837,7 +1010,10 @@ fn rand_article_and_number_edges() {
             "Definite"
         );
         // no candidate: Indefinite
-        assert_eq!(article_name(seam::rand_article(Some(&vec![]))), "Indefinite");
+        assert_eq!(
+            article_name(seam::rand_article(Some(&vec![]))),
+            "Indefinite"
+        );
         // no list: any of the three; a number: any of the two
         articles.insert(article_name(seam::rand_article(None)));
         numbers.insert(super::names::number_name(seam::rand_number()));

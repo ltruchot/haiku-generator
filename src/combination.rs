@@ -33,7 +33,10 @@ use noun::{
 
 // random
 use crate::random;
-use random::{choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb, Chooser};
+use random::{
+    choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb,
+    Chooser,
+};
 
 // EXPORTS
 pub type Combination =

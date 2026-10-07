@@ -7,10 +7,10 @@ extern crate lazy_static;
 
 // commons
 mod common_enums;
+mod hashsets;
 mod random;
 mod string;
 mod wordgroup;
-mod hashsets;
 
 // haikus
 mod haiku;
@@ -48,4 +48,3 @@ pub fn generate() -> Array {
         .map(JsValue::from)
         .collect()
 }
-

@@ -5,11 +5,11 @@ use crate::random::{shuffle, Chooser, RandChooser};
 
 // common
 use crate::common_enums;
-use common_enums::{BlackLists, adjust_blacklist};
+use common_enums::{adjust_blacklist, BlackLists};
 
 // strings
 use crate::string;
-use string::{uppercase_first_letter};
+use string::uppercase_first_letter;
 // wordgroups
 use crate::wordgroup;
 use wordgroup::WordGroup;
@@ -32,7 +32,10 @@ pub fn generate_haiku(combinations: &mut Combinations) -> Result<[String; 3], Ve
     generate_haiku_with(combinations, &mut RandChooser::new())
 }
 
-pub fn generate_haiku_with(combinations: &mut Combinations, rng: &mut dyn Chooser) -> Result<[String; 3], Vec<String>> {
+pub fn generate_haiku_with(
+    combinations: &mut Combinations,
+    rng: &mut dyn Chooser,
+) -> Result<[String; 3], Vec<String>> {
     shuffle(rng, combinations);
     //let mut noun_black_list: Vec<NounId> = vec![];
     // compose haiku
