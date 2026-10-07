@@ -2,8 +2,6 @@
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
-#[macro_use]
-extern crate lazy_static;
 
 // commons
 mod common_enums;

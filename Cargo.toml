@@ -16,7 +16,6 @@ crate-type = ["cdylib"]
 [dependencies]
 rand = "0.10"
 unicode-segmentation = "1.13"
-lazy_static = "1.4.0"
 wasm-bindgen = "=0.2.129"
 js-sys = "0.3.106"
 

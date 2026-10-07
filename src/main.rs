@@ -1,6 +1,4 @@
 // externals
-#[macro_use]
-extern crate lazy_static;
 
 // commons
 mod common_enums;

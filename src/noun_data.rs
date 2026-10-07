@@ -1,5 +1,6 @@
 // IMPORTS
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 use crate::common_enums;
 use common_enums::Gender;
@@ -19,61 +20,61 @@ use verb_enums::VerbCatId;
 
 // EXPORTS
 pub type StaticNouns = [Noun; 71];
-lazy_static! {
-    pub static ref NOUNS: StaticNouns = [
-        Noun::new(NounId::Lune, "lune", Gender::Female, (1, 1),),
-        Noun::new(NounId::Soleil, "soleil", Gender::Male, (2, 2),),
-        Noun::new(NounId::Etoile, "étoile", Gender::Female, (2, 2),),
+pub static NOUNS: LazyLock<StaticNouns> = LazyLock::new(|| {
+    [
+        Noun::new(NounId::Lune, "lune", Gender::Female, (1, 1)),
+        Noun::new(NounId::Soleil, "soleil", Gender::Male, (2, 2)),
+        Noun::new(NounId::Etoile, "étoile", Gender::Female, (2, 2)),
         Noun::new(NounId::Bruit, "bruit", Gender::Male, (1, 2)),
         Noun::new(NounId::Chant, "chant", Gender::Male, (1, 1)),
-        Noun::new(NounId::Bruissement, "bruissement", Gender::Male, (3, 3),),
-        Noun::new(NounId::Lumiere, "lumière", Gender::Female, (2, 3),),
-        Noun::new(NounId::Rayon, "rayon", Gender::Male, (2, 2),),
-        Noun::new(NounId::Odeur, "odeur", Gender::Female, (2, 2),),
-        Noun::new(NounId::Parfum, "parfum", Gender::Male, (2, 2),),
-        Noun::new(NounId::Arome, "arôme", Gender::Male, (2, 2),),
-        Noun::new(NounId::Printemps, "printemps", Gender::Male, (2, 2),),
-        Noun::new(NounId::Ete, "été", Gender::Male, (2, 2),),
-        Noun::new(NounId::Automne, "automne", Gender::Male, (2, 2),),
-        Noun::new(NounId::Hiver, "hiver", Gender::Male, (2, 2),),
-        Noun::new(NounId::Prunier, "prunier", Gender::Male, (2, 3),),
-        Noun::new(NounId::Cerisier, "cerisier", Gender::Male, (3, 4),),
-        Noun::new(NounId::Oeillet, "oeillet", Gender::Male, (2, 2),),
-        Noun::new(NounId::Glycine, "glycine", Gender::Female, (2, 2),),
-        Noun::new(NounId::Pivoine, "pivoine", Gender::Female, (2, 2),),
-        Noun::new(NounId::Feuille, "feuille", Gender::Female, (1, 1),),
-        Noun::new(NounId::Branche, "branche", Gender::Female, (1, 1),),
-        Noun::new(NounId::Aurore, "aurore", Gender::Female, (2, 2),),
-        Noun::new(NounId::Crepuscule, "crépuscule", Gender::Male, (3, 3),),
-        Noun::new(NounId::Midi, "midi", Gender::Male, (2, 2),),
-        Noun::new(NounId::Minuit, "minuit", Gender::Male, (2, 2),),
-        Noun::new(NounId::Mousse, "mousse", Gender::Female, (1, 1),),
-        Noun::new(NounId::Liane, "liane", Gender::Female, (1, 1),),
-        Noun::new(NounId::Lierre, "lierre", Gender::Male, (1, 1),),
-        Noun::new(NounId::Chevrefeuille, "chèvrefeuille", Gender::Male, (3, 3),),
-        Noun::new(NounId::Petale, "pétale", Gender::Male, (2, 2),),
-        Noun::new(NounId::Etamine, "étamine", Gender::Female, (3, 3),),
-        Noun::new(NounId::Alouette, "alouette", Gender::Female, (3, 3),),
-        Noun::new(NounId::Mesange, "mésange", Gender::Female, (2, 2),),
-        Noun::new(NounId::Grive, "grive", Gender::Female, (1, 1),),
-        Noun::new(NounId::Canard, "canard", Gender::Male, (2, 2),),
-        Noun::new(NounId::RougeGorge, "rougegorge", Gender::Male, (3, 3),),
-        Noun::new(NounId::Fauvette, "fauvette", Gender::Female, (2, 2),),
-        Noun::new(NounId::Hirondelle, "hirondelle", Gender::Female, (3, 3),),
-        Noun::new(NounId::Merle, "merle", Gender::Male, (1, 1),),
-        Noun::new(NounId::Pie, "pie", Gender::Female, (1, 1),),
-        Noun::new(NounId::Cerf, "cerf", Gender::Male, (1, 1),),
-        Noun::new(NounId::Biche, "biche", Gender::Female, (1, 1),),
-        Noun::new(NounId::Faon, "faon", Gender::Male, (1, 1),),
-        Noun::new(NounId::Ecureuil, "écureuil", Gender::Male, (3, 3),),
-        Noun::new(NounId::Belette, "belette", Gender::Female, (2, 2),),
-        Noun::new(NounId::Hermine, "hermine", Gender::Female, (2, 2),),
-        Noun::new(NounId::Daim, "daim", Gender::Male, (1, 1),),
-        Noun::new(NounId::Chevreuil, "chevreuil", Gender::Male, (2, 2),),
-        Noun::new(NounId::Renard, "renard", Gender::Male, (2, 2),),
-        Noun::new(NounId::Plume, "plume", Gender::Female, (1,1)),
+        Noun::new(NounId::Bruissement, "bruissement", Gender::Male, (3, 3)),
+        Noun::new(NounId::Lumiere, "lumière", Gender::Female, (2, 3)),
+        Noun::new(NounId::Rayon, "rayon", Gender::Male, (2, 2)),
+        Noun::new(NounId::Odeur, "odeur", Gender::Female, (2, 2)),
+        Noun::new(NounId::Parfum, "parfum", Gender::Male, (2, 2)),
+        Noun::new(NounId::Arome, "arôme", Gender::Male, (2, 2)),
+        Noun::new(NounId::Printemps, "printemps", Gender::Male, (2, 2)),
+        Noun::new(NounId::Ete, "été", Gender::Male, (2, 2)),
+        Noun::new(NounId::Automne, "automne", Gender::Male, (2, 2)),
+        Noun::new(NounId::Hiver, "hiver", Gender::Male, (2, 2)),
+        Noun::new(NounId::Prunier, "prunier", Gender::Male, (2, 3)),
+        Noun::new(NounId::Cerisier, "cerisier", Gender::Male, (3, 4)),
+        Noun::new(NounId::Oeillet, "oeillet", Gender::Male, (2, 2)),
+        Noun::new(NounId::Glycine, "glycine", Gender::Female, (2, 2)),
+        Noun::new(NounId::Pivoine, "pivoine", Gender::Female, (2, 2)),
+        Noun::new(NounId::Feuille, "feuille", Gender::Female, (1, 1)),
+        Noun::new(NounId::Branche, "branche", Gender::Female, (1, 1)),
+        Noun::new(NounId::Aurore, "aurore", Gender::Female, (2, 2)),
+        Noun::new(NounId::Crepuscule, "crépuscule", Gender::Male, (3, 3)),
+        Noun::new(NounId::Midi, "midi", Gender::Male, (2, 2)),
+        Noun::new(NounId::Minuit, "minuit", Gender::Male, (2, 2)),
+        Noun::new(NounId::Mousse, "mousse", Gender::Female, (1, 1)),
+        Noun::new(NounId::Liane, "liane", Gender::Female, (1, 1)),
+        Noun::new(NounId::Lierre, "lierre", Gender::Male, (1, 1)),
+        Noun::new(NounId::Chevrefeuille, "chèvrefeuille", Gender::Male, (3, 3)),
+        Noun::new(NounId::Petale, "pétale", Gender::Male, (2, 2)),
+        Noun::new(NounId::Etamine, "étamine", Gender::Female, (3, 3)),
+        Noun::new(NounId::Alouette, "alouette", Gender::Female, (3, 3)),
+        Noun::new(NounId::Mesange, "mésange", Gender::Female, (2, 2)),
+        Noun::new(NounId::Grive, "grive", Gender::Female, (1, 1)),
+        Noun::new(NounId::Canard, "canard", Gender::Male, (2, 2)),
+        Noun::new(NounId::RougeGorge, "rougegorge", Gender::Male, (3, 3)),
+        Noun::new(NounId::Fauvette, "fauvette", Gender::Female, (2, 2)),
+        Noun::new(NounId::Hirondelle, "hirondelle", Gender::Female, (3, 3)),
+        Noun::new(NounId::Merle, "merle", Gender::Male, (1, 1)),
+        Noun::new(NounId::Pie, "pie", Gender::Female, (1, 1)),
+        Noun::new(NounId::Cerf, "cerf", Gender::Male, (1, 1)),
+        Noun::new(NounId::Biche, "biche", Gender::Female, (1, 1)),
+        Noun::new(NounId::Faon, "faon", Gender::Male, (1, 1)),
+        Noun::new(NounId::Ecureuil, "écureuil", Gender::Male, (3, 3)),
+        Noun::new(NounId::Belette, "belette", Gender::Female, (2, 2)),
+        Noun::new(NounId::Hermine, "hermine", Gender::Female, (2, 2)),
+        Noun::new(NounId::Daim, "daim", Gender::Male, (1, 1)),
+        Noun::new(NounId::Chevreuil, "chevreuil", Gender::Male, (2, 2)),
+        Noun::new(NounId::Renard, "renard", Gender::Male, (2, 2)),
+        Noun::new(NounId::Plume, "plume", Gender::Female, (1, 1)),
         // Noun::new(NounId::Duvet, "duvet", Gender::Male, (2, 2)),
-        Noun::new(NounId::Reflet, "reflet", Gender::Male, (2,2)),
+        Noun::new(NounId::Reflet, "reflet", Gender::Male, (2, 2)),
         Noun::new(NounId::Eclat, "éclat", Gender::Male, (2, 2)),
         Noun::new(NounId::Eclat, "raie", Gender::Female, (1, 1)),
         Noun::new(NounId::Moment, "moment", Gender::Male, (2, 2)),
@@ -93,8 +94,8 @@ lazy_static! {
         Noun::new(NounId::Esprit, "esprit", Gender::Male, (2, 2)),
         Noun::new(NounId::Ame, "âme", Gender::Female, (1, 1)),
         Noun::new(NounId::Coeur, "cœur", Gender::Male, (1, 1)),
-    ];
-}
+    ]
+});
 /**
  * Attributs et épithèthes sont séparés,
  * car "le cerf est grand" est peu poétique,
@@ -137,8 +138,8 @@ impl NounCategory {
 }
 
 pub type NounCatHashMap = HashMap<NounCatId, NounCategory>;
-lazy_static! {
-    pub static ref NOUN_CATS: NounCatHashMap = [
+pub static NOUN_CATS: LazyLock<NounCatHashMap> = LazyLock::new(|| {
+    [
         (
             NounCatId::Astre,
             NounCategory {
@@ -161,8 +162,8 @@ lazy_static! {
                     affiliations: vec![
                         NounCatId::Saison,
                         NounCatId::MomentDuJour,
-                        NounCatId::MiJour
-                    ]
+                        NounCatId::MiJour,
+                    ],
                 },
             },
         ),
@@ -170,7 +171,12 @@ lazy_static! {
             NounCatId::Phenomene,
             NounCategory {
                 id: NounCatId::Phenomene,
-                nouns: vec![NounId::Bruit, NounId::Lumiere, NounId::Odeur, NounId::Saveur],
+                nouns: vec![
+                    NounId::Bruit,
+                    NounId::Lumiere,
+                    NounId::Odeur,
+                    NounId::Saveur,
+                ],
                 rel: NounRelations {
                     epithets: vec![],
                     attributes: vec![],
@@ -179,8 +185,8 @@ lazy_static! {
                     affiliations: vec![
                         NounCatId::Saison,
                         NounCatId::MomentDuJour,
-                        NounCatId::MiJour
-                    ]
+                        NounCatId::MiJour,
+                    ],
                 },
             },
         ),
@@ -194,7 +200,7 @@ lazy_static! {
                         AdjCatId::ColorationBrillante,
                         AdjCatId::ColorationBleue,
                         AdjCatId::ColorationRousse,
-                        AdjCatId::Chaleur
+                        AdjCatId::Chaleur,
                     ],
                     epithets: vec![
                         AdjCatId::Chaleur,
@@ -209,8 +215,8 @@ lazy_static! {
                     affiliations: vec![
                         NounCatId::Saison,
                         NounCatId::MomentDuJour,
-                        NounCatId::MiJour
-                    ]
+                        NounCatId::MiJour,
+                    ],
                 },
             },
         ),
@@ -224,7 +230,7 @@ lazy_static! {
                     epithets: vec![],
                     functions: vec![],
                     emissions: vec![],
-                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour]
+                    affiliations: vec![NounCatId::Saison, NounCatId::MomentDuJour],
                 },
             },
         ),
@@ -267,10 +273,7 @@ lazy_static! {
                 id: NounCatId::PhenomeneTactile,
                 nouns: vec![NounId::Rosee],
                 rel: NounRelations {
-                    attributes: vec![
-                        AdjCatId::Chaleur,
-                        AdjCatId::Froideur,
-                    ],
+                    attributes: vec![AdjCatId::Chaleur, AdjCatId::Froideur],
                     epithets: vec![
                         AdjCatId::Chaleur,
                         AdjCatId::Froideur,
@@ -295,9 +298,7 @@ lazy_static! {
                     NounId::Hiver,
                 ],
                 rel: NounRelations {
-                    attributes: vec![
-                        AdjCatId::ColorationBrillante,
-                    ],
+                    attributes: vec![AdjCatId::ColorationBrillante],
                     epithets: vec![
                         AdjCatId::ColorationRousse,
                         AdjCatId::ColorationBrillante,
@@ -314,14 +315,15 @@ lazy_static! {
             NounCatId::SaisonChaude,
             NounCategory {
                 id: NounCatId::SaisonChaude,
-                nouns: vec![NounId::Printemps, NounId::Ete, NounId::Automne,],
+                nouns: vec![NounId::Printemps, NounId::Ete, NounId::Automne],
                 rel: NounRelations {
                     attributes: vec![AdjCatId::Chaleur],
-                    epithets: vec![AdjCatId::Chaleur,
-                    AdjCatId::ColorationDiapree,
-                    AdjCatId::ColorationBrillante,
-                    AdjCatId::ColorationBleue,
-                    AdjCatId::ColorationRousse,
+                    epithets: vec![
+                        AdjCatId::Chaleur,
+                        AdjCatId::ColorationDiapree,
+                        AdjCatId::ColorationBrillante,
+                        AdjCatId::ColorationBleue,
+                        AdjCatId::ColorationRousse,
                     ],
                     functions: vec![],
                     emissions: vec![],
@@ -333,13 +335,15 @@ lazy_static! {
             NounCatId::SaisonFroide,
             NounCategory {
                 id: NounCatId::SaisonFroide,
-                nouns: vec![NounId::Printemps, NounId::Hiver, NounId::Automne,],
+                nouns: vec![NounId::Printemps, NounId::Hiver, NounId::Automne],
                 rel: NounRelations {
                     attributes: vec![AdjCatId::Froideur],
-                    epithets: vec![AdjCatId::Froideur,
-                    AdjCatId::ColorationDiapree,
-                    AdjCatId::ColorationBrillante,
-                    AdjCatId::ColorationBleue],
+                    epithets: vec![
+                        AdjCatId::Froideur,
+                        AdjCatId::ColorationDiapree,
+                        AdjCatId::ColorationBrillante,
+                        AdjCatId::ColorationBleue,
+                    ],
                     functions: vec![],
                     emissions: vec![],
                     affiliations: vec![],
@@ -361,7 +365,7 @@ lazy_static! {
                         AdjCatId::Liberte,
                         AdjCatId::ColorationBrillante,
                         AdjCatId::ColorationBleue,
-                        AdjCatId::ColorationRousse
+                        AdjCatId::ColorationRousse,
                     ],
                     epithets: vec![
                         AdjCatId::Liberte,
@@ -438,7 +442,7 @@ lazy_static! {
                     functions: vec![],
                     emissions: vec![
                         NounCatId::PhenomeneSonoreFloral,
-                        NounCatId::PhenomeneOlfactif
+                        NounCatId::PhenomeneOlfactif,
                     ],
                     affiliations: vec![NounCatId::PlanteAFleur],
                 },
@@ -448,7 +452,7 @@ lazy_static! {
             NounCatId::MomentDuJour,
             NounCategory {
                 id: NounCatId::MomentDuJour,
-                nouns: vec![NounId::Aurore, NounId::Crepuscule,],
+                nouns: vec![NounId::Aurore, NounId::Crepuscule],
                 rel: NounRelations {
                     attributes: vec![
                         AdjCatId::ColorationTexture,
@@ -474,7 +478,7 @@ lazy_static! {
                     emissions: vec![
                         NounCatId::PhenomeneLumineux,
                         NounCatId::PhenomeneOlfactif,
-                        NounCatId::Phenomene
+                        NounCatId::Phenomene,
                     ],
                     affiliations: vec![NounCatId::Saison],
                 },
@@ -487,18 +491,22 @@ lazy_static! {
                 nouns: vec![NounId::Midi, NounId::Minuit],
                 rel: NounRelations {
                     attributes: vec![],
-                    epithets: vec![AdjCatId::Chaleur, AdjCatId::Froideur, AdjCatId::Calme,                         AdjCatId::ColorationTexture,
-                    AdjCatId::ColorationDiapree,
-                    AdjCatId::ColorationBrillante,
-                    AdjCatId::ColorationBleue,
-                    AdjCatId::ColorationRousse,
-                    AdjCatId::ColorationTexture,
+                    epithets: vec![
+                        AdjCatId::Chaleur,
+                        AdjCatId::Froideur,
+                        AdjCatId::Calme,
+                        AdjCatId::ColorationTexture,
+                        AdjCatId::ColorationDiapree,
+                        AdjCatId::ColorationBrillante,
+                        AdjCatId::ColorationBleue,
+                        AdjCatId::ColorationRousse,
+                        AdjCatId::ColorationTexture,
                     ],
                     functions: vec![],
                     emissions: vec![
                         NounCatId::PhenomeneLumineux,
                         NounCatId::PhenomeneOlfactif,
-                        NounCatId::Phenomene
+                        NounCatId::Phenomene,
                     ],
                     affiliations: vec![NounCatId::Saison],
                 },
@@ -523,7 +531,7 @@ lazy_static! {
                     attributes: vec![
                         AdjCatId::Calme,
                         AdjCatId::Agitation,
-                        AdjCatId::CaractereMoqueur
+                        AdjCatId::CaractereMoqueur,
                     ],
                     epithets: vec![
                         AdjCatId::ColorationBrillante,
@@ -559,10 +567,9 @@ lazy_static! {
                     attributes: vec![
                         AdjCatId::Calme,
                         AdjCatId::Agitation,
-                        AdjCatId::CaractereMoqueur
+                        AdjCatId::CaractereMoqueur,
                     ],
                     epithets: vec![
-
                         AdjCatId::ColorationBrillante,
                         AdjCatId::ColorationRousse,
                         AdjCatId::Noblesse,
@@ -580,11 +587,9 @@ lazy_static! {
             NounCatId::PartieDOiseau,
             NounCategory {
                 id: NounCatId::PartieDOiseau,
-                nouns: vec![NounId::Plume,/* NounId::Duvet,*/],
+                nouns: vec![NounId::Plume /* NounId::Duvet,*/],
                 rel: NounRelations {
-                    attributes: vec![
-                        AdjCatId::ColorationBrillante
-                    ],
+                    attributes: vec![AdjCatId::ColorationBrillante],
                     epithets: vec![
                         AdjCatId::Delicatesse,
                         AdjCatId::ColorationSombre,
@@ -605,7 +610,7 @@ lazy_static! {
             NounCatId::EffetLumineux,
             NounCategory {
                 id: NounCatId::EffetLumineux,
-                nouns: vec![NounId::Reflet, NounId::Eclat, NounId::Raie,],
+                nouns: vec![NounId::Reflet, NounId::Eclat, NounId::Raie],
                 rel: NounRelations {
                     attributes: vec![],
                     epithets: vec![
@@ -626,17 +631,20 @@ lazy_static! {
             NounCatId::PortionDeTemps,
             NounCategory {
                 id: NounCatId::PortionDeTemps,
-                nouns: vec![NounId::Moment, NounId::Heure, NounId::Minute,],
+                nouns: vec![NounId::Moment, NounId::Heure, NounId::Minute],
                 rel: NounRelations {
                     attributes: vec![],
-                    epithets: vec![AdjCatId::Noblesse, AdjCatId::ColorationTexture,
-                    AdjCatId::ColorationBrillante],
+                    epithets: vec![
+                        AdjCatId::Noblesse,
+                        AdjCatId::ColorationTexture,
+                        AdjCatId::ColorationBrillante,
+                    ],
                     functions: vec![],
                     emissions: vec![],
                     affiliations: vec![
                         NounCatId::Calme,
                         NounCatId::Astre,
-                        NounCatId::PhenomeneMeteo
+                        NounCatId::PhenomeneMeteo,
                     ],
                 },
             },
@@ -680,11 +688,7 @@ lazy_static! {
             NounCatId::EspritHumain,
             NounCategory {
                 id: NounCatId::EspritHumain,
-                nouns: vec![
-                    NounId::Ame,
-                    NounId::Coeur,
-                    NounId::Esprit,
-                ],
+                nouns: vec![NounId::Ame, NounId::Coeur, NounId::Esprit],
                 rel: NounRelations {
                     attributes: vec![],
                     epithets: vec![AdjCatId::Calme, AdjCatId::Delicatesse],
@@ -693,9 +697,9 @@ lazy_static! {
                     affiliations: vec![NounCatId::Saison],
                 },
             },
-        )
+        ),
     ]
     .iter()
     .cloned()
-    .collect();
-}
+    .collect()
+});

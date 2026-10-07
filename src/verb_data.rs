@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 use crate::verb;
 use crate::verb_enums;
@@ -9,8 +10,8 @@ use crate::wordgroup;
 use wordgroup::WordGroup;
 
 pub type StaticVerbs = [Verb; 13];
-lazy_static! {
-    pub static ref VERBS: StaticVerbs = [
+pub static VERBS: LazyLock<StaticVerbs> = LazyLock::new(|| {
+    [
         Verb::new_special(
             VerbId::Etre,
             "être",
@@ -19,7 +20,7 @@ lazy_static! {
             VerbKind::Copule,
             Some(WordGroup::new("suis", 1)),
             Some(WordGroup::new("est", 1)),
-            Some(WordGroup::new("sont", 1))
+            Some(WordGroup::new("sont", 1)),
         ),
         Verb::new_special(
             VerbId::Paraitre,
@@ -29,7 +30,7 @@ lazy_static! {
             VerbKind::Copule,
             Some(WordGroup::new("parais", 2)),
             Some(WordGroup::new("paraît", 2)),
-            Some(WordGroup::new("paraissent", 2))
+            Some(WordGroup::new("paraissent", 2)),
         ),
         Verb::new_special(
             VerbId::AvoirLAir,
@@ -39,7 +40,7 @@ lazy_static! {
             VerbKind::Copule,
             Some(WordGroup::new("ai l'air", 2)),
             Some(WordGroup::new("a l'air", 2)),
-            Some(WordGroup::new("ont l'air", 2))
+            Some(WordGroup::new("ont l'air", 2)),
         ),
         Verb::new(
             VerbId::Rester,
@@ -47,7 +48,7 @@ lazy_static! {
             (2, 2),
             VerbGroup::First,
             false,
-            VerbKind::Copule
+            VerbKind::Copule,
         ),
         Verb::new(
             VerbId::Sembler,
@@ -55,7 +56,7 @@ lazy_static! {
             (2, 2),
             VerbGroup::First,
             false,
-            VerbKind::Copule
+            VerbKind::Copule,
         ),
         Verb::new(
             VerbId::Demeurer,
@@ -63,7 +64,7 @@ lazy_static! {
             (3, 3),
             VerbGroup::First,
             false,
-            VerbKind::Copule
+            VerbKind::Copule,
         ),
         Verb::new(
             VerbId::SAssoupir,
@@ -71,7 +72,7 @@ lazy_static! {
             (3, 3),
             VerbGroup::Second,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
         Verb::new(
             VerbId::SEvanouir,
@@ -79,7 +80,7 @@ lazy_static! {
             (4, 4),
             VerbGroup::Second,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
         Verb::new(
             VerbId::SEveiller,
@@ -87,7 +88,7 @@ lazy_static! {
             (3, 3),
             VerbGroup::First,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
         Verb::new_special(
             VerbId::SEndormir,
@@ -97,7 +98,7 @@ lazy_static! {
             VerbKind::Intransitive,
             Some(WordGroup::new("endors", 2)),
             Some(WordGroup::new("endort", 2)),
-            Some(WordGroup::new("endorment", 2))
+            Some(WordGroup::new("endorment", 2)),
         ),
         Verb::new(
             VerbId::SEclipser,
@@ -105,7 +106,7 @@ lazy_static! {
             (3, 3),
             VerbGroup::First,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
         Verb::new(
             VerbId::SeCoucher,
@@ -113,7 +114,7 @@ lazy_static! {
             (2, 2),
             VerbGroup::First,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
         Verb::new(
             VerbId::SeLever,
@@ -121,14 +122,14 @@ lazy_static! {
             (2, 2),
             VerbGroup::First,
             true,
-            VerbKind::Intransitive
+            VerbKind::Intransitive,
         ),
-    ];
-}
+    ]
+});
 
 pub type VerbCatHashMap = HashMap<VerbCatId, Vec<VerbId>>;
-lazy_static! {
-    pub static ref VERB_CATS: VerbCatHashMap = [
+pub static VERB_CATS: LazyLock<VerbCatHashMap> = LazyLock::new(|| {
+    [
         (
             VerbCatId::EtatDEveil,
             vec![
@@ -155,5 +156,5 @@ lazy_static! {
     ]
     .iter()
     .cloned()
-    .collect();
-}
+    .collect()
+});
