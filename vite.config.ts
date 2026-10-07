@@ -19,9 +19,10 @@ const FROZEN = [
   ".claude/skills/vp/**",
   ".claude/skills/npm-vulnerability-check/**",
   ".claude/skills/qa-pr/**",
-  // 2020 files, rewritten or removed with the cleanup.
-  "README.md",
+  // The owner's editor file.
   ".vscode/**",
+  // The license text, verbatim.
+  "LICENSE",
 ];
 
 export default defineConfig({
