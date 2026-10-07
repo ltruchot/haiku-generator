@@ -61,14 +61,14 @@ impl Adj {
     }
     pub fn new(id: AdjId, masc: &str, foots: (u8, u8)) -> Adj {
         Adj {
-            id: id,
+            id,
             fem: None,
             masc_plur: None,
             fem_plur: None,
             invariable: false,
             word: WordGroup {
                 text: String::from(masc),
-                foots: foots,
+                foots,
             },
         }
     }
@@ -82,14 +82,14 @@ impl Adj {
         foots: (u8, u8),
     ) -> Adj {
         Adj {
-            id: id,
-            fem: fem,
-            masc_plur: masc_plur,
-            fem_plur: fem_plur,
-            invariable: invariable,
+            id,
+            fem,
+            masc_plur,
+            fem_plur,
+            invariable,
             word: WordGroup {
                 text: String::from(masc),
-                foots: foots,
+                foots,
             },
         }
     }

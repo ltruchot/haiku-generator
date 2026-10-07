@@ -50,7 +50,7 @@ pub fn add_words(a: &WordGroup, b: &WordGroup) -> WordGroup {
                 || a.text == "les"
                 || a.text == "des");
     // println!("{}", shortcircuit);
-    let with_space = last != "'" && &a.text != "";
+    let with_space = last != "'" && !a.text.is_empty();
 
     let should_amend_foots = if !shortcircuit {
         let consonants = [
@@ -71,7 +71,7 @@ pub fn add_words(a: &WordGroup, b: &WordGroup) -> WordGroup {
                 // println!("penultieme {}", prev);
                 consonants.contains(&prev)
                     && ({
-                        match b.text.trim().graphemes(true).nth(0) {
+                        match b.text.trim().graphemes(true).next() {
                             Some(letter) => {
                                 // println!("next is {}", letter);
                                 if two_last == "es" {
@@ -112,23 +112,6 @@ pub fn add_words(a: &WordGroup, b: &WordGroup) -> WordGroup {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn addword_works() {
-        let arti = super::WordGroup::new("le", 1);
-        let nou1 = super::WordGroup::new("bruissement", 3);
-        let appo = super::WordGroup::new("de", 1);
-        let nou2 = super::WordGroup::new("feuille", 1);
-        let res1 = super::WordGroup::new("le bruissement", 4);
-        let res2 = super::WordGroup::new("le bruissement de", 5);
-        let res3 = super::WordGroup::new("le bruissement de feuille", 6);
-        assert_eq!(super::add_words(&arti, &nou1), res1);
-        assert_eq!(super::add_words(&res1, &appo), res2);
-        assert_eq!(super::add_words(&res2, &nou2), res3);
-    }
-}
-
 pub fn get_plural(wg: &WordGroup) -> WordGroup {
     let last = take_last_grapheme(&wg.text);
     let last_two = take_last_graphemes(&wg.text, 2);
@@ -145,5 +128,22 @@ pub fn get_plural(wg: &WordGroup) -> WordGroup {
             text: [&wg.text, "s"].join(""),
             foots: wg.foots,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn addword_works() {
+        let arti = super::WordGroup::new("le", 1);
+        let nou1 = super::WordGroup::new("bruissement", 3);
+        let appo = super::WordGroup::new("de", 1);
+        let nou2 = super::WordGroup::new("feuille", 1);
+        let res1 = super::WordGroup::new("le bruissement", 4);
+        let res2 = super::WordGroup::new("le bruissement de", 5);
+        let res3 = super::WordGroup::new("le bruissement de feuille", 6);
+        assert_eq!(super::add_words(&arti, &nou1), res1);
+        assert_eq!(super::add_words(&res1, &appo), res2);
+        assert_eq!(super::add_words(&res2, &nou2), res3);
     }
 }

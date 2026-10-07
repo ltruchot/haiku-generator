@@ -106,32 +106,39 @@ pub struct NounRelations {
     pub attributes: Vec<AdjCatId>, // EST - après verbe d'état (le cerf est grand)
     pub epithets: Vec<AdjCatId>,   // PEUT ÊTRE - dans groupe nominal (le grand cerf)
     pub functions: Vec<VerbCatId>, // PEUT FAIRE - le cerf marche
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "data entered for a sentence pattern not written yet"
+        )
+    )]
     pub emissions: Vec<NounCatId>, // PEUT emettre - l'odeur du cerf
     pub affiliations: Vec<NounCatId>, // APPARTIENT À - après verbe d'état (le cerf du bois)
 }
 
 #[derive(Clone)]
 pub struct NounCategory {
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the categories are looked up by the key of NOUN_CATS"
+        )
+    )]
     pub id: NounCatId,
     pub nouns: Vec<NounId>,
     pub rel: NounRelations,
 }
 impl NounCategory {
     pub fn has_intransitive_verb(&self) -> bool {
-        self.rel.functions.len() > 0
+        !self.rel.functions.is_empty()
             && self
                 .rel
                 .functions
                 .iter()
                 .any(|verb_cat_id| match get_verb_cat(verb_cat_id) {
-                    Ok(verb_cat) => {
-                        verb_cat
-                            .iter()
-                            .any(|verb_id| match get_verb(verb_id.clone()) {
-                                Ok(_) => true,
-                                Err(_) => false,
-                            })
-                    }
+                    Ok(verb_cat) => verb_cat.iter().any(|verb_id| get_verb(*verb_id).is_ok()),
                     Err(_) => false,
                 })
     }

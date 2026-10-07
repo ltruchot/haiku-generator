@@ -225,7 +225,8 @@ fn a_line_found_at_the_last_try_is_thrown_away_but_blacklisted() {
 // Failed tries (Err or wrong feet) leave the blacklists alone.
 #[test]
 fn blacklists_flow_from_line_to_line() {
-    let seen: Rc<RefCell<Vec<(HashSet<NounId>, usize, usize)>>> = Rc::new(RefCell::new(vec![]));
+    type Seen = Vec<(HashSet<NounId>, usize, usize)>;
+    let seen: Rc<RefCell<Seen>> = Rc::new(RefCell::new(vec![]));
     let tries = calls();
     let line = |text: &'static str, feet: u8, good_try: usize, noun: NounId| -> Combination {
         let seen = Rc::clone(&seen);

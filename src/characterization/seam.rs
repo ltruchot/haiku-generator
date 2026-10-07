@@ -38,23 +38,23 @@ pub fn draw(
     pattern(&mut rng(), blacklists)
 }
 
-pub fn rand_noun_cat(cats: &Vec<NounCatId>) -> Result<NounCategory, String> {
+pub fn rand_noun_cat(cats: &[NounCatId]) -> Result<NounCategory, String> {
     random::get_rand_noun_cat(&mut rng(), cats)
 }
 
-pub fn rand_adj_cat(cats: &Vec<AdjCatId>) -> Result<Vec<AdjId>, String> {
+pub fn rand_adj_cat(cats: &[AdjCatId]) -> Result<Vec<AdjId>, String> {
     random::get_rand_adj_cat(&mut rng(), cats)
 }
 
-pub fn rand_noun(nouns: &Vec<NounId>, blacklist: &HashSet<NounId>) -> Result<Noun, String> {
+pub fn rand_noun(nouns: &[NounId], blacklist: &HashSet<NounId>) -> Result<Noun, String> {
     random::get_rand_noun(&mut rng(), nouns, blacklist)
 }
 
-pub fn rand_adj(adjs: &Vec<AdjId>, blacklist: &HashSet<AdjId>) -> Result<Adj, String> {
+pub fn rand_adj(adjs: &[AdjId], blacklist: &HashSet<AdjId>) -> Result<Adj, String> {
     random::get_rand_adj(&mut rng(), adjs, blacklist)
 }
 
-pub fn rand_verb(verbs: &Vec<VerbId>, blacklist: &HashSet<VerbId>) -> Result<Verb, String> {
+pub fn rand_verb(verbs: &[VerbId], blacklist: &HashSet<VerbId>) -> Result<Verb, String> {
     random::get_rand_verb(&mut rng(), verbs, blacklist)
 }
 

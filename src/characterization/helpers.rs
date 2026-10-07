@@ -911,7 +911,7 @@ fn rand_noun_edges() {
     let not_found = Err(String::from("err#get_rand_noun#Noun not found"));
     for _ in 0..REPEAT {
         let lemma = |nouns: &[NounId], blacklist: &HashSet<NounId>| {
-            seam::rand_noun(&nouns.to_vec(), blacklist).map(|noun| noun.word.text)
+            seam::rand_noun(nouns, blacklist).map(|noun| noun.word.text)
         };
         assert_eq!(lemma(&[NounId::Lune], &none), Ok(String::from("lune")));
         assert_eq!(lemma(&[], &none), not_found);
@@ -938,7 +938,7 @@ fn rand_adj_edges() {
     let not_found = Err(String::from("err#get_rand_adj#Adjective not found"));
     for _ in 0..REPEAT {
         let lemma = |adjs: &[AdjId], blacklist: &HashSet<AdjId>| {
-            seam::rand_adj(&adjs.to_vec(), blacklist).map(|adj| adj.word.text)
+            seam::rand_adj(adjs, blacklist).map(|adj| adj.word.text)
         };
         assert_eq!(lemma(&[AdjId::Bleu], &none), Ok(String::from("bleu")));
         assert_eq!(lemma(&[], &none), not_found);
@@ -968,7 +968,7 @@ fn rand_verb_edges() {
     let not_found = Err(String::from("err#get_rand_verb#Verb not found"));
     for _ in 0..REPEAT {
         let lemma = |verbs: &[VerbId], blacklist: &HashSet<VerbId>| {
-            seam::rand_verb(&verbs.to_vec(), blacklist).map(|verb| verb.word.text)
+            seam::rand_verb(verbs, blacklist).map(|verb| verb.word.text)
         };
         assert_eq!(lemma(&[VerbId::Etre], &none), Ok(String::from("être")));
         assert_eq!(lemma(&[], &none), not_found);
@@ -984,17 +984,16 @@ fn rand_verb_edges() {
 #[test]
 fn rand_category_edges() {
     for _ in 0..REPEAT {
-        let nouns = seam::rand_noun_cat(&vec![NounCatId::MiJour]).map(|cat| cat.nouns);
+        let nouns = seam::rand_noun_cat(&[NounCatId::MiJour]).map(|cat| cat.nouns);
         assert_eq!(nouns, Ok(vec![NounId::Midi, NounId::Minuit]));
         assert_eq!(
-            seam::rand_noun_cat(&vec![]).map(|cat| cat.nouns),
+            seam::rand_noun_cat(&[]).map(|cat| cat.nouns),
             Err(String::from("err#get_rand_cat_noun#Category not found"))
         );
-        let adjs = seam::rand_adj_cat(&vec![AdjCatId::Saveur]);
+        let adjs = seam::rand_adj_cat(&[AdjCatId::Saveur]);
         assert!(adjs == Ok(vec![AdjId::Sucre, AdjId::Epice]));
         assert!(
-            seam::rand_adj_cat(&vec![])
-                == Err(String::from("err#get_rand_adj_cat#Category not found"))
+            seam::rand_adj_cat(&[]) == Err(String::from("err#get_rand_adj_cat#Category not found"))
         );
     }
 }

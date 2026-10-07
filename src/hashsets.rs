@@ -6,7 +6,7 @@ pub fn merge_hashsets<T>(a: &HashSet<T>, b: &HashSet<T>) -> HashSet<T>
 where
     T: Eq + Hash + Clone,
 {
-    HashSet::from_iter(a.union(&b).cloned())
+    HashSet::from_iter(a.union(b).cloned())
 }
 
 // pub type HashSetClosure<T> = Box<dyn Fn(&HashSet<T>) -> HashSet<T>>;

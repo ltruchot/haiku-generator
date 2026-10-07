@@ -285,18 +285,22 @@ pub fn table_strings() -> Vec<(String, String)> {
     }
     for adj in ADJS.iter() {
         all.push((String::from("adj"), adj.word.text.clone()));
-        for form in [&adj.fem, &adj.masc_plur, &adj.fem_plur].iter() {
-            if let Some(text) = form {
-                all.push((String::from("adj form"), text.clone()));
-            }
+        for text in [&adj.fem, &adj.masc_plur, &adj.fem_plur]
+            .iter()
+            .copied()
+            .flatten()
+        {
+            all.push((String::from("adj form"), text.clone()));
         }
     }
     for verb in VERBS.iter() {
         all.push((String::from("verb"), verb.word.text.clone()));
-        for form in [&verb.first_person, &verb.third_person, &verb.sixth_person].iter() {
-            if let Some(word) = form {
-                all.push((String::from("verb form"), word.text.clone()));
-            }
+        for word in [&verb.first_person, &verb.third_person, &verb.sixth_person]
+            .iter()
+            .copied()
+            .flatten()
+        {
+            all.push((String::from("verb form"), word.text.clone()));
         }
     }
     all

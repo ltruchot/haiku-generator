@@ -61,7 +61,7 @@ fn index() -> &'static Index {
                     adjs: outcome.adjs,
                     verbs: outcome.verbs,
                 };
-                let all = by_text.entry(word.text).or_insert_with(Vec::new);
+                let all = by_text.entry(word.text).or_default();
                 if !all.contains(&parsed) {
                     all.push(parsed);
                 }
@@ -71,7 +71,7 @@ fn index() -> &'static Index {
         for (text, parsed) in by_text.iter() {
             by_capitalised
                 .entry(uppercase_first_letter(text))
-                .or_insert_with(Vec::new)
+                .or_default()
                 .extend(parsed.iter().cloned());
         }
         Index {
@@ -473,9 +473,9 @@ fn returned_blacklists_are_the_words_of_the_line() {
         labels.sort();
         labels
     };
-    for pattern in 0..5 {
+    for (pattern, closure) in patterns.iter().enumerate() {
         for _ in 0..2_000 {
-            if let Ok((word, new)) = draw(&patterns[pattern], &empty) {
+            if let Ok((word, new)) = draw(closure, &empty) {
                 let parsed = &index.by_text[&word.text][0];
                 assert_eq!(parsed.pattern, pattern);
                 assert_eq!(

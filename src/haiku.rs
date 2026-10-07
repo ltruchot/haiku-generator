@@ -41,6 +41,10 @@ pub fn generate_haiku_with(
     // compose haiku
     let mut haiku = [String::from(""), String::from(""), String::from("")];
     let mut black_lists = BlackLists::new_empty();
+    #[expect(
+        clippy::needless_range_loop,
+        reason = "the line number also picks the pattern and the feet"
+    )]
     for nb in 0..3 {
         let mut is_running = true;
         let mut count = 0;
@@ -52,24 +56,20 @@ pub fn generate_haiku_with(
                     "warn#generate_haiku#combination not found",
                 )]),
             };
-            match res {
-                Ok((wg, bl)) => match check_haiku_form([5, 7, 5], nb, &wg) {
-                    Some(s) => {
-                        let sentence = if nb == 0 {
-                            uppercase_first_letter(&s)
-                        } else {
-                            s
-                        };
-                        haiku[nb] = sentence;
-                        is_running = false;
-                        black_lists = merge_blacklists(&black_lists, &bl);
-                        black_lists = adjust_blacklist(black_lists);
-                    }
-                    None => (),
-                },
-                Err(_) => (),
+            if let Ok((wg, bl)) = res
+                && let Some(s) = check_haiku_form([5, 7, 5], nb, &wg)
+            {
+                let sentence = if nb == 0 {
+                    uppercase_first_letter(&s)
+                } else {
+                    s
+                };
+                haiku[nb] = sentence;
+                is_running = false;
+                black_lists = merge_blacklists(&black_lists, &bl);
+                black_lists = adjust_blacklist(black_lists);
             }
-            count = count + 1;
+            count += 1;
             // security
             if count == 1000 {
                 shuffle(rng, combinations);
@@ -78,7 +78,6 @@ pub fn generate_haiku_with(
                 haiku[nb] = String::from("#err#generate_haiku#no combination found");
                 is_running = false;
             }
-            ()
         }
     }
     Ok(haiku)
