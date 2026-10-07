@@ -8,7 +8,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { type Given, behaves } from "./behaviour.ts";
 import { STATES, capture, differences, keep } from "./fingerprint.ts";
 import { VIEWPORTS, open } from "./page.ts";
-import { BASE, LEGACY, type Site, WEB, serve } from "./server.ts";
+import { BASE, LEGACY, type Site, WEB, renderHeaders, serve } from "./server.ts";
 
 const CASES = VIEWPORTS.flatMap((viewport) => STATES.map((state) => ({ viewport, state })));
 const [, DESKTOP] = VIEWPORTS;
@@ -52,6 +52,14 @@ const deploys = (given: Given): void => {
     expect(errors).toStrictEqual([]);
   });
 
+  it("is served with the security headers of render.yaml", async () => {
+    const { page, close } = await open(given.browser(), given.url(), DESKTOP);
+    const response = await page.request.get(given.url());
+    await close();
+    expect(response.headers()["content-security-policy"]).toContain("'wasm-unsafe-eval'");
+    expect(Object.keys(renderHeaders())).toHaveLength(6);
+  });
+
   it("is served under its deploy path", async () => {
     const { page, close } = await open(given.browser(), given.url(), DESKTOP);
     const urls = await page.evaluate(() =>
@@ -87,7 +95,7 @@ describe("today's page", () => {
     }
     browser = await chromium.launch();
     legacy = await serve({ dir: LEGACY, prefix: "/", headers: {} });
-    site = await serve({ dir: WEB, prefix: BASE, headers: {} });
+    site = await serve({ dir: WEB, prefix: BASE, headers: renderHeaders() });
   });
 
   afterAll(async () => {

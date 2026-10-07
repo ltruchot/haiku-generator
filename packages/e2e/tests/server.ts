@@ -2,7 +2,7 @@
 // the 2020 build at /, today's build under its deploy path with the headers of
 // render.yaml, so a Content-Security-Policy violation shows up here first.
 import { once } from "node:events";
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { type RequestListener, createServer } from "node:http";
 import { extname, join, normalize, sep } from "node:path";
 
@@ -11,6 +11,17 @@ export const LEGACY = join(import.meta.dirname, "../fixtures/legacy-dist");
 /** Today's page, built for its deploy path by the `ready` of apps/web. */
 export const WEB = join(ROOT, "apps/web/dist");
 export const BASE = "/loic-truchot/projects/haiku-generator/";
+
+/** The headers render.yaml sets on every path (`/*`): the security headers. */
+export const renderHeaders = (): Readonly<Record<string, string>> => {
+  const yaml = readFileSync(join(ROOT, "render.yaml"), "utf8");
+  const entries = [...yaml.matchAll(/- path: \/\*\n\s+name: (\S+)\n\s+value: "?([^"\n]+)"?/gu)];
+  const headers = Object.fromEntries(entries.map(([, name = "", value = ""]) => [name, value]));
+  if (headers["Content-Security-Policy"] === undefined) {
+    throw new Error("render.yaml: no Content-Security-Policy on /*");
+  }
+  return headers;
+};
 
 const TYPES: Readonly<Record<string, string>> = {
   ".html": "text/html; charset=utf-8",

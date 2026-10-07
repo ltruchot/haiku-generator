@@ -1,0 +1,46 @@
+diff --color -ru a/public/index.html b/public/index.html
+--- a/public/index.html	2026-10-07 16:05:49.974658665 +0200
++++ b/public/index.html	2026-10-07 16:05:50.030660452 +0200
+@@ -26,6 +26,10 @@
+       <li>
+         <a href="/loic-truchot/projects/claude-dev-foundation-quiz/">claude-dev-foundation-quiz</a>
+       </li>
++      <li>
++        <a href="/loic-truchot/projects/haiku-generator/">haiku-generator</a><br />
++        <small>A.I.ku, le poète artificiel : des haïkus composés en Rust et WebAssembly.</small>
++      </li>
+     </ul>
+   </body>
+ </html>
+diff --color -ru a/public/loic-truchot/index.html b/public/loic-truchot/index.html
+--- a/public/loic-truchot/index.html	2026-10-07 16:05:49.974658665 +0200
++++ b/public/loic-truchot/index.html	2026-10-07 16:05:50.030660452 +0200
+@@ -26,6 +26,10 @@
+       <li>
+         <a href="/loic-truchot/projects/claude-dev-foundation-quiz/">claude-dev-foundation-quiz</a>
+       </li>
++      <li>
++        <a href="/loic-truchot/projects/haiku-generator/">haiku-generator</a><br />
++        <small>A.I.ku, le poète artificiel : des haïkus composés en Rust et WebAssembly.</small>
++      </li>
+     </ul>
+   </body>
+ </html>
+diff --color -ru a/render.yaml b/render.yaml
+--- a/render.yaml	2026-10-07 16:05:49.974658665 +0200
++++ b/render.yaml	2026-10-07 16:05:50.030660452 +0200
+@@ -55,6 +55,14 @@
+       - type: rewrite
+         source: /loic-truchot/projects/butterfly-gpt/*
+         destination: https://gods-slides.onrender.com/loic-truchot/projects/butterfly-gpt/*
++
++      # --- repo ltruchot/haiku-generator (service haiku-generator)
++      - type: rewrite
++        source: /loic-truchot/projects/haiku-generator
++        destination: https://haiku-generator.onrender.com/loic-truchot/projects/haiku-generator/
++      - type: rewrite
++        source: /loic-truchot/projects/haiku-generator/*
++        destination: https://haiku-generator.onrender.com/loic-truchot/projects/haiku-generator/*
+     headers:
+       # En-têtes des deux seules pages du hub lui-même. Les projets gardent les
+       # leurs : chacun les définit dans son propre render.yaml.
