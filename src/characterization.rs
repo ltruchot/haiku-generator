@@ -6,7 +6,7 @@
 // refactoring changed the behaviour, or the change is intended and the golden
 // has to be regenerated with
 //
-//     UPDATE_GOLDEN=1 cargo test
+//     UPDATE_GOLDEN=1 mise exec -- cargo test
 //
 // Layout
 //   golden   text-file golden helper (tests/golden/*.txt)
@@ -23,8 +23,8 @@
 //   haiku    properties of generate_haiku
 //   retry    the retry / reshuffle loop of generate_haiku, scripted
 //
-// The module is only declared from src/main.rs (bin target): declaring it in
-// src/lib.rs too would run every test twice.
+// The module is declared from src/lib.rs; src/main.rs is the CLI over the
+// library and has no test of its own.
 
 mod golden;
 mod labels;

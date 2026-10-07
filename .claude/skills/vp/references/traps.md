@@ -29,14 +29,14 @@ using this skill, not from the Vite+ docs.
 
 ## Dev server
 
-`server: { host: true, port: 4060, strictPort: true }`: `host: true` listens on every
+`server: { host: true, port: 4062, strictPort: true }`: `host: true` listens on every
 address, which an editor on another host needs to forward the port (WSL, a container, SSH);
 `strictPort` exits when the port is taken instead of moving to the next one.
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| `Port 4060 is already in use`, and you started the server | an earlier run still holds it | find the PID with `ss -ltnp \| grep 4060` and stop that PID; never `pkill -f <pattern>`, which matches your own shell |
-| Same error under WSL while `ss -ltn` shows nothing *(measured)* | a Windows process holds the port: WSL shares the network | `netstat.exe -ano -p tcp \| grep ':4060 '`, then `tasklist.exe /FI "PID eq <pid>"` |
+| `Port 4062 is already in use`, and you started the server | an earlier run still holds it | find the PID with `ss -ltnp \| grep 4062` and stop that PID; never `pkill -f <pattern>`, which matches your own shell |
+| Same error under WSL while `ss -ltn` shows nothing *(measured)* | a Windows process holds the port: WSL shares the network | `netstat.exe -ano -p tcp \| grep ':4062 '`, then `tasklist.exe /FI "PID eq <pid>"` |
 | The holder is the editor *(measured)* | VS Code and Cursor keep an auto-forwarded port bound after the server stops | Ports panel, Stop Forwarding Port; `remote.autoForwardPorts` and `remote.restoreForwardedPorts` to `false` in the user settings |
 
 ## VS Code

@@ -39,15 +39,15 @@
     "vp": {
       "answers": {
         "APP_DIR": "apps/web",
-        "DEV_PORT": "4060"
+        "DEV_PORT": "4062"
       },
       "files": {
-        "SKILL.md": "09f8fcb7c73f5ae6a2139f1642716593dde424df77a07bab17a5c0a0cc9bbee6",
-        "references/traps.md": "efb201a8563ee50ae074343d850c28a69804433a03da95d39ee960f48cd8a199"
+        "SKILL.md": "234de0a156d1e6e392e235925368d16113ff01bb3fd5dd5156cc0f67cfbf2daf",
+        "references/traps.md": "cbbf9c0124ee641346125e7cfc7bfadb0957585a550d68df808ae1d274b0becd"
       },
       "path": ".claude/skills/vp",
       "ref": "0.2.1",
-      "renderedHash": "fbc717fba137edb8862e72c0a0b945e6a918b2ff6e25474a3fc37d71784c17f9",
+      "renderedHash": "011f0b385ca07e19329c4b24f8a7591e20798fb8ea20cde8e42e081507f9efcb",
       "secrets": [],
       "sha": "local:4be092530201b57d0ee217ae5c3a7a66fb8797d34e489052263e210f157e13ea",
       "skillPath": "skills/vp",

@@ -39,6 +39,25 @@ the page shows or does**. That constraint outranks every cleanup.
 - Record a new fact or trap the same turn, in the file that owns it (table
   below): short bullets with the command, the error text and the fix.
 
+## Where the detail lives
+
+Load the skill before the work, and record what you learn in it.
+
+| Work                                                            | Skill                               |
+| --------------------------------------------------------------- | ----------------------------------- |
+| Words, categories, sentence patterns; a word that never appears | `haiku-grammar-data`                |
+| A golden or a fingerprint fails; proving a change of output     | `characterization-tests`            |
+| Cargo.toml, the wasm build, the module in the page              | `rust-wasm-build`                   |
+| A tool version, `mise.toml`, `mise.lock`                        | `mise-toolchain`                    |
+| Updating a dependency, a toolchain, an edition                  | `changelog-upgrade`                 |
+| `render.yaml`, the build script, CI, the base path, the hub     | `render-subpath-deploy`             |
+| Any `vp` command, `package.json`, `vite.config.ts`              | `vp` (managed by qol-mini)          |
+| npm audit, a CVE, before an npm bump                            | `npm-vulnerability-check` (managed) |
+| Reviewing a pull request                                        | `qa-pr` (managed)                   |
+
+Managed skills (`.claude/qol-mini.lock.json`) are never edited here: what is
+specific to this repo goes in a local skill beside them.
+
 ## Environment
 
 - Rust, the wasm target, `wasm-bindgen` and `wasm-opt` come from mise:
@@ -50,3 +69,47 @@ the page shows or does**. That constraint outranks every cleanup.
 - npm packages must be 3 days old to be installed (`minimumReleaseAge` in
   `pnpm-workspace.yaml`); mise applies its own release-age guard.
 - Local state (screenshots, scratch) goes in `.local/`, gitignored.
+
+## Architecture
+
+- `src/` is one crate, `cdylib` + `rlib`. `lib.rs`: `compose()` (three lines
+  or the errors) and `generate()`, its wasm export. `main.rs`: the CLI.
+- A haiku: the 5 sentence patterns (`combination.rs`) are shuffled, line n
+  takes pattern n and retries until its feet cover 5, 7, 5; reshuffle after
+  1000 failed tries, `#err#…` after 10,001. Blacklists keep a noun, an
+  adjective or a season from coming twice.
+- Every random choice goes through `Chooser` (`random.rs`, the only file
+  that imports `rand`): the tests swap it for an odometer and enumerate every
+  line a pattern can produce.
+- `apps/web/`: `index.html` (the 2020 markup), `src/main.ts`, `src/index.scss`,
+  `src/wasm/` (generated, gitignored), `public/vendor/tailwind-1.2.0.min.css`.
+  No framework, no router, no storage, no request to another site.
+- `packages/e2e/`: Playwright through Vitest; `fixtures/legacy-dist/` is the
+  2020 build.
+
+## Commands
+
+| Command                                   | Does                                                                                                                                |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `vp run ready`                            | The whole gate: versions, rustfmt, clippy, Rust tests (debug and release), cargo audit, wasm, `vp check`, page build, browser tests |
+| `mise run rust-check`                     | The Rust half of it                                                                                                                 |
+| `mise run wasm`                           | Build the module into `apps/web/src/wasm/`                                                                                          |
+| `mise exec -- cargo test`                 | Rust tests; `--release` adds the full Monte-Carlo                                                                                   |
+| `UPDATE_GOLDEN=1 mise exec -- cargo test` | Rewrite the goldens: read the diff                                                                                                  |
+| `vp check --fix`                          | Format and lint the JS side                                                                                                         |
+| `vp -C apps/web dev`                      | The page on http://localhost:4062 (needs the module built)                                                                          |
+| `vp -C packages/e2e test`                 | Browser tests (needs `vp run web#ready`)                                                                                            |
+| `bash scripts/render-build.sh`            | What Render runs: the site in `site/`                                                                                               |
+
+## Traps with no file trigger
+
+- zsh: an unquoted `--include=*` or `web#ready` glob fails (`no matches
+found`); quote them.
+- `pkill -f <pattern>` also kills the shell whose command line holds the
+  pattern. Kill by PID.
+- Port 4060 is taken on this machine by the editor's port forwarding; the
+  dev server uses 4062, the preview 4063.
+- `vp` uses the pnpm of the machine (10.x from the global mise config), not
+  the `devEngines` one: the lockfile is written by pnpm 10.
+- `vp --help` after a subcommand of `vp dlx <pkg>` is taken by `vp`, not by
+  the package.

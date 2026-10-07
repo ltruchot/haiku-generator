@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(vp check)",
+      "Bash(vp check --fix)",
+      "Bash(vp test)",
+      "Bash(vp test *)",
+      "Bash(vp install)",
+      "Bash(vp run ready)",
+      "Bash(vp run web#ready)",
+      "Bash(vp -C apps/web build)",
+      "Bash(vp -C packages/e2e test)",
+      "Bash(vp -C packages/e2e test *)",
+      "Bash(mise run wasm)",
+      "Bash(mise run rust-check)",
+      "Bash(mise exec -- cargo test *)",
+      "Bash(mise exec -- cargo test)",
+      "Bash(mise exec -- cargo check *)",
+      "Bash(mise exec -- cargo clippy *)",
+      "Bash(mise exec -- cargo fmt *)",
+      "Bash(mise exec -- cargo fmt)",
+      "Bash(mise exec -- cargo run *)",
+      "Bash(mise exec -- cargo audit)",
+      "Bash(mise ls *)",
+      "Bash(mise ls-remote *)",
+      "Bash(bash scripts/check-versions.sh)",
+      "Bash(bash scripts/render-build.sh)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)"
+    ],
+    "deny": ["Bash(aws *)"]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/after-edit.sh",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

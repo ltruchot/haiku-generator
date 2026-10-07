@@ -22,7 +22,7 @@ The docs that match the installed version are local: `node_modules/vite-plus/doc
 |---|---|---|
 | Install | `vp install` | CI: `vp install --frozen-lockfile`, which fails if the lockfile would change |
 | Add, remove a dependency | `vp -C apps/web add <pkg>` (`-D` dev, `-E` exact), `vp remove <pkg>` | then move the version to the catalog, see below |
-| Dev server | `vp -C apps/web dev` | <http://localhost:4060> |
+| Dev server | `vp -C apps/web dev` | <http://localhost:4062> |
 | Production build | `vp -C apps/web build` | apps; libraries build with `vp pack` |
 | Serve the build | `vp -C apps/web preview` | after `vp build` |
 | Format, lint, types | `vp check`, `vp check --fix` | from the root, whole workspace; `vp check --fix <file>` for one file |
