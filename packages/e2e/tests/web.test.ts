@@ -57,10 +57,14 @@ describe("today's page", () => {
     site.close();
   });
 
-  behaves(
-    { otherSitesOnLoad: ["www.googletagmanager.com"] },
-    { browser: () => browser, url: () => site.url },
-  );
+  behaves({ otherSitesOnLoad: [] }, { browser: () => browser, url: () => site.url });
+
+  it("loads without an error in the console", async () => {
+    const { page, errors, close } = await open(browser, site.url, DESKTOP);
+    await page.waitForLoadState("networkidle");
+    await close();
+    expect(errors).toStrictEqual([]);
+  });
 
   it("is served under its deploy path", async () => {
     const { page, close } = await open(browser, site.url, DESKTOP);
