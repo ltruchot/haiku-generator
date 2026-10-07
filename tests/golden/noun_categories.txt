@@ -21,7 +21,7 @@ noun_cat EffetLumineux | epithets | ColorationDiapree, ColorationBleue, Colorati
 noun_cat EffetLumineux | functions | -
 noun_cat EffetLumineux | has_intransitive_verb | false
 noun_cat EffetLumineux | id | EffetLumineux
-noun_cat EffetLumineux | nouns | reflet, éclat, <no entry: Raie>
+noun_cat EffetLumineux | nouns | reflet, éclat, raie
 noun_cat EspritHumain | affiliations | Saison
 noun_cat EspritHumain | attributes | -
 noun_cat EspritHumain | emissions | -

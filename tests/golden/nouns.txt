@@ -567,7 +567,7 @@ noun raie | Singular None | article="" (0,0) agreed="raie" (1,1) with_article="r
 noun raie | apposition Definite | "de la raie" (3,3)
 noun raie | apposition Indefinite | "d'une raie" (3,4)
 noun raie | apposition None | "de raie" (2,2)
-noun raie | entry | id=Eclat gender=Female feet=(1,1) lookup_by_id="éclat"
+noun raie | entry | id=Raie gender=Female feet=(1,1) lookup_by_id="raie"
 noun rayon | Plural Definite | article="les" (1,1) agreed="rayons" (2,2) with_article="les rayons" (3,3)
 noun rayon | Plural Indefinite | article="des" (1,1) agreed="rayons" (2,2) with_article="des rayons" (3,3)
 noun rayon | Plural None | article="" (0,0) agreed="rayons" (2,2) with_article="rayons" (2,2)

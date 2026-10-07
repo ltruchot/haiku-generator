@@ -1,5 +1,4 @@
 #ERR# err#get_rand_adj#Adjective not found
-#ERR# err#get_rand_noun#Noun not found
 alouette anonyme | 6 6
 alouette argentée | 6 6
 alouette diaprée | 6 7
@@ -1438,6 +1437,24 @@ des pétales sucrés | 6 6
 des pétales violets | 6 7
 des pétales écarlates | 7 7
 des pétales épicés | 7 7
+des raies argentées | 5 5
+des raies bleues | 3 3
+des raies brunes | 3 3
+des raies diaprées | 4 5
+des raies dorées | 4 4
+des raies délicates | 5 5
+des raies halées | 4 4
+des raies irisées | 5 5
+des raies majestueuses | 6 6
+des raies moirées | 4 4
+des raies nobles | 3 3
+des raies ocres | 3 3
+des raies oranges | 4 4
+des raies pastel | 4 4
+des raies roses | 3 3
+des raies rousses | 3 3
+des raies violettes | 4 5
+des raies écarlates | 5 5
 des rayons argentés | 6 6
 des rayons bleus | 4 4
 des rayons bruns | 4 4
@@ -2626,6 +2643,24 @@ la plume ébène | 4 4
 la plume écarlate | 5 5
 la plume étrange | 4 4
 la plume étrangère | 5 5
+la raie argentée | 5 5
+la raie bleue | 3 3
+la raie brune | 3 3
+la raie diaprée | 4 5
+la raie dorée | 4 4
+la raie délicate | 5 5
+la raie halée | 4 4
+la raie irisée | 5 5
+la raie majestueuse | 6 6
+la raie moirée | 4 4
+la raie noble | 3 3
+la raie ocre | 3 3
+la raie orange | 4 4
+la raie pastel | 4 4
+la raie rose | 3 3
+la raie rousse | 3 3
+la raie violette | 4 5
+la raie écarlate | 5 5
 la rosée brûlante | 5 5
 la rosée caniculaire | 7 7
 la rosée diaprée | 5 6
@@ -3950,6 +3985,24 @@ les pétales sucrés | 6 6
 les pétales violets | 6 7
 les pétales écarlates | 7 7
 les pétales épicés | 7 7
+les raies argentées | 5 5
+les raies bleues | 3 3
+les raies brunes | 3 3
+les raies diaprées | 4 5
+les raies dorées | 4 4
+les raies délicates | 5 5
+les raies halées | 4 4
+les raies irisées | 5 5
+les raies majestueuses | 6 6
+les raies moirées | 4 4
+les raies nobles | 3 3
+les raies ocres | 3 3
+les raies oranges | 4 4
+les raies pastel | 4 4
+les raies roses | 3 3
+les raies rousses | 3 3
+les raies violettes | 4 5
+les raies écarlates | 5 5
 les rayons argentés | 6 6
 les rayons bleus | 4 4
 les rayons bruns | 4 4
@@ -4941,6 +4994,42 @@ pétales sucrés | 5 5
 pétales violets | 5 6
 pétales écarlates | 6 6
 pétales épicés | 6 6
+raie argentée | 4 4
+raie bleue | 2 2
+raie brune | 2 2
+raie diaprée | 3 4
+raie dorée | 3 3
+raie délicate | 4 4
+raie halée | 3 3
+raie irisée | 4 4
+raie majestueuse | 5 5
+raie moirée | 3 3
+raie noble | 2 2
+raie ocre | 2 2
+raie orange | 3 3
+raie pastel | 3 3
+raie rose | 2 2
+raie rousse | 2 2
+raie violette | 3 4
+raie écarlate | 4 4
+raies argentées | 4 4
+raies bleues | 2 2
+raies brunes | 2 2
+raies diaprées | 3 4
+raies dorées | 3 3
+raies délicates | 4 4
+raies halées | 3 3
+raies irisées | 4 4
+raies majestueuses | 5 5
+raies moirées | 3 3
+raies nobles | 2 2
+raies ocres | 2 2
+raies oranges | 3 3
+raies pastel | 3 3
+raies roses | 2 2
+raies rousses | 2 2
+raies violettes | 3 4
+raies écarlates | 4 4
 rayon argenté | 5 5
 rayon bleu | 3 3
 rayon brun | 3 3
@@ -6199,6 +6288,24 @@ une plume ébène | 5 5
 une plume écarlate | 6 6
 une plume étrange | 5 5
 une plume étrangère | 6 6
+une raie argentée | 6 6
+une raie bleue | 4 4
+une raie brune | 4 4
+une raie diaprée | 5 6
+une raie dorée | 5 5
+une raie délicate | 6 6
+une raie halée | 5 5
+une raie irisée | 6 6
+une raie majestueuse | 7 7
+une raie moirée | 5 5
+une raie noble | 4 4
+une raie ocre | 4 4
+une raie orange | 5 5
+une raie pastel | 5 5
+une raie rose | 4 4
+une raie rousse | 4 4
+une raie violette | 5 6
+une raie écarlate | 6 6
 une rosée brûlante | 6 6
 une rosée caniculaire | 8 8
 une rosée diaprée | 6 7

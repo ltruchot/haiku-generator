@@ -76,7 +76,7 @@ pub static NOUNS: LazyLock<StaticNouns> = LazyLock::new(|| {
         // Noun::new(NounId::Duvet, "duvet", Gender::Male, (2, 2)),
         Noun::new(NounId::Reflet, "reflet", Gender::Male, (2, 2)),
         Noun::new(NounId::Eclat, "éclat", Gender::Male, (2, 2)),
-        Noun::new(NounId::Eclat, "raie", Gender::Female, (1, 1)),
+        Noun::new(NounId::Raie, "raie", Gender::Female, (1, 1)),
         Noun::new(NounId::Moment, "moment", Gender::Male, (2, 2)),
         Noun::new(NounId::Heure, "heure", Gender::Female, (1, 1)),
         Noun::new(NounId::Minute, "minute", Gender::Female, (2, 2)),

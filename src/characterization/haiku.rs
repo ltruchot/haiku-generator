@@ -123,9 +123,9 @@ fn season_words(parsed: &Parsed) -> usize {
 #[test]
 fn every_producible_text_has_a_single_decomposition() {
     let index = index();
-    // 6491 + 6504 + 392 + 1478 + 53946 Ok lines of the five pattern goldens:
+    // 6599 + 6504 + 392 + 1496 + 54918 Ok lines of the five pattern goldens:
     // no text is produced by two patterns
-    assert_eq!(index.by_text.len(), 68_811);
+    assert_eq!(index.by_text.len(), 69_909);
     assert_eq!(index.by_capitalised.len(), index.by_text.len());
     for (text, parsed) in index.by_text.iter() {
         assert_eq!(parsed.len(), 1, "{:?} -> {:?}", text, parsed);
@@ -326,17 +326,19 @@ fn no_noun_or_adjective_is_used_twice_and_verbs_almost_never() {
 
 // Why the reshuffle of `generate_haiku` (after 1000 failed tries of a line)
 // is not a theoretical branch: with empty blacklists, one try of the
-// adjective_and_affiliation pattern has 5 feet with probability 0.38 % only,
+// adjective_and_affiliation pattern has 5 feet with probability 0.56 % only,
 // so when the shuffle puts it on line 0 or 2, 1000 tries all fail about once
-// in 45. After the reshuffle the three lines no longer come from three
-// different patterns (measured: 3096 haikus in 300 000), e.g.
+// in 270. After the reshuffle the three lines no longer come from three
+// different patterns, e.g.
 //   ["Le rayon est brun", "les rougegorges moirés", "le renard immense"]
 // There is therefore NO test that the three lines use three patterns.
+// (Before "raie", a one-foot noun, could be drawn: 0.38 %, once in 45, and
+// 3096 such haikus measured in 300 000.)
 #[test]
 fn the_same_pattern_can_serve_two_lines() {
     // (lines with 5 feet, lines with 7 feet) among the Ok lines of each golden
     let expected: [(usize, usize); 5] =
-        [(2243, 940), (399, 1991), (144, 58), (518, 254), (203, 8497)];
+        [(2270, 941), (399, 1991), (144, 58), (523, 254), (261, 8870)];
     let mut counts = [(0, 0); 5];
     for parsed in index().by_text.values() {
         let line = &parsed[0];
@@ -357,7 +359,7 @@ fn the_same_pattern_can_serve_two_lines() {
         })
         .map(|outcome| outcome.prob)
         .sum();
-    assert!(0.0037 < five_feet && five_feet < 0.0039, "{}", five_feet);
+    assert!(0.0055 < five_feet && five_feet < 0.0057, "{}", five_feet);
 }
 
 // "A haiku should contain only one mention of a season" (common_enums.rs) is

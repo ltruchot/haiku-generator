@@ -924,10 +924,9 @@ fn rand_noun_edges() {
             lemma(&[NounId::Lune, NounId::Cerf], &lune),
             Ok(String::from("cerf"))
         );
-        // CURRENT BEHAVIOUR: "raie" is declared with the id of "éclat"
-        // (noun_data.rs), so NounId::Raie has no entry and NounId::Eclat is
-        // always "éclat"
-        assert_eq!(lemma(&[NounId::Raie], &none), not_found);
+        // "raie" was declared with the id of "éclat" until 2026 and could
+        // never be drawn
+        assert_eq!(lemma(&[NounId::Raie], &none), Ok(String::from("raie")));
         assert_eq!(lemma(&[NounId::Eclat], &none), Ok(String::from("éclat")));
     }
 }
