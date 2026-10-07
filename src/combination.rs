@@ -13,7 +13,7 @@ use crate::random::get_rand_number;
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{fold_wordgroups, WordGroup};
+use wordgroup::{WordGroup, fold_wordgroups};
 
 // verbs
 use crate::verb;
@@ -34,8 +34,8 @@ use noun::{
 // random
 use crate::random;
 use random::{
-    choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb,
-    Chooser,
+    Chooser, choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat,
+    get_rand_verb,
 };
 
 // EXPORTS

@@ -8,17 +8,17 @@
 
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::adj_data::{ADJS, ADJ_CATS};
+use crate::adj_data::{ADJ_CATS, ADJS};
 use crate::common_enums::{Article, Gender, Number};
 use crate::noun::{
     get_apposition, get_cats_containing_affiliations, get_cats_containing_attributes,
     get_cats_containing_epithets, get_cats_containing_epithets_and_affiliations,
     get_cats_containing_int_verbs,
 };
-use crate::noun_data::{NOUNS, NOUN_CATS};
+use crate::noun_data::{NOUN_CATS, NOUNS};
 use crate::noun_enums::NounCatId;
 use crate::verb::{as_pronominal, get_verb, get_verb_cat};
-use crate::verb_data::{VERBS, VERB_CATS};
+use crate::verb_data::{VERB_CATS, VERBS};
 
 use super::golden::assert_golden_lines;
 use super::labels::{adj_label, join, noun_label, opt_str, opt_wg, verb_label, wg};

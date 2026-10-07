@@ -10,18 +10,18 @@ use std::iter::FromIterator;
 use crate::adj::Adj;
 use crate::adj_enums::{AdjCatId, AdjId};
 use crate::common_enums::{
-    adjust_blacklist, merge_blacklists, Article, BlackLists, Gender, Number,
+    Article, BlackLists, Gender, Number, adjust_blacklist, merge_blacklists,
 };
 use crate::haiku::check_haiku_form;
 use crate::hashsets::merge_hashsets;
-use crate::noun::{get_apposition, Noun};
+use crate::noun::{Noun, get_apposition};
 use crate::noun_enums::{NounCatId, NounId};
 use crate::string::{
     drop_last_graphemes, take_last_grapheme, take_last_graphemes, uppercase_first_letter,
 };
-use crate::verb::{as_pronominal, get_verb, get_verb_cat, Verb};
+use crate::verb::{Verb, as_pronominal, get_verb, get_verb_cat};
 use crate::verb_enums::{VerbCatId, VerbGroup, VerbId, VerbKind};
-use crate::wordgroup::{add_words, check_ellision, fold_wordgroups, get_plural, WordGroup};
+use crate::wordgroup::{WordGroup, add_words, check_ellision, fold_wordgroups, get_plural};
 
 use super::names::article_name;
 use super::seam;

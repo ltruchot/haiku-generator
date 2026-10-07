@@ -6,8 +6,8 @@ use common_enums::Article;
 
 use crate::combination;
 use combination::{
-    get_with_adj_and_affiliation, get_with_adjective, get_with_affiliation,
-    get_with_intransitive_verb, get_with_linking_verb, Combination,
+    Combination, get_with_adj_and_affiliation, get_with_adjective, get_with_affiliation,
+    get_with_intransitive_verb, get_with_linking_verb,
 };
 
 // EXPORTS

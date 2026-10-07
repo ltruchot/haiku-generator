@@ -33,7 +33,7 @@ use std::time::Instant;
 use crate::combination_data::get_combinations;
 use crate::common_enums::BlackLists;
 
-use super::enumeration::{distribution, enumerate, err_line, ok_line, PATTERN_NAMES};
+use super::enumeration::{PATTERN_NAMES, distribution, enumerate, err_line, ok_line};
 use super::golden::{assert_golden_lines, read_golden_lines, updating};
 use super::grammar::graphemes_differ_from_chars;
 use super::seam::draw;

@@ -5,7 +5,7 @@ use common_enums::{Article, Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, get_plural, WordGroup};
+use wordgroup::{WordGroup, add_words, check_ellision, get_plural};
 
 // nouns
 use crate::noun_data;

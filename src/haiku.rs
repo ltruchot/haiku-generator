@@ -1,11 +1,11 @@
 // IMPORTS
 // externals
 use crate::common_enums::merge_blacklists;
-use crate::random::{shuffle, Chooser, RandChooser};
+use crate::random::{Chooser, RandChooser, shuffle};
 
 // common
 use crate::common_enums;
-use common_enums::{adjust_blacklist, BlackLists};
+use common_enums::{BlackLists, adjust_blacklist};
 
 // strings
 use crate::string;

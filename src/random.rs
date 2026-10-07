@@ -1,8 +1,8 @@
 // IMPORTS
 use crate::common_enums::Article;
 use crate::common_enums::Number;
-use rand::rngs::ThreadRng;
 use rand::RngExt;
+use rand::rngs::ThreadRng;
 use std::collections::HashSet;
 
 // verbs
@@ -18,7 +18,7 @@ use crate::adj;
 use crate::adj_data;
 use crate::adj_enums;
 use adj::Adj;
-use adj_data::{ADJS, ADJ_CATS};
+use adj_data::{ADJ_CATS, ADJS};
 use adj_enums::{AdjCatId, AdjId};
 
 // nouns
@@ -26,7 +26,7 @@ use crate::noun;
 use crate::noun_data;
 use crate::noun_enums;
 use noun::Noun;
-use noun_data::{NounCategory, NOUNS, NOUN_CATS};
+use noun_data::{NOUN_CATS, NOUNS, NounCategory};
 use noun_enums::{NounCatId, NounId};
 
 // The only seam between the crate and `rand`: every random decision is the

@@ -12,7 +12,7 @@ use std::sync::OnceLock;
 
 use crate::adj_enums::AdjId;
 use crate::combination_data::get_combinations;
-use crate::common_enums::{adjust_blacklist, merge_blacklists, BlackLists};
+use crate::common_enums::{BlackLists, adjust_blacklist, merge_blacklists};
 use crate::haiku::generate_haiku;
 use crate::noun_enums::NounId;
 use crate::string::uppercase_first_letter;

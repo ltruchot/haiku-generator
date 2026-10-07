@@ -1,7 +1,7 @@
 // externals
 use js_sys::Array;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
+use wasm_bindgen::prelude::*;
 
 // commons
 mod common_enums;
@@ -16,7 +16,7 @@ use haiku::generate_haiku;
 
 mod combination;
 mod combination_data;
-use combination_data::{get_combinations, Combinations};
+use combination_data::{Combinations, get_combinations};
 
 // nouns
 mod noun;

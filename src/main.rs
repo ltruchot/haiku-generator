@@ -14,7 +14,7 @@ use haiku::generate_haiku;
 // combinations
 mod combination;
 mod combination_data;
-use combination_data::{get_combinations, Combinations};
+use combination_data::{Combinations, get_combinations};
 
 // nouns
 mod noun;

@@ -2,7 +2,7 @@
 name = "haiku-generator"
 version = "0.0.8"
 authors = ["Loïc TRUCHOT"]
-edition = "2021"
+edition = "2024"
 rust-version = "1.99"
 repository = "https://github.com/ltruchot/haiku-generator"
 description = "A gererator of haikus"

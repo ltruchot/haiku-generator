@@ -5,7 +5,7 @@ use common_enums::{Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{get_plural, WordGroup};
+use wordgroup::{WordGroup, get_plural};
 
 // strings
 use crate::string;

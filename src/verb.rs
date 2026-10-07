@@ -9,12 +9,12 @@ use string::{drop_last_graphemes, take_last_graphemes};
 
 // wordgroup
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, WordGroup};
+use wordgroup::{WordGroup, add_words, check_ellision};
 
 // verbs
 use crate::verb_data;
 use crate::verb_enums;
-use verb_data::{VERBS, VERB_CATS};
+use verb_data::{VERB_CATS, VERBS};
 use verb_enums::{VerbCatId, VerbGroup, VerbId, VerbKind};
 
 // EXPORTS
