@@ -1,0 +1,190 @@
+noun_cat Astre | affiliations | Saison, MomentDuJour, MiJour
+noun_cat Astre | attributes | Calme, Chaleur
+noun_cat Astre | emissions | PhenomeneLumineux, EffetLumineux
+noun_cat Astre | epithets | RelAUneSaison, ColorationBrillante, ColorationBleue, ColorationRousse, Grandeur, Calme, Chaleur, Anonymat
+noun_cat Astre | functions | EtatDEveil
+noun_cat Astre | has_intransitive_verb | true
+noun_cat Astre | id | Astre
+noun_cat Astre | nouns | lune, soleil, étoile
+noun_cat Calme | affiliations | Saison
+noun_cat Calme | attributes | -
+noun_cat Calme | emissions | -
+noun_cat Calme | epithets | -
+noun_cat Calme | functions | -
+noun_cat Calme | has_intransitive_verb | false
+noun_cat Calme | id | Calme
+noun_cat Calme | nouns | paix, calme, sérénité
+noun_cat EffetLumineux | affiliations | Astre
+noun_cat EffetLumineux | attributes | -
+noun_cat EffetLumineux | emissions | -
+noun_cat EffetLumineux | epithets | ColorationDiapree, ColorationBleue, ColorationRousse, ColorationTexture, ColorationBrillante, Noblesse
+noun_cat EffetLumineux | functions | -
+noun_cat EffetLumineux | has_intransitive_verb | false
+noun_cat EffetLumineux | id | EffetLumineux
+noun_cat EffetLumineux | nouns | reflet, éclat, <no entry: Raie>
+noun_cat EspritHumain | affiliations | Saison
+noun_cat EspritHumain | attributes | -
+noun_cat EspritHumain | emissions | -
+noun_cat EspritHumain | epithets | Calme, Delicatesse
+noun_cat EspritHumain | functions | EtatDEveil
+noun_cat EspritHumain | has_intransitive_verb | true
+noun_cat EspritHumain | id | EspritHumain
+noun_cat EspritHumain | nouns | âme, cœur, esprit
+noun_cat Mammifere | affiliations | -
+noun_cat Mammifere | attributes | Calme, Agitation, CaractereMoqueur
+noun_cat Mammifere | emissions | -
+noun_cat Mammifere | epithets | ColorationBrillante, ColorationRousse, Noblesse, Grandeur, CaractereMoqueur, Anonymat
+noun_cat Mammifere | functions | EtatDEveil
+noun_cat Mammifere | has_intransitive_verb | true
+noun_cat Mammifere | id | Mammifere
+noun_cat Mammifere | nouns | cerf, écureuil, belette, hermine, faon, biche, daim, chevreuil, renard
+noun_cat MiJour | affiliations | Saison
+noun_cat MiJour | attributes | -
+noun_cat MiJour | emissions | PhenomeneLumineux, PhenomeneOlfactif, Phenomene
+noun_cat MiJour | epithets | Chaleur, Froideur, Calme, ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse, ColorationTexture
+noun_cat MiJour | functions | -
+noun_cat MiJour | has_intransitive_verb | false
+noun_cat MiJour | id | MiJour
+noun_cat MiJour | nouns | midi, minuit
+noun_cat MomentDuJour | affiliations | Saison
+noun_cat MomentDuJour | attributes | ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse, Chaleur, Froideur, Calme
+noun_cat MomentDuJour | emissions | PhenomeneLumineux, PhenomeneOlfactif, Phenomene
+noun_cat MomentDuJour | epithets | ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse, Chaleur, Froideur, Calme
+noun_cat MomentDuJour | functions | -
+noun_cat MomentDuJour | has_intransitive_verb | false
+noun_cat MomentDuJour | id | MomentDuJour
+noun_cat MomentDuJour | nouns | aurore, crépuscule
+noun_cat Oiseau | affiliations | -
+noun_cat Oiseau | attributes | Calme, Agitation, CaractereMoqueur
+noun_cat Oiseau | emissions | PhenomeneSonore
+noun_cat Oiseau | epithets | ColorationBrillante, ColorationTexture, ColorationSombre, ColorationDiapree, Noblesse, CaractereMoqueur, Anonymat
+noun_cat Oiseau | functions | EtatDEveil
+noun_cat Oiseau | has_intransitive_verb | true
+noun_cat Oiseau | id | Oiseau
+noun_cat Oiseau | nouns | alouette, mésange, grive, canard, rougegorge, fauvette, hirondelle, merle, pie
+noun_cat OrganeDePlante | affiliations | PlanteAFleur
+noun_cat OrganeDePlante | attributes | ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse
+noun_cat OrganeDePlante | emissions | PhenomeneSonoreFloral, PhenomeneOlfactif
+noun_cat OrganeDePlante | epithets | ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse, Saveur
+noun_cat OrganeDePlante | functions | -
+noun_cat OrganeDePlante | has_intransitive_verb | false
+noun_cat OrganeDePlante | id | OrganeDePlante
+noun_cat OrganeDePlante | nouns | feuille, branche, pétale, étamine
+noun_cat PartieDOiseau | affiliations | Oiseau
+noun_cat PartieDOiseau | attributes | ColorationBrillante
+noun_cat PartieDOiseau | emissions | EffetLumineux
+noun_cat PartieDOiseau | epithets | Delicatesse, ColorationSombre, ColorationDiapree, ColorationBleue, ColorationRousse, ColorationTexture, ColorationBrillante, Anonymat
+noun_cat PartieDOiseau | functions | -
+noun_cat PartieDOiseau | has_intransitive_verb | false
+noun_cat PartieDOiseau | id | PartieDOiseau
+noun_cat PartieDOiseau | nouns | plume
+noun_cat Phenomene | affiliations | Saison, MomentDuJour, MiJour
+noun_cat Phenomene | attributes | -
+noun_cat Phenomene | emissions | -
+noun_cat Phenomene | epithets | -
+noun_cat Phenomene | functions | -
+noun_cat Phenomene | has_intransitive_verb | false
+noun_cat Phenomene | id | Phenomene
+noun_cat Phenomene | nouns | bruit, lumière, odeur, saveur
+noun_cat PhenomeneLumineux | affiliations | Saison, MomentDuJour, MiJour
+noun_cat PhenomeneLumineux | attributes | ColorationBrillante, ColorationBleue, ColorationRousse, Chaleur
+noun_cat PhenomeneLumineux | emissions | -
+noun_cat PhenomeneLumineux | epithets | Chaleur, ColorationRousse, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse
+noun_cat PhenomeneLumineux | functions | -
+noun_cat PhenomeneLumineux | has_intransitive_verb | false
+noun_cat PhenomeneLumineux | id | PhenomeneLumineux
+noun_cat PhenomeneLumineux | nouns | lumière, rayon
+noun_cat PhenomeneMeteo | affiliations | Saison
+noun_cat PhenomeneMeteo | attributes | -
+noun_cat PhenomeneMeteo | emissions | -
+noun_cat PhenomeneMeteo | epithets | -
+noun_cat PhenomeneMeteo | functions | -
+noun_cat PhenomeneMeteo | has_intransitive_verb | false
+noun_cat PhenomeneMeteo | id | PhenomeneMeteo
+noun_cat PhenomeneMeteo | nouns | pluie, bruine, orage, averse, embellie, brume
+noun_cat PhenomeneOlfactif | affiliations | MomentDuJour, Saison
+noun_cat PhenomeneOlfactif | attributes | -
+noun_cat PhenomeneOlfactif | emissions | -
+noun_cat PhenomeneOlfactif | epithets | Chaleur, ColorationDiapree, Delicatesse, Saveur
+noun_cat PhenomeneOlfactif | functions | -
+noun_cat PhenomeneOlfactif | has_intransitive_verb | false
+noun_cat PhenomeneOlfactif | id | PhenomeneOlfactif
+noun_cat PhenomeneOlfactif | nouns | odeur, parfum, arôme, saveur
+noun_cat PhenomeneSonore | affiliations | Saison, MomentDuJour
+noun_cat PhenomeneSonore | attributes | -
+noun_cat PhenomeneSonore | emissions | -
+noun_cat PhenomeneSonore | epithets | -
+noun_cat PhenomeneSonore | functions | -
+noun_cat PhenomeneSonore | has_intransitive_verb | false
+noun_cat PhenomeneSonore | id | PhenomeneSonore
+noun_cat PhenomeneSonore | nouns | bruit, chant
+noun_cat PhenomeneSonoreFloral | affiliations | OrganeDePlante
+noun_cat PhenomeneSonoreFloral | attributes | -
+noun_cat PhenomeneSonoreFloral | emissions | -
+noun_cat PhenomeneSonoreFloral | epithets | -
+noun_cat PhenomeneSonoreFloral | functions | -
+noun_cat PhenomeneSonoreFloral | has_intransitive_verb | false
+noun_cat PhenomeneSonoreFloral | id | PhenomeneSonoreFloral
+noun_cat PhenomeneSonoreFloral | nouns | bruit, bruissement
+noun_cat PhenomeneTactile | affiliations | MomentDuJour, Saison
+noun_cat PhenomeneTactile | attributes | Chaleur, Froideur
+noun_cat PhenomeneTactile | emissions | -
+noun_cat PhenomeneTactile | epithets | Chaleur, Froideur, ColorationDiapree, Delicatesse, Saveur
+noun_cat PhenomeneTactile | functions | -
+noun_cat PhenomeneTactile | has_intransitive_verb | false
+noun_cat PhenomeneTactile | id | PhenomeneTactile
+noun_cat PhenomeneTactile | nouns | rosée
+noun_cat Plante | affiliations | -
+noun_cat Plante | attributes | Liberte, ColorationBrillante, ColorationBleue, ColorationRousse
+noun_cat Plante | emissions | PhenomeneOlfactif
+noun_cat Plante | epithets | Liberte, ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse, Anonymat
+noun_cat Plante | functions | -
+noun_cat Plante | has_intransitive_verb | false
+noun_cat Plante | id | Plante
+noun_cat Plante | nouns | mousse, liane, lierre, chèvrefeuille
+noun_cat PlanteAFleur | affiliations | MomentDuJour
+noun_cat PlanteAFleur | attributes | EtatDeFloraison, Liberte
+noun_cat PlanteAFleur | emissions | PhenomeneOlfactif
+noun_cat PlanteAFleur | epithets | EtatDeFloraison, Liberte, ColorationTexture, ColorationDiapree, ColorationBrillante, ColorationRousse, ColorationDiapree, Anonymat, Saveur
+noun_cat PlanteAFleur | functions | -
+noun_cat PlanteAFleur | has_intransitive_verb | false
+noun_cat PlanteAFleur | id | PlanteAFleur
+noun_cat PlanteAFleur | nouns | prunier, cerisier, oeillet, glycine, pivoine, chèvrefeuille
+noun_cat PortionDeTemps | affiliations | Calme, Astre, PhenomeneMeteo
+noun_cat PortionDeTemps | attributes | -
+noun_cat PortionDeTemps | emissions | -
+noun_cat PortionDeTemps | epithets | Noblesse, ColorationTexture, ColorationBrillante
+noun_cat PortionDeTemps | functions | -
+noun_cat PortionDeTemps | has_intransitive_verb | false
+noun_cat PortionDeTemps | id | PortionDeTemps
+noun_cat PortionDeTemps | nouns | moment, heure, minute
+noun_cat Saison | affiliations | -
+noun_cat Saison | attributes | ColorationBrillante
+noun_cat Saison | emissions | Phenomene
+noun_cat Saison | epithets | ColorationRousse, ColorationBrillante, ColorationBleue, ColorationRousse
+noun_cat Saison | functions | EtatDEveil
+noun_cat Saison | has_intransitive_verb | true
+noun_cat Saison | id | Saison
+noun_cat Saison | nouns | printemps, été, automne, hiver
+noun_cat SaisonChaude | affiliations | -
+noun_cat SaisonChaude | attributes | Chaleur
+noun_cat SaisonChaude | emissions | -
+noun_cat SaisonChaude | epithets | Chaleur, ColorationDiapree, ColorationBrillante, ColorationBleue, ColorationRousse
+noun_cat SaisonChaude | functions | -
+noun_cat SaisonChaude | has_intransitive_verb | false
+noun_cat SaisonChaude | id | SaisonChaude
+noun_cat SaisonChaude | nouns | printemps, été, automne
+noun_cat SaisonFroide | affiliations | -
+noun_cat SaisonFroide | attributes | Froideur
+noun_cat SaisonFroide | emissions | -
+noun_cat SaisonFroide | epithets | Froideur, ColorationDiapree, ColorationBrillante, ColorationBleue
+noun_cat SaisonFroide | functions | -
+noun_cat SaisonFroide | has_intransitive_verb | false
+noun_cat SaisonFroide | id | SaisonFroide
+noun_cat SaisonFroide | nouns | printemps, hiver, automne
+noun_cat count | 23
+selector get_cats_containing_affiliations | 17 | Astre, Calme, EffetLumineux, EspritHumain, MiJour, MomentDuJour, OrganeDePlante, PartieDOiseau, Phenomene, PhenomeneLumineux, PhenomeneMeteo, PhenomeneOlfactif, PhenomeneSonore, PhenomeneSonoreFloral, PhenomeneTactile, PlanteAFleur, PortionDeTemps
+selector get_cats_containing_attributes | 13 | Astre, Mammifere, MomentDuJour, Oiseau, OrganeDePlante, PartieDOiseau, PhenomeneLumineux, PhenomeneTactile, Plante, PlanteAFleur, Saison, SaisonChaude, SaisonFroide
+selector get_cats_containing_epithets | 18 | Astre, EffetLumineux, EspritHumain, Mammifere, MiJour, MomentDuJour, Oiseau, OrganeDePlante, PartieDOiseau, PhenomeneLumineux, PhenomeneOlfactif, PhenomeneTactile, Plante, PlanteAFleur, PortionDeTemps, Saison, SaisonChaude, SaisonFroide
+selector get_cats_containing_epithets_and_affiliations | 12 | Astre, EffetLumineux, EspritHumain, MiJour, MomentDuJour, OrganeDePlante, PartieDOiseau, PhenomeneLumineux, PhenomeneOlfactif, PhenomeneTactile, PlanteAFleur, PortionDeTemps
+selector get_cats_containing_int_verbs | 5 | Astre, EspritHumain, Mammifere, Oiseau, Saison

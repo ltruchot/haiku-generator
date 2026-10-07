@@ -1,0 +1,392 @@
+l'alouette s'assoupit | 7 7
+l'alouette s'endort | 6 6
+l'alouette s'éclipse | 6 6
+l'alouette s'évanouit | 8 8
+l'alouette s'éveille | 6 6
+l'alouette se couche | 6 6
+l'alouette se lève | 6 6
+l'automne s'assoupit | 6 6
+l'automne s'endort | 5 5
+l'automne s'éclipse | 5 5
+l'automne s'évanouit | 7 7
+l'automne s'éveille | 5 5
+l'automne se couche | 5 5
+l'automne se lève | 5 5
+l'esprit s'assoupit | 5 5
+l'esprit s'endort | 4 4
+l'esprit s'éclipse | 4 4
+l'esprit s'évanouit | 6 6
+l'esprit s'éveille | 4 4
+l'esprit se couche | 4 4
+l'esprit se lève | 4 4
+l'hermine s'assoupit | 6 6
+l'hermine s'endort | 5 5
+l'hermine s'éclipse | 5 5
+l'hermine s'évanouit | 7 7
+l'hermine s'éveille | 5 5
+l'hermine se couche | 5 5
+l'hermine se lève | 5 5
+l'hirondelle s'assoupit | 7 7
+l'hirondelle s'endort | 6 6
+l'hirondelle s'éclipse | 6 6
+l'hirondelle s'évanouit | 8 8
+l'hirondelle s'éveille | 6 6
+l'hirondelle se couche | 6 6
+l'hirondelle se lève | 6 6
+l'hiver s'assoupit | 5 5
+l'hiver s'endort | 4 4
+l'hiver s'éclipse | 4 4
+l'hiver s'évanouit | 6 6
+l'hiver s'éveille | 4 4
+l'hiver se couche | 4 4
+l'hiver se lève | 4 4
+l'âme s'assoupit | 5 5
+l'âme s'endort | 4 4
+l'âme s'éclipse | 4 4
+l'âme s'évanouit | 6 6
+l'âme s'éveille | 4 4
+l'âme se couche | 4 4
+l'âme se lève | 4 4
+l'écureuil s'assoupit | 6 6
+l'écureuil s'endort | 5 5
+l'écureuil s'éclipse | 5 5
+l'écureuil s'évanouit | 7 7
+l'écureuil s'éveille | 5 5
+l'écureuil se couche | 5 5
+l'écureuil se lève | 5 5
+l'étoile s'assoupit | 6 6
+l'étoile s'endort | 5 5
+l'étoile s'éclipse | 5 5
+l'étoile s'évanouit | 7 7
+l'étoile s'éveille | 5 5
+l'étoile se couche | 5 5
+l'étoile se lève | 5 5
+l'été s'assoupit | 5 5
+l'été s'endort | 4 4
+l'été s'éclipse | 4 4
+l'été s'évanouit | 6 6
+l'été s'éveille | 4 4
+l'été se couche | 4 4
+l'été se lève | 4 4
+la belette s'assoupit | 7 7
+la belette s'endort | 6 6
+la belette s'éclipse | 6 6
+la belette s'évanouit | 8 8
+la belette s'éveille | 6 6
+la belette se couche | 6 6
+la belette se lève | 6 6
+la biche s'assoupit | 6 6
+la biche s'endort | 5 5
+la biche s'éclipse | 5 5
+la biche s'évanouit | 7 7
+la biche s'éveille | 5 5
+la biche se couche | 5 5
+la biche se lève | 5 5
+la fauvette s'assoupit | 7 7
+la fauvette s'endort | 6 6
+la fauvette s'éclipse | 6 6
+la fauvette s'évanouit | 8 8
+la fauvette s'éveille | 6 6
+la fauvette se couche | 6 6
+la fauvette se lève | 6 6
+la grive s'assoupit | 6 6
+la grive s'endort | 5 5
+la grive s'éclipse | 5 5
+la grive s'évanouit | 7 7
+la grive s'éveille | 5 5
+la grive se couche | 5 5
+la grive se lève | 5 5
+la lune s'assoupit | 6 6
+la lune s'endort | 5 5
+la lune s'éclipse | 5 5
+la lune s'évanouit | 7 7
+la lune s'éveille | 5 5
+la lune se couche | 5 5
+la lune se lève | 5 5
+la mésange s'assoupit | 7 7
+la mésange s'endort | 6 6
+la mésange s'éclipse | 6 6
+la mésange s'évanouit | 8 8
+la mésange s'éveille | 6 6
+la mésange se couche | 6 6
+la mésange se lève | 6 6
+la pie s'assoupit | 5 5
+la pie s'endort | 4 4
+la pie s'éclipse | 4 4
+la pie s'évanouit | 6 6
+la pie s'éveille | 4 4
+la pie se couche | 4 4
+la pie se lève | 4 4
+le canard s'assoupit | 6 6
+le canard s'endort | 5 5
+le canard s'éclipse | 5 5
+le canard s'évanouit | 7 7
+le canard s'éveille | 5 5
+le canard se couche | 5 5
+le canard se lève | 5 5
+le cerf s'assoupit | 5 5
+le cerf s'endort | 4 4
+le cerf s'éclipse | 4 4
+le cerf s'évanouit | 6 6
+le cerf s'éveille | 4 4
+le cerf se couche | 4 4
+le cerf se lève | 4 4
+le chevreuil s'assoupit | 6 6
+le chevreuil s'endort | 5 5
+le chevreuil s'éclipse | 5 5
+le chevreuil s'évanouit | 7 7
+le chevreuil s'éveille | 5 5
+le chevreuil se couche | 5 5
+le chevreuil se lève | 5 5
+le cœur s'assoupit | 5 5
+le cœur s'endort | 4 4
+le cœur s'éclipse | 4 4
+le cœur s'évanouit | 6 6
+le cœur s'éveille | 4 4
+le cœur se couche | 4 4
+le cœur se lève | 4 4
+le daim s'assoupit | 5 5
+le daim s'endort | 4 4
+le daim s'éclipse | 4 4
+le daim s'évanouit | 6 6
+le daim s'éveille | 4 4
+le daim se couche | 4 4
+le daim se lève | 4 4
+le faon s'assoupit | 5 5
+le faon s'endort | 4 4
+le faon s'éclipse | 4 4
+le faon s'évanouit | 6 6
+le faon s'éveille | 4 4
+le faon se couche | 4 4
+le faon se lève | 4 4
+le merle s'assoupit | 6 6
+le merle s'endort | 5 5
+le merle s'éclipse | 5 5
+le merle s'évanouit | 7 7
+le merle s'éveille | 5 5
+le merle se couche | 5 5
+le merle se lève | 5 5
+le printemps s'assoupit | 6 6
+le printemps s'endort | 5 5
+le printemps s'éclipse | 5 5
+le printemps s'évanouit | 7 7
+le printemps s'éveille | 5 5
+le printemps se couche | 5 5
+le printemps se lève | 5 5
+le renard s'assoupit | 6 6
+le renard s'endort | 5 5
+le renard s'éclipse | 5 5
+le renard s'évanouit | 7 7
+le renard s'éveille | 5 5
+le renard se couche | 5 5
+le renard se lève | 5 5
+le rougegorge s'assoupit | 8 8
+le rougegorge s'endort | 7 7
+le rougegorge s'éclipse | 7 7
+le rougegorge s'évanouit | 9 9
+le rougegorge s'éveille | 7 7
+le rougegorge se couche | 7 7
+le rougegorge se lève | 7 7
+le soleil s'assoupit | 6 6
+le soleil s'endort | 5 5
+le soleil s'éclipse | 5 5
+le soleil s'évanouit | 7 7
+le soleil s'éveille | 5 5
+le soleil se couche | 5 5
+le soleil se lève | 5 5
+les alouettes s'assoupissent | 8 8
+les alouettes s'endorment | 7 7
+les alouettes s'éclipsent | 7 7
+les alouettes s'évanouissent | 9 9
+les alouettes s'éveillent | 7 7
+les alouettes se couchent | 7 7
+les alouettes se lèvent | 7 7
+les automnes s'assoupissent | 7 7
+les automnes s'endorment | 6 6
+les automnes s'éclipsent | 6 6
+les automnes s'évanouissent | 8 8
+les automnes s'éveillent | 6 6
+les automnes se couchent | 6 6
+les automnes se lèvent | 6 6
+les belettes s'assoupissent | 7 7
+les belettes s'endorment | 6 6
+les belettes s'éclipsent | 6 6
+les belettes s'évanouissent | 8 8
+les belettes s'éveillent | 6 6
+les belettes se couchent | 6 6
+les belettes se lèvent | 6 6
+les biches s'assoupissent | 6 6
+les biches s'endorment | 5 5
+les biches s'éclipsent | 5 5
+les biches s'évanouissent | 7 7
+les biches s'éveillent | 5 5
+les biches se couchent | 5 5
+les biches se lèvent | 5 5
+les canards s'assoupissent | 6 6
+les canards s'endorment | 5 5
+les canards s'éclipsent | 5 5
+les canards s'évanouissent | 7 7
+les canards s'éveillent | 5 5
+les canards se couchent | 5 5
+les canards se lèvent | 5 5
+les cerfs s'assoupissent | 5 5
+les cerfs s'endorment | 4 4
+les cerfs s'éclipsent | 4 4
+les cerfs s'évanouissent | 6 6
+les cerfs s'éveillent | 4 4
+les cerfs se couchent | 4 4
+les cerfs se lèvent | 4 4
+les chevreuils s'assoupissent | 6 6
+les chevreuils s'endorment | 5 5
+les chevreuils s'éclipsent | 5 5
+les chevreuils s'évanouissent | 7 7
+les chevreuils s'éveillent | 5 5
+les chevreuils se couchent | 5 5
+les chevreuils se lèvent | 5 5
+les cœurs s'assoupissent | 5 5
+les cœurs s'endorment | 4 4
+les cœurs s'éclipsent | 4 4
+les cœurs s'évanouissent | 6 6
+les cœurs s'éveillent | 4 4
+les cœurs se couchent | 4 4
+les cœurs se lèvent | 4 4
+les daims s'assoupissent | 5 5
+les daims s'endorment | 4 4
+les daims s'éclipsent | 4 4
+les daims s'évanouissent | 6 6
+les daims s'éveillent | 4 4
+les daims se couchent | 4 4
+les daims se lèvent | 4 4
+les esprits s'assoupissent | 6 6
+les esprits s'endorment | 5 5
+les esprits s'éclipsent | 5 5
+les esprits s'évanouissent | 7 7
+les esprits s'éveillent | 5 5
+les esprits se couchent | 5 5
+les esprits se lèvent | 5 5
+les faons s'assoupissent | 5 5
+les faons s'endorment | 4 4
+les faons s'éclipsent | 4 4
+les faons s'évanouissent | 6 6
+les faons s'éveillent | 4 4
+les faons se couchent | 4 4
+les faons se lèvent | 4 4
+les fauvettes s'assoupissent | 7 7
+les fauvettes s'endorment | 6 6
+les fauvettes s'éclipsent | 6 6
+les fauvettes s'évanouissent | 8 8
+les fauvettes s'éveillent | 6 6
+les fauvettes se couchent | 6 6
+les fauvettes se lèvent | 6 6
+les grives s'assoupissent | 6 6
+les grives s'endorment | 5 5
+les grives s'éclipsent | 5 5
+les grives s'évanouissent | 7 7
+les grives s'éveillent | 5 5
+les grives se couchent | 5 5
+les grives se lèvent | 5 5
+les hermines s'assoupissent | 7 7
+les hermines s'endorment | 6 6
+les hermines s'éclipsent | 6 6
+les hermines s'évanouissent | 8 8
+les hermines s'éveillent | 6 6
+les hermines se couchent | 6 6
+les hermines se lèvent | 6 6
+les hirondelles s'assoupissent | 8 8
+les hirondelles s'endorment | 7 7
+les hirondelles s'éclipsent | 7 7
+les hirondelles s'évanouissent | 9 9
+les hirondelles s'éveillent | 7 7
+les hirondelles se couchent | 7 7
+les hirondelles se lèvent | 7 7
+les hivers s'assoupissent | 6 6
+les hivers s'endorment | 5 5
+les hivers s'éclipsent | 5 5
+les hivers s'évanouissent | 7 7
+les hivers s'éveillent | 5 5
+les hivers se couchent | 5 5
+les hivers se lèvent | 5 5
+les lunes s'assoupissent | 6 6
+les lunes s'endorment | 5 5
+les lunes s'éclipsent | 5 5
+les lunes s'évanouissent | 7 7
+les lunes s'éveillent | 5 5
+les lunes se couchent | 5 5
+les lunes se lèvent | 5 5
+les merles s'assoupissent | 6 6
+les merles s'endorment | 5 5
+les merles s'éclipsent | 5 5
+les merles s'évanouissent | 7 7
+les merles s'éveillent | 5 5
+les merles se couchent | 5 5
+les merles se lèvent | 5 5
+les mésanges s'assoupissent | 7 7
+les mésanges s'endorment | 6 6
+les mésanges s'éclipsent | 6 6
+les mésanges s'évanouissent | 8 8
+les mésanges s'éveillent | 6 6
+les mésanges se couchent | 6 6
+les mésanges se lèvent | 6 6
+les pies s'assoupissent | 5 5
+les pies s'endorment | 4 4
+les pies s'éclipsent | 4 4
+les pies s'évanouissent | 6 6
+les pies s'éveillent | 4 4
+les pies se couchent | 4 4
+les pies se lèvent | 4 4
+les printemps s'assoupissent | 6 6
+les printemps s'endorment | 5 5
+les printemps s'éclipsent | 5 5
+les printemps s'évanouissent | 7 7
+les printemps s'éveillent | 5 5
+les printemps se couchent | 5 5
+les printemps se lèvent | 5 5
+les renards s'assoupissent | 6 6
+les renards s'endorment | 5 5
+les renards s'éclipsent | 5 5
+les renards s'évanouissent | 7 7
+les renards s'éveillent | 5 5
+les renards se couchent | 5 5
+les renards se lèvent | 5 5
+les rougegorges s'assoupissent | 8 8
+les rougegorges s'endorment | 7 7
+les rougegorges s'éclipsent | 7 7
+les rougegorges s'évanouissent | 9 9
+les rougegorges s'éveillent | 7 7
+les rougegorges se couchent | 7 7
+les rougegorges se lèvent | 7 7
+les soleils s'assoupissent | 6 6
+les soleils s'endorment | 5 5
+les soleils s'éclipsent | 5 5
+les soleils s'évanouissent | 7 7
+les soleils s'éveillent | 5 5
+les soleils se couchent | 5 5
+les soleils se lèvent | 5 5
+les âmes s'assoupissent | 6 6
+les âmes s'endorment | 5 5
+les âmes s'éclipsent | 5 5
+les âmes s'évanouissent | 7 7
+les âmes s'éveillent | 5 5
+les âmes se couchent | 5 5
+les âmes se lèvent | 5 5
+les écureuils s'assoupissent | 7 7
+les écureuils s'endorment | 6 6
+les écureuils s'éclipsent | 6 6
+les écureuils s'évanouissent | 8 8
+les écureuils s'éveillent | 6 6
+les écureuils se couchent | 6 6
+les écureuils se lèvent | 6 6
+les étoiles s'assoupissent | 7 7
+les étoiles s'endorment | 6 6
+les étoiles s'éclipsent | 6 6
+les étoiles s'évanouissent | 8 8
+les étoiles s'éveillent | 6 6
+les étoiles se couchent | 6 6
+les étoiles se lèvent | 6 6
+les étés s'assoupissent | 6 6
+les étés s'endorment | 5 5
+les étés s'éclipsent | 5 5
+les étés s'évanouissent | 7 7
+les étés s'éveillent | 5 5
+les étés se couchent | 5 5
+les étés se lèvent | 5 5

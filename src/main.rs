@@ -36,6 +36,9 @@ mod verb_enums;
 // mod exemple;
 // use exemple::{get_total};
 
+#[cfg(test)]
+mod characterization;
+
 fn main() {
     // prepare authorized sentence combinations
     let mut combinations: Combinations = get_combinations();

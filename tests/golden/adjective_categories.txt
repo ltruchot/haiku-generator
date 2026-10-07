@@ -1,0 +1,20 @@
+adj_cat Agitation | inquiet, aux abois, vigilant, perplexe, agité, ému
+adj_cat Anonymat | anonyme, étrange, étranger
+adj_cat Calme | calme, sage, heureux, immobile, en paix, paisible
+adj_cat CaractereMoqueur | moqueur, malicieux, narquois, railleur
+adj_cat Chaleur | caniculaire, brûlant
+adj_cat ColorationBleue | bleu, violet
+adj_cat ColorationBrillante | doré, argenté
+adj_cat ColorationDiapree | <no entry: Diaphane>, diapré, moiré, irisé, halé, <no entry: Bigarre>
+adj_cat ColorationRousse | doré, orange, roux, écarlate, brun, ocre, violet, rose
+adj_cat ColorationSombre | noir, sombre, gris, ébène
+adj_cat ColorationTexture | pastel
+adj_cat Delicatesse | délicat, noble, léger, <no entry: Doux>
+adj_cat EtatDeFloraison | en fleur
+adj_cat Froideur | polaire, glacial, glacé
+adj_cat Grandeur | <no entry: Grand>, immense, majestueux
+adj_cat Liberte | libre, sauvage
+adj_cat Noblesse | noble, délicat, majestueux
+adj_cat RelAUneSaison | printanier, estival, automnal, hivernal
+adj_cat Saveur | sucré, épicé
+adj_cat count | 19

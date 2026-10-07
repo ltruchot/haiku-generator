@@ -1,0 +1,295 @@
+adj agité | Female Plural | "agitées" (3,3)
+adj agité | Female Singular | "agitée" (3,3)
+adj agité | Male Plural | "agités" (3,3)
+adj agité | Male Singular | "agité" (3,3)
+adj agité | entry | id=Agite feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="agité"
+adj anonyme | Female Plural | "anonymes" (3,3)
+adj anonyme | Female Singular | "anonyme" (3,3)
+adj anonyme | Male Plural | "anonymes" (3,3)
+adj anonyme | Male Singular | "anonyme" (3,3)
+adj anonyme | entry | id=Anonyme feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="anonyme"
+adj argenté | Female Plural | "argentées" (3,3)
+adj argenté | Female Singular | "argentée" (3,3)
+adj argenté | Male Plural | "argentés" (3,3)
+adj argenté | Male Singular | "argenté" (3,3)
+adj argenté | entry | id=Argente feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="argenté"
+adj automnal | Female Plural | "automnales" (3,3)
+adj automnal | Female Singular | "automnale" (3,3)
+adj automnal | Male Plural | "automnaux" (3,3)
+adj automnal | Male Singular | "automnal" (3,3)
+adj automnal | entry | id=Automnal feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="automnal"
+adj aux abois | Female Plural | "aux abois" (3,3)
+adj aux abois | Female Singular | "aux abois" (3,3)
+adj aux abois | Male Plural | "aux abois" (3,3)
+adj aux abois | Male Singular | "aux abois" (3,3)
+adj aux abois | entry | id=AuxAbois feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=true lookup_by_id="aux abois"
+adj bigarré | Female Plural | "bigarrées" (3,3)
+adj bigarré | Female Singular | "bigarrée" (3,3)
+adj bigarré | Male Plural | "bigarrés" (3,3)
+adj bigarré | Male Singular | "bigarré" (3,3)
+adj bigarré | entry | id=Hale feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="halé"
+adj bleu | Female Plural | "bleues" (1,1)
+adj bleu | Female Singular | "bleue" (1,1)
+adj bleu | Male Plural | "bleus" (1,1)
+adj bleu | Male Singular | "bleu" (1,1)
+adj bleu | entry | id=Bleu feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="bleu"
+adj brun | Female Plural | "brunes" (1,1)
+adj brun | Female Singular | "brune" (1,1)
+adj brun | Male Plural | "bruns" (1,1)
+adj brun | Male Singular | "brun" (1,1)
+adj brun | entry | id=Brun feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="brun"
+adj brûlant | Female Plural | "brûlantes" (2,2)
+adj brûlant | Female Singular | "brûlante" (2,2)
+adj brûlant | Male Plural | "brûlants" (2,2)
+adj brûlant | Male Singular | "brûlant" (2,2)
+adj brûlant | entry | id=Brulant feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="brûlant"
+adj calme | Female Plural | "calmes" (1,1)
+adj calme | Female Singular | "calme" (1,1)
+adj calme | Male Plural | "calmes" (1,1)
+adj calme | Male Singular | "calme" (1,1)
+adj calme | entry | id=Calme feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="calme"
+adj caniculaire | Female Plural | "caniculaires" (4,4)
+adj caniculaire | Female Singular | "caniculaire" (4,4)
+adj caniculaire | Male Plural | "caniculaires" (4,4)
+adj caniculaire | Male Singular | "caniculaire" (4,4)
+adj caniculaire | entry | id=Caniculaire feet=(4,4) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="caniculaire"
+adj diapré | Female Plural | "diaprées" (2,3)
+adj diapré | Female Singular | "diaprée" (2,3)
+adj diapré | Male Plural | "diaprés" (2,3)
+adj diapré | Male Singular | "diapré" (2,3)
+adj diapré | entry | id=Diapre feet=(2,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="diapré"
+adj doré | Female Plural | "dorées" (2,2)
+adj doré | Female Singular | "dorée" (2,2)
+adj doré | Male Plural | "dorés" (2,2)
+adj doré | Male Singular | "doré" (2,2)
+adj doré | entry | id=Dore feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="doré"
+adj doux | Female Plural | "douxes" (1,1)
+adj doux | Female Singular | "douxe" (1,1)
+adj doux | Male Plural | "doux" (1,1)
+adj doux | Male Singular | "doux" (1,1)
+adj doux | entry | id=Paisible feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="paisible"
+adj délicat | Female Plural | "délicates" (3,3)
+adj délicat | Female Singular | "délicate" (3,3)
+adj délicat | Male Plural | "délicats" (3,3)
+adj délicat | Male Singular | "délicat" (3,3)
+adj délicat | entry | id=Delicat feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="délicat"
+adj en fleur | Female Plural | "en fleur" (2,2)
+adj en fleur | Female Singular | "en fleur" (2,2)
+adj en fleur | Male Plural | "en fleur" (2,2)
+adj en fleur | Male Singular | "en fleur" (2,2)
+adj en fleur | entry | id=EnFleur feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=true lookup_by_id="en fleur"
+adj en paix | Female Plural | "en paix" (2,2)
+adj en paix | Female Singular | "en paix" (2,2)
+adj en paix | Male Plural | "en paix" (2,2)
+adj en paix | Male Singular | "en paix" (2,2)
+adj en paix | entry | id=EnPaix feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=true lookup_by_id="en paix"
+adj estival | Female Plural | "estivales" (3,3)
+adj estival | Female Singular | "estivale" (3,3)
+adj estival | Male Plural | "estivaux" (3,3)
+adj estival | Male Singular | "estival" (3,3)
+adj estival | entry | id=Estival feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="estival"
+adj glacial | Female Plural | "glaciales" (2,3)
+adj glacial | Female Singular | "glaciale" (2,3)
+adj glacial | Male Plural | "glacials" (2,3)
+adj glacial | Male Singular | "glacial" (2,3)
+adj glacial | entry | id=Glacial feet=(2,3) fem=- masc_plur="glacials" fem_plur=- invariable=false lookup_by_id="glacial"
+adj glacé | Female Plural | "glacées" (2,2)
+adj glacé | Female Singular | "glacée" (2,2)
+adj glacé | Male Plural | "glacés" (2,2)
+adj glacé | Male Singular | "glacé" (2,2)
+adj glacé | entry | id=Glace feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="glacé"
+adj gris | Female Plural | "grises" (1,1)
+adj gris | Female Singular | "grise" (1,1)
+adj gris | Male Plural | "gris" (1,1)
+adj gris | Male Singular | "gris" (1,1)
+adj gris | entry | id=Gris feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="gris"
+adj halé | Female Plural | "halées" (2,2)
+adj halé | Female Singular | "halée" (2,2)
+adj halé | Male Plural | "halés" (2,2)
+adj halé | Male Singular | "halé" (2,2)
+adj halé | entry | id=Hale feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="halé"
+adj heureux | Female Plural | "heureuses" (2,2)
+adj heureux | Female Singular | "heureuse" (2,2)
+adj heureux | Male Plural | "heureux" (2,2)
+adj heureux | Male Singular | "heureux" (2,2)
+adj heureux | entry | id=Heureux feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="heureux"
+adj hivernal | Female Plural | "hivernales" (3,3)
+adj hivernal | Female Singular | "hivernale" (3,3)
+adj hivernal | Male Plural | "hivernaux" (3,3)
+adj hivernal | Male Singular | "hivernal" (3,3)
+adj hivernal | entry | id=Hivernal feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="hivernal"
+adj immense | Female Plural | "immenses" (2,2)
+adj immense | Female Singular | "immense" (2,2)
+adj immense | Male Plural | "immenses" (2,2)
+adj immense | Male Singular | "immense" (2,2)
+adj immense | entry | id=Immense feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="immense"
+adj immobile | Female Plural | "immobiles" (3,3)
+adj immobile | Female Singular | "immobile" (3,3)
+adj immobile | Male Plural | "immobiles" (3,3)
+adj immobile | Male Singular | "immobile" (3,3)
+adj immobile | entry | id=Immobile feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="immobile"
+adj inquiet | Female Plural | "inquiètes" (2,3)
+adj inquiet | Female Singular | "inquiète" (2,3)
+adj inquiet | Male Plural | "inquiets" (2,3)
+adj inquiet | Male Singular | "inquiet" (2,3)
+adj inquiet | entry | id=Inquiet feet=(2,3) fem="inquiète" masc_plur=- fem_plur="inquiètes" invariable=false lookup_by_id="inquiet"
+adj irisé | Female Plural | "irisées" (3,3)
+adj irisé | Female Singular | "irisée" (3,3)
+adj irisé | Male Plural | "irisés" (3,3)
+adj irisé | Male Singular | "irisé" (3,3)
+adj irisé | entry | id=Irise feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="irisé"
+adj libre | Female Plural | "libres" (1,1)
+adj libre | Female Singular | "libre" (1,1)
+adj libre | Male Plural | "libres" (1,1)
+adj libre | Male Singular | "libre" (1,1)
+adj libre | entry | id=Libre feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="libre"
+adj léger | Female Plural | "légères" (2,2)
+adj léger | Female Singular | "légère" (2,2)
+adj léger | Male Plural | "légers" (2,2)
+adj léger | Male Singular | "léger" (2,2)
+adj léger | entry | id=Leger feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="léger"
+adj majestueux | Female Plural | "majestueuses" (4,4)
+adj majestueux | Female Singular | "majestueuse" (4,4)
+adj majestueux | Male Plural | "majestueux" (4,4)
+adj majestueux | Male Singular | "majestueux" (4,4)
+adj majestueux | entry | id=Majestueux feet=(4,4) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="majestueux"
+adj malicieux | Female Plural | "malicieuses" (3,4)
+adj malicieux | Female Singular | "malicieuse" (3,4)
+adj malicieux | Male Plural | "malicieux" (3,4)
+adj malicieux | Male Singular | "malicieux" (3,4)
+adj malicieux | entry | id=Malicieux feet=(3,4) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="malicieux"
+adj moiré | Female Plural | "moirées" (2,2)
+adj moiré | Female Singular | "moirée" (2,2)
+adj moiré | Male Plural | "moirés" (2,2)
+adj moiré | Male Singular | "moiré" (2,2)
+adj moiré | entry | id=Moire feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="moiré"
+adj moqueur | Female Plural | "moqueuses" (2,2)
+adj moqueur | Female Singular | "moqueuse" (2,2)
+adj moqueur | Male Plural | "moqueurs" (2,2)
+adj moqueur | Male Singular | "moqueur" (2,2)
+adj moqueur | entry | id=Moqueur feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="moqueur"
+adj narquois | Female Plural | "narquoises" (2,2)
+adj narquois | Female Singular | "narquoise" (2,2)
+adj narquois | Male Plural | "narquois" (2,2)
+adj narquois | Male Singular | "narquois" (2,2)
+adj narquois | entry | id=Narquois feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="narquois"
+adj noble | Female Plural | "nobles" (1,1)
+adj noble | Female Singular | "noble" (1,1)
+adj noble | Male Plural | "nobles" (1,1)
+adj noble | Male Singular | "noble" (1,1)
+adj noble | entry | id=Noble feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="noble"
+adj noir | Female Plural | "noires" (1,1)
+adj noir | Female Singular | "noire" (1,1)
+adj noir | Male Plural | "noirs" (1,1)
+adj noir | Male Singular | "noir" (1,1)
+adj noir | entry | id=Noir feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="noir"
+adj ocre | Female Plural | "ocres" (1,1)
+adj ocre | Female Singular | "ocre" (1,1)
+adj ocre | Male Plural | "ocres" (1,1)
+adj ocre | Male Singular | "ocre" (1,1)
+adj ocre | entry | id=Ocre feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="ocre"
+adj orange | Female Plural | "oranges" (2,2)
+adj orange | Female Singular | "orange" (2,2)
+adj orange | Male Plural | "oranges" (2,2)
+adj orange | Male Singular | "orange" (2,2)
+adj orange | entry | id=Orange feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="orange"
+adj paisible | Female Plural | "paisibles" (2,2)
+adj paisible | Female Singular | "paisible" (2,2)
+adj paisible | Male Plural | "paisibles" (2,2)
+adj paisible | Male Singular | "paisible" (2,2)
+adj paisible | entry | id=Paisible feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="paisible"
+adj pastel | Female Plural | "pastel" (2,2)
+adj pastel | Female Singular | "pastel" (2,2)
+adj pastel | Male Plural | "pastel" (2,2)
+adj pastel | Male Singular | "pastel" (2,2)
+adj pastel | entry | id=Pastel feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=true lookup_by_id="pastel"
+adj perplexe | Female Plural | "perplexes" (3,3)
+adj perplexe | Female Singular | "perplexe" (3,3)
+adj perplexe | Male Plural | "perplexes" (3,3)
+adj perplexe | Male Singular | "perplexe" (3,3)
+adj perplexe | entry | id=Perplexe feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="perplexe"
+adj polaire | Female Plural | "polaires" (2,2)
+adj polaire | Female Singular | "polaire" (2,2)
+adj polaire | Male Plural | "polaires" (2,2)
+adj polaire | Male Singular | "polaire" (2,2)
+adj polaire | entry | id=Polaire feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="polaire"
+adj printanier | Female Plural | "printanières" (3,4)
+adj printanier | Female Singular | "printanière" (3,4)
+adj printanier | Male Plural | "printaniers" (3,4)
+adj printanier | Male Singular | "printanier" (3,4)
+adj printanier | entry | id=Printanier feet=(3,4) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="printanier"
+adj railleur | Female Plural | "railleuses" (2,2)
+adj railleur | Female Singular | "railleuse" (2,2)
+adj railleur | Male Plural | "railleurs" (2,2)
+adj railleur | Male Singular | "railleur" (2,2)
+adj railleur | entry | id=Railleur feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="railleur"
+adj rose | Female Plural | "roses" (1,1)
+adj rose | Female Singular | "rose" (1,1)
+adj rose | Male Plural | "roses" (1,1)
+adj rose | Male Singular | "rose" (1,1)
+adj rose | entry | id=Rose feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="rose"
+adj roux | Female Plural | "rousses" (1,1)
+adj roux | Female Singular | "rousse" (1,1)
+adj roux | Male Plural | "roux" (1,1)
+adj roux | Male Singular | "roux" (1,1)
+adj roux | entry | id=Roux feet=(1,1) fem="rousse" masc_plur="roux" fem_plur="rousses" invariable=false lookup_by_id="roux"
+adj sage | Female Plural | "sages" (1,1)
+adj sage | Female Singular | "sage" (1,1)
+adj sage | Male Plural | "sages" (1,1)
+adj sage | Male Singular | "sage" (1,1)
+adj sage | entry | id=Sage feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="sage"
+adj sauvage | Female Plural | "sauvages" (2,2)
+adj sauvage | Female Singular | "sauvage" (2,2)
+adj sauvage | Male Plural | "sauvages" (2,2)
+adj sauvage | Male Singular | "sauvage" (2,2)
+adj sauvage | entry | id=Sauvage feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="sauvage"
+adj sombre | Female Plural | "sombres" (1,1)
+adj sombre | Female Singular | "sombre" (1,1)
+adj sombre | Male Plural | "sombres" (1,1)
+adj sombre | Male Singular | "sombre" (1,1)
+adj sombre | entry | id=Sombre feet=(1,1) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="sombre"
+adj sucré | Female Plural | "sucrées" (2,2)
+adj sucré | Female Singular | "sucrée" (2,2)
+adj sucré | Male Plural | "sucrés" (2,2)
+adj sucré | Male Singular | "sucré" (2,2)
+adj sucré | entry | id=Sucre feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="sucré"
+adj vigilant | Female Plural | "vigilantes" (3,3)
+adj vigilant | Female Singular | "vigilante" (3,3)
+adj vigilant | Male Plural | "vigilants" (3,3)
+adj vigilant | Male Singular | "vigilant" (3,3)
+adj vigilant | entry | id=Vigilant feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="vigilant"
+adj violet | Female Plural | "violettes" (2,3)
+adj violet | Female Singular | "violette" (2,3)
+adj violet | Male Plural | "violets" (2,3)
+adj violet | Male Singular | "violet" (2,3)
+adj violet | entry | id=Violet feet=(2,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="violet"
+adj ébène | Female Plural | "ébènes" (2,2)
+adj ébène | Female Singular | "ébène" (2,2)
+adj ébène | Male Plural | "ébènes" (2,2)
+adj ébène | Male Singular | "ébène" (2,2)
+adj ébène | entry | id=Ebene feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="ébène"
+adj écarlate | Female Plural | "écarlates" (3,3)
+adj écarlate | Female Singular | "écarlate" (3,3)
+adj écarlate | Male Plural | "écarlates" (3,3)
+adj écarlate | Male Singular | "écarlate" (3,3)
+adj écarlate | entry | id=Ecarlate feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="écarlate"
+adj ému | Female Plural | "émues" (2,2)
+adj ému | Female Singular | "émue" (2,2)
+adj ému | Male Plural | "émus" (2,2)
+adj ému | Male Singular | "ému" (2,2)
+adj ému | entry | id=Emu feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="ému"
+adj épicé | Female Plural | "épicées" (3,3)
+adj épicé | Female Singular | "épicée" (3,3)
+adj épicé | Male Plural | "épicés" (3,3)
+adj épicé | Male Singular | "épicé" (3,3)
+adj épicé | entry | id=Epice feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="épicé"
+adj étrange | Female Plural | "étranges" (2,2)
+adj étrange | Female Singular | "étrange" (2,2)
+adj étrange | Male Plural | "étranges" (2,2)
+adj étrange | Male Singular | "étrange" (2,2)
+adj étrange | entry | id=Etrange feet=(2,2) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="étrange"
+adj étranger | Female Plural | "étrangères" (3,3)
+adj étranger | Female Singular | "étrangère" (3,3)
+adj étranger | Male Plural | "étrangers" (3,3)
+adj étranger | Male Singular | "étranger" (3,3)
+adj étranger | entry | id=Etranger feet=(3,3) fem=- masc_plur=- fem_plur=- invariable=false lookup_by_id="étranger"
