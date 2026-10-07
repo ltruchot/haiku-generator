@@ -28,6 +28,12 @@ const accepted = (): void => {
   const icons = document.querySelector("#question-link")?.parentElement;
   icons?.classList.remove("justify-between");
   icons?.classList.add("justify-center", "lg:justify-start", "gap-6");
+  // A more compact card: less padding, and the line under the title as far from the
+  // right edge as from the left one.
+  const card = document.querySelector("#profile > div");
+  if (card) card.className = card.className.replace("md:p-12", "md:p-8");
+  const line = document.querySelector("#profile h1 + div");
+  if (line) line.className = line.className.replace("w-4/5", "w-4/5 lg:w-full");
   // The image of a shared link: aiku.wtf is gone, the page has a new address.
   document
     .querySelector('meta[property="og:image"]')
