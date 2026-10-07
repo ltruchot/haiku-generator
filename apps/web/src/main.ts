@@ -39,15 +39,6 @@ toggle.addEventListener("click", () => {
   }
 });
 
-// twitter copy
-const tweet = byId("tweeter-link");
-tweet.addEventListener("click", (event) => {
-  event.preventDefault();
-  const [root = ""] = (tweet.getAttribute("href") ?? "").split("?");
-  const text = encodeURIComponent(`${haiku.innerText} \n\n par https://aiku.wtf`);
-  window.location.href = `${root}?text=${text}`;
-});
-
 // question toggle
 const toggleModal = (): void => {
   const modal = document.querySelector(".modal");

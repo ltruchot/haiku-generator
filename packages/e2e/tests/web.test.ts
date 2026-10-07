@@ -19,11 +19,17 @@ type Compared = {
   readonly after: () => string;
 };
 
+/* Runs in the 2020 page before it is captured: what was removed since, on purpose. */
+const accepted = (): void => {
+  const shareLinks = 'a[href*="facebook.com/sharer"], #tweeter-link, a[href*="short-edition.com"]';
+  for (const link of document.querySelectorAll(shareLinks)) link.remove();
+};
+
 const rendersLikeBefore = (given: Compared): void => {
   it.for(CASES)(
     "renders like the 2020 build: $viewport.name, $state",
     async ({ viewport, state }) => {
-      const before = await capture(given.browser(), given.before(), viewport, state);
+      const before = await capture(given.browser(), given.before(), viewport, state, accepted);
       const after = await capture(given.browser(), given.after(), viewport, state);
       keep(`web-${viewport.name}-${state}`, after.shot);
       expect(differences(before, after)).toStrictEqual([]);
@@ -52,11 +58,7 @@ describe("today's page", () => {
   });
 
   behaves(
-    {
-      otherSitesOnLoad: ["www.googletagmanager.com"],
-      tweetSuffix: " \n\n par https://aiku.wtf",
-      tabsAfterTweet: 1,
-    },
+    { otherSitesOnLoad: ["www.googletagmanager.com"] },
     { browser: () => browser, url: () => site.url },
   );
 

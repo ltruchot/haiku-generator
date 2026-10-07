@@ -7,13 +7,9 @@ import { VIEWPORTS, haikuLines, open } from "./page.ts";
 export type Spec = {
   /** Hosts of other sites requested on load (analytics). */
   readonly otherSitesOnLoad: readonly string[];
-  /** Appended to the haiku in the tweet. */
-  readonly tweetSuffix: string;
-  /** Tabs open after a click on the tweet link: 2 when it opens a new one. */
-  readonly tabsAfterTweet: 1 | 2;
 };
 
-type Given = { readonly browser: () => Browser; readonly url: () => string };
+export type Given = { readonly browser: () => Browser; readonly url: () => string };
 
 const [, DESKTOP] = VIEWPORTS;
 const MODAL_HIDDEN = ["opacity-0", "pointer-events-none"];
@@ -117,7 +113,8 @@ const explains = (given: Given): void => {
   });
 };
 
-const talksToOtherSites = (spec: Spec, given: Given): void => {
+/** 2020 only: the share links are gone from today's page. */
+export const tweets = (given: Given): void => {
   it("tweets the haiku", async () => {
     const { page, context, external, close } = await open(given.browser(), given.url(), DESKTOP);
     await page.waitForLoadState("networkidle");
@@ -129,10 +126,13 @@ const talksToOtherSites = (spec: Spec, given: Given): void => {
     await close();
     const tweet = new URL(String(external.at(-1)));
     expect(`${tweet.origin}${tweet.pathname}`).toBe("https://twitter.com/intent/tweet");
-    expect(tweet.searchParams.get("text")).toBe(`${text}${spec.tweetSuffix}`);
-    expect(tabs).toBe(spec.tabsAfterTweet);
+    expect(tweet.searchParams.get("text")).toBe(`${text} \n\n par https://aiku.wtf`);
+    // The link says target="_blank", the script navigates the page itself.
+    expect(tabs).toBe(1);
   });
+};
 
+const talksToOtherSites = (spec: Spec, given: Given): void => {
   it("asks nothing of other sites on load, analytics aside", async () => {
     const { page, external, close } = await open(given.browser(), given.url(), DESKTOP);
     await page.waitForLoadState("networkidle");

@@ -17,11 +17,13 @@ the page shows or does**. That constraint outranks every cleanup.
   comments, docs, commits) is US English, except the page's text and the word
   data, which are French.
 - The page renders and behaves like the 2020 build kept in
-  `packages/e2e/fixtures/legacy-dist/`. The only accepted differences:
-  the `aiku.wtf` URLs point to the new address, Google Analytics is gone, the
-  word "raie" can be drawn, the tweet opens in a new tab, and the three inline
-  `style` attributes live in the style sheet. Anything else that changes a
-  fingerprint or a golden is a regression, however sensible it looks.
+  `packages/e2e/fixtures/legacy-dist/`. The only accepted differences: the
+  Facebook, Twitter and short-edition links are gone, Google Analytics is
+  gone, `og:image` points to the new address, the word "raie" can be drawn,
+  and the three inline `style` attributes live in the style sheet. Each one is
+  written as code in `packages/e2e/tests/web.test.ts` (`accepted`). Anything
+  else that changes a fingerprint or a golden is a regression, however
+  sensible it looks.
 - Never edit `packages/e2e/fixtures/legacy-dist/` or the vendored Tailwind
   1.2.0 file: their bytes are the reference.
 - Never "fix" the page's HTML (the `<ul>` inside a `<p>` is invalid; the

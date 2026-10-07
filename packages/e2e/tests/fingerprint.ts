@@ -109,9 +109,12 @@ export const capture = async (
   url: string,
   viewport: Viewport,
   state: State,
+  /** Runs in the page first: the accepted changes, applied to the reference. */
+  prepare: () => void = () => {},
 ): Promise<Fingerprint> => {
   const { page, close } = await open(browser, url, viewport);
   try {
+    await page.evaluate(prepare);
     await page.evaluate((html) => {
       const haiku = document.querySelector("#haiku");
       if (haiku !== null) haiku.innerHTML = html;
