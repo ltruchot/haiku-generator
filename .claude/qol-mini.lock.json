@@ -1,0 +1,60 @@
+{
+  "skills": {
+    "npm-vulnerability-check": {
+      "answers": {},
+      "files": {
+        "SKILL.md": "90ab6b2cca0ec4c71ea5cb4252ec713c7ea8ac0c17f4e31cd8fb2c6972a26607",
+        "references/supply-chain.md": "e42c31e0b91b3dd1629193dfe501e007188354388cf453e277e44548a468167e"
+      },
+      "path": ".claude/skills/npm-vulnerability-check",
+      "ref": "0.2.1",
+      "renderedHash": "79537ac0b79c7c4d7cc03a4b41012628dd022955130fbfd7ada7d6c16eb78c85",
+      "secrets": [],
+      "sha": "local:4be092530201b57d0ee217ae5c3a7a66fb8797d34e489052263e210f157e13ea",
+      "skillPath": "skills/npm-vulnerability-check",
+      "source": "qol-mini",
+      "sourceType": "local",
+      "templateHash": "20a64c393a98dcca737f88c24043fd4a7b1b8152cc48e919e3804bc2d89d0226"
+    },
+    "qa-pr": {
+      "answers": {
+        "DEFAULT_BRANCH": "master",
+        "GITHUB_REPO": "ltruchot/haiku-generator",
+        "PROD_URL": "https://developers.gods.academy/loic-truchot/projects/haiku-generator/"
+      },
+      "files": {
+        "SKILL.md": "c32e0aabe98a5db87b892c7a8e6870a36741f38cb07e7da12814424edcda7e87",
+        "references/checklist.md": "68ecdc59d66ed5dde346e5fa9b094536976ebac3fa452bbe92930b149ef64b9e"
+      },
+      "path": ".claude/skills/qa-pr",
+      "ref": "0.2.1",
+      "renderedHash": "1eefe7d11c36d4227204ec4473121c8af5fc1a0f5646bca5fab84f61fa2be96a",
+      "secrets": [],
+      "sha": "local:4be092530201b57d0ee217ae5c3a7a66fb8797d34e489052263e210f157e13ea",
+      "skillPath": "skills/qa-pr",
+      "source": "qol-mini",
+      "sourceType": "local",
+      "templateHash": "203f844b96aff8d53980d9fc83ece653f75ba41006b5e0876bdd1da1b2397d4e"
+    },
+    "vp": {
+      "answers": {
+        "APP_DIR": "apps/web",
+        "DEV_PORT": "4060"
+      },
+      "files": {
+        "SKILL.md": "09f8fcb7c73f5ae6a2139f1642716593dde424df77a07bab17a5c0a0cc9bbee6",
+        "references/traps.md": "efb201a8563ee50ae074343d850c28a69804433a03da95d39ee960f48cd8a199"
+      },
+      "path": ".claude/skills/vp",
+      "ref": "0.2.1",
+      "renderedHash": "fbc717fba137edb8862e72c0a0b945e6a918b2ff6e25474a3fc37d71784c17f9",
+      "secrets": [],
+      "sha": "local:4be092530201b57d0ee217ae5c3a7a66fb8797d34e489052263e210f157e13ea",
+      "skillPath": "skills/vp",
+      "source": "qol-mini",
+      "sourceType": "local",
+      "templateHash": "6d325df94b70769d372abea49166d557fd0923ca309b1dccfd7926fce278994d"
+    }
+  },
+  "version": 1
+}

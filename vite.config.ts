@@ -12,6 +12,11 @@ const FROZEN = [
   // The Parcel 1 app, untouched until it moves to apps/web.
   "wasm-demo/**",
   "target/**",
+  // Managed by qol-mini (.claude/qol-mini.lock.json): one entry per managed
+  // skill, never .claude/skills/ as a whole (local skills are checked).
+  ".claude/skills/vp/**",
+  ".claude/skills/npm-vulnerability-check/**",
+  ".claude/skills/qa-pr/**",
   // 2020 files, rewritten or removed with the cleanup.
   "README.md",
   ".vscode/**",
