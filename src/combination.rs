@@ -1,8 +1,6 @@
 // IMPORTS
 //externals
 use crate::string::take_last_graphemes;
-use rand::rngs::ThreadRng;
-use rand::seq::SliceRandom;
 
 // common
 use crate::common_enums;
@@ -35,11 +33,11 @@ use noun::{
 
 // random
 use crate::random;
-use random::{get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb};
+use random::{choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb, Chooser};
 
 // EXPORTS
 pub type Combination =
-    Box<dyn Fn(&mut ThreadRng, &BlackLists) -> Result<(WordGroup, BlackLists), Vec<String>>>;
+    Box<dyn Fn(&mut dyn Chooser, &BlackLists) -> Result<(WordGroup, BlackLists), Vec<String>>>;
 
 pub fn get_with_adj_and_affiliation(
     number_opt: Option<Number>,
@@ -436,8 +434,7 @@ pub fn get_with_intransitive_verb(
                     }
                 };
                 if intransitive_verbs.len() > 0 {
-                    let verb_opt = intransitive_verbs
-                        .choose(rng)
+                    let verb_opt = choose(rng, &intransitive_verbs)
                         .and_then(|verb_id| VERBS.iter().find(|verb| verb_id.clone() == verb.id));
                     match verb_opt {
                         Some(verb) => {

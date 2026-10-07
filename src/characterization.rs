@@ -10,14 +10,18 @@
 //
 // Layout
 //   golden   text-file golden helper (tests/golden/*.txt)
-//   seam     the only place that touches `rand`
+//   seam     the only place that builds the production (rand) Chooser
+//   odometer a Chooser that walks a decision tree exhaustively; tests of the
+//            seam itself (choose, shuffle)
 //   names    labels for the id enums (they do not derive Debug)
 //   labels   lemma labels and formatting shared by the dumps
 //   grammar  exhaustive dumps of the grammar over the data tables
 //   helpers  table tests of the pure helpers
-//   model    exhaustive enumeration of what each sentence pattern can produce
+//   enumeration  everything each sentence pattern can produce (odometer
+//            over the real closures)
 //   patterns sentence patterns: enumeration and Monte-Carlo against goldens
 //   haiku    properties of generate_haiku
+//   retry    the retry / reshuffle loop of generate_haiku, scripted
 //
 // The module is only declared from src/main.rs (bin target): declaring it in
 // src/lib.rs too would run every test twice.
@@ -30,5 +34,7 @@ mod seam;
 mod grammar;
 mod haiku;
 mod helpers;
-mod model;
+mod enumeration;
+mod odometer;
 mod patterns;
+mod retry;

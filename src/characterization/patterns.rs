@@ -6,10 +6,12 @@
 //     <text> | <feet min> <feet max>          for Ok
 //     #ERR# <message> [+ <message>...]        for Err
 //
-// Three tests look at that set from two independent sides:
+// Three tests look at that set, through the two implementations of the
+// `Chooser` seam (the exhaustive odometer and the production, rand-backed one):
 //
-//   * enumeration (always on): the hand-written decision tree of `model.rs`
-//     must produce exactly the golden. With UPDATE_GOLDEN=1 this is the test
+//   * enumeration (always on): the REAL closure, driven through every path
+//     of its decision tree by the odometer (`enumeration.rs`), must produce
+//     exactly the golden. With UPDATE_GOLDEN=1 this is the test
 //     that rewrites the file.
 //   * Monte-Carlo, quick (always on): a few thousand draws of the REAL closure,
 //     each of which must belong to the golden.
@@ -33,7 +35,7 @@ use crate::common_enums::BlackLists;
 
 use super::golden::{assert_golden_lines, read_golden_lines, updating};
 use super::grammar::graphemes_differ_from_chars;
-use super::model::{distribution, enumerate, err_line, ok_line, PATTERN_NAMES};
+use super::enumeration::{distribution, enumerate, err_line, ok_line, PATTERN_NAMES};
 use super::seam::draw;
 
 pub fn golden_name(index: usize) -> String {

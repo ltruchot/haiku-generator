@@ -1,13 +1,12 @@
-// The ONLY place of the characterization tests that touches `rand`.
+// The ONLY place of the characterization tests that knows how the production
+// `Chooser` is built.
 //
-// Every production function taking `&mut ThreadRng` is called through one of
-// the wrappers below, so a later rand upgrade (or the replacement of
-// `ThreadRng` by a crate-local trait) is a change to this file only.
-// `generate_haiku` builds its own generator and needs no wrapper.
+// Every production function taking a `&mut dyn Chooser` is called with the
+// real, rand-backed one through the wrappers below, so a rand upgrade is a
+// change to `src/random.rs` and, at most, to this file.
+// `generate_haiku` builds its own chooser and needs no wrapper.
 
 use std::collections::HashSet;
-
-use rand::rngs::ThreadRng;
 
 use crate::adj::Adj;
 use crate::adj_enums::{AdjCatId, AdjId};
@@ -17,12 +16,18 @@ use crate::noun::Noun;
 use crate::noun_data::NounCategory;
 use crate::noun_enums::{NounCatId, NounId};
 use crate::random;
+use crate::random::{Chooser, RandChooser};
 use crate::verb::Verb;
 use crate::verb_enums::VerbId;
 use crate::wordgroup::WordGroup;
 
-fn rng() -> ThreadRng {
-    rand::thread_rng()
+fn rng() -> RandChooser {
+    RandChooser::new()
+}
+
+/// One raw decision of the production chooser.
+pub fn rand_index(len: usize) -> usize {
+    rng().index(len)
 }
 
 /// One draw of a sentence pattern.

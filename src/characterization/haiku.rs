@@ -2,8 +2,8 @@
 // sentence patterns it is built on.
 //
 // `generate_haiku` only returns three strings. To see which words a line is
-// made of, each line is looked up in the enumeration of `model.rs` (validated
-// against the real patterns by the Monte-Carlo tests): every producible text
+// made of, each line is looked up in the exhaustive enumeration of the
+// patterns (`enumeration.rs`): every producible text
 // has exactly one decomposition into lemmas, see
 // `every_producible_text_has_a_single_decomposition`.
 
@@ -20,7 +20,7 @@ use crate::verb::get_verb_cat;
 use crate::verb_enums::VerbCatId;
 
 use super::labels::{adj_label, noun_label, verb_label};
-use super::model::enumerate;
+use super::enumeration::enumerate;
 use super::seam::draw;
 
 const HAIKUS: usize = 3_000;
