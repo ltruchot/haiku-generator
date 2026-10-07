@@ -1,1 +1,25 @@
+# Rust build output
 /target
+
+# Front build output
+dist/
+site/
+.vite/
+
+# wasm-bindgen output, rebuilt by scripts/build-wasm.sh
+apps/web/src/wasm/
+
+# Dependencies
+node_modules/
+
+# Local state (scratch runs, screenshots, caches)
+.local/
+*.log
+
+# Claude Code, per machine
+.claude/settings.local.json
+.claude/qol-mini.local.json
+
+# Editor / OS
+.idea
+.DS_Store

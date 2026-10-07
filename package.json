@@ -1,0 +1,27 @@
+{
+  "name": "haiku-generator",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A.I.ku: a French haiku generator in Rust, compiled to WebAssembly, with its web page.",
+  "license": "CC-BY-NC-4.0",
+  "type": "module",
+  "scripts": {
+    "ready": "vp check && vp run -r ready",
+    "prepare": "vp config"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.5.1",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}
