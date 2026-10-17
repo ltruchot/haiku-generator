@@ -5,14 +5,13 @@ use common_enums::{Article, Gender, Number};
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, WordGroup, get_plural};
+use wordgroup::{WordGroup, add_words, check_ellision, get_plural};
 
 // nouns
 use crate::noun_data;
 use crate::noun_enums;
-use noun_data::{NOUN_CATS};
+use noun_data::NOUN_CATS;
 use noun_enums::{NounCatId, NounId};
-
 
 #[derive(Clone)]
 pub struct Noun {
@@ -28,12 +27,12 @@ impl Noun {
             gender,
             word: WordGroup {
                 text: String::from(lemme),
-                foots: foots,
+                foots,
             },
         }
     }
 
-    pub fn get_article(self: &Self, number: Number, article: Article) -> WordGroup {
+    pub fn get_article(&self, number: Number, article: Article) -> WordGroup {
         match number {
             Number::Plural => match article {
                 Article::Definite => WordGroup::new("les", 1),
@@ -58,7 +57,10 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
+                            None => WordGroup::new(
+                                "#error#get_with_some_article#No first letter for ellision#",
+                                0,
+                            ),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("un"),
@@ -81,7 +83,10 @@ impl Noun {
                                     }
                                 }
                             }
-                            None => WordGroup::new("#error#get_with_some_article#No first letter for ellision#", 0),
+                            None => WordGroup::new(
+                                "#error#get_with_some_article#No first letter for ellision#",
+                                0,
+                            ),
                         },
                         Article::Indefinite => WordGroup {
                             text: String::from("une"),
@@ -94,19 +99,14 @@ impl Noun {
         }
     }
 
-    pub fn agreed(self: &Self, number: Number) -> WordGroup {
+    pub fn agreed(&self, number: Number) -> WordGroup {
         match number {
-            Number::Plural => {
-                get_plural(&self.word)
-            }
-            ,
-            Number::Singular => {
-                self.word.clone()
-            },
+            Number::Plural => get_plural(&self.word),
+            Number::Singular => self.word.clone(),
         }
     }
 
-    pub fn get_with_article(self: &Self, article: Article, number: Number) -> WordGroup {
+    pub fn get_with_article(&self, article: Article, number: Number) -> WordGroup {
         let article = self.get_article(number, article);
         let agreed_noun = self.agreed(number);
         add_words(&article, &agreed_noun)
@@ -116,8 +116,8 @@ impl Noun {
 pub fn get_cats_containing_epithets_and_affiliations() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
-        if cat.rel.epithets.len() > 0 && cat.rel.affiliations.len() > 0 {
-            acc.push(id.clone());
+        if !cat.rel.epithets.is_empty() && !cat.rel.affiliations.is_empty() {
+            acc.push(*id);
         }
         acc
     })
@@ -126,8 +126,8 @@ pub fn get_cats_containing_epithets_and_affiliations() -> Vec<NounCatId> {
 pub fn get_cats_containing_epithets() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
-        if cat.rel.epithets.len() > 0 {
-            acc.push(id.clone());
+        if !cat.rel.epithets.is_empty() {
+            acc.push(*id);
         }
         acc
     })
@@ -136,8 +136,8 @@ pub fn get_cats_containing_epithets() -> Vec<NounCatId> {
 pub fn get_cats_containing_attributes() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
-        if cat.rel.attributes.len() > 0 {
-            acc.push(id.clone());
+        if !cat.rel.attributes.is_empty() {
+            acc.push(*id);
         }
         acc
     })
@@ -146,8 +146,8 @@ pub fn get_cats_containing_attributes() -> Vec<NounCatId> {
 pub fn get_cats_containing_affiliations() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
-        if cat.rel.affiliations.len() > 0 {
-            acc.push(id.clone());
+        if !cat.rel.affiliations.is_empty() {
+            acc.push(*id);
         }
         acc
     })
@@ -157,7 +157,7 @@ pub fn get_cats_containing_int_verbs() -> Vec<NounCatId> {
     NOUN_CATS.iter().fold(vec![], |mut acc, cur| {
         let (id, cat) = cur;
         if cat.has_intransitive_verb() {
-            acc.push(id.clone());
+            acc.push(*id);
         }
         acc
     })
@@ -232,4 +232,3 @@ pub fn get_apposition(noun: &Noun, article: Article) -> WordGroup {
     };
     add_words(&apposition, &noun.word)
 }
-

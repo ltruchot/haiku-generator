@@ -6,11 +6,7 @@ use unicode_segmentation::UnicodeSegmentation;
 pub fn take_last_grapheme(word: &str) -> String {
     let s = String::from(word);
     // check last
-    let last = s.graphemes(true).last();
-    String::from(match last {
-        Some(letter) => letter,
-        None => "",
-    })
+    String::from(s.graphemes(true).next_back().unwrap_or_default())
 }
 
 pub fn take_last_graphemes(word: &str, n: usize) -> String {
@@ -20,13 +16,11 @@ pub fn take_last_graphemes(word: &str, n: usize) -> String {
         .take(n)
         .collect::<Vec<&str>>()
         .join("");
-    String::from(
-        last_two_rev
-            .graphemes(true)
-            .rev()
-            .collect::<Vec<&str>>()
-            .join(""),
-    )
+    last_two_rev
+        .graphemes(true)
+        .rev()
+        .collect::<Vec<&str>>()
+        .join("")
 }
 
 pub fn drop_last_graphemes(word: &str, n: usize) -> String {
@@ -36,7 +30,7 @@ pub fn drop_last_graphemes(word: &str, n: usize) -> String {
         .skip(n)
         .collect::<Vec<&str>>()
         .join("");
-    String::from(rev.graphemes(true).rev().collect::<Vec<&str>>().join(""))
+    rev.graphemes(true).rev().collect::<Vec<&str>>().join("")
 }
 
 pub fn uppercase_first_letter(s: &str) -> String {

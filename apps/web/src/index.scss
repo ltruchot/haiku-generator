@@ -1,0 +1,22 @@
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
+
+// Inline style attributes in 2020; here so the Content-Security-Policy can
+// forbid inline styles. Selected without touching the markup.
+body {
+  background-image: url("./assets/rosie-fraser-1L71sPT5XKc-unsplash.jpg");
+}
+#profile .rounded-full.bg-cover {
+  background-image: url("./assets/robot-profil.jpg");
+}

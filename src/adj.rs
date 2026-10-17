@@ -41,7 +41,7 @@ impl Adj {
                     text: String::from(masc),
                     foots: self.word.foots,
                 },
-                None => get_plural(&self.word)
+                None => get_plural(&self.word),
             },
             ToAgree::Form(Gender::Female, Number::Singular) => match &self.fem {
                 Some(fem) => WordGroup {
@@ -55,22 +55,20 @@ impl Adj {
                     text: String::from(fem_plur),
                     foots: self.word.foots,
                 },
-                None => {
-                    get_plural(&get_feminine(&self.word))
-                }
+                None => get_plural(&get_feminine(&self.word)),
             },
         }
     }
     pub fn new(id: AdjId, masc: &str, foots: (u8, u8)) -> Adj {
         Adj {
-            id: id,
+            id,
             fem: None,
             masc_plur: None,
             fem_plur: None,
             invariable: false,
             word: WordGroup {
                 text: String::from(masc),
-                foots: foots,
+                foots,
             },
         }
     }
@@ -84,14 +82,14 @@ impl Adj {
         foots: (u8, u8),
     ) -> Adj {
         Adj {
-            id: id,
-            fem: fem,
-            masc_plur: masc_plur,
-            fem_plur: fem_plur,
-            invariable: invariable,
+            id,
+            fem,
+            masc_plur,
+            fem_plur,
+            invariable,
             word: WordGroup {
                 text: String::from(masc),
-                foots: foots,
+                foots,
             },
         }
     }
@@ -106,22 +104,22 @@ fn get_feminine(wg: &WordGroup) -> WordGroup {
     } else if last_three == "eux" || last_three == "eur" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 3), "euse"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else if &last_two == "er" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 2), "ère"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else if &last_two == "et" {
         WordGroup {
             text: [&drop_last_graphemes(&wg.text, 2), "ette"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     } else {
         WordGroup {
             text: [&wg.text, "e"].join(""),
-            foots: wg.foots
+            foots: wg.foots,
         }
     }
 }

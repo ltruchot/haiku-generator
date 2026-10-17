@@ -1,0 +1,51 @@
+verb assoupir | Plural | agree="s'assoupissent" (3,3)
+verb assoupir | Singular | agree="s'assoupit" (3,3)
+verb assoupir | entry | id=SAssoupir feet=(3,3) group=Second pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="assoupir"
+verb avoir l'air | Plural | agree="ont l'air" (2,2)
+verb avoir l'air | Plural | as_pronominal(agree)="s'ont l'air" (2,2)
+verb avoir l'air | Singular | agree="a l'air" (2,2)
+verb avoir l'air | Singular | as_pronominal(agree)="s'a l'air" (2,2)
+verb avoir l'air | entry | id=AvoirLAir feet=(1,1) group=Third pronominal=false kind=Copule first_person="ai l'air" (2,2) third_person="a l'air" (2,2) sixth_person="ont l'air" (2,2) lookup_by_id="avoir l'air"
+verb coucher | Plural | agree="se couchent" (2,2)
+verb coucher | Singular | agree="se couche" (2,2)
+verb coucher | entry | id=SeCoucher feet=(2,2) group=First pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="coucher"
+verb demeurer | Plural | agree="demeurent" (2,2)
+verb demeurer | Plural | as_pronominal(agree)="se demeurent" (3,3)
+verb demeurer | Singular | agree="demeure" (2,2)
+verb demeurer | Singular | as_pronominal(agree)="se demeure" (3,3)
+verb demeurer | entry | id=Demeurer feet=(3,3) group=First pronominal=false kind=Copule first_person=- third_person=- sixth_person=- lookup_by_id="demeurer"
+verb endormir | Plural | agree="s'endorment" (2,2)
+verb endormir | Singular | agree="s'endort" (2,2)
+verb endormir | entry | id=SEndormir feet=(3,3) group=Third pronominal=true kind=Intransitive first_person="endors" (2,2) third_person="endort" (2,2) sixth_person="endorment" (2,2) lookup_by_id="endormir"
+verb lever | Plural | agree="se lèvent" (2,2)
+verb lever | Singular | agree="se lève" (2,2)
+verb lever | entry | id=SeLever feet=(2,2) group=First pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="lever"
+verb paraître | Plural | agree="paraissent" (2,2)
+verb paraître | Plural | as_pronominal(agree)="se paraissent" (3,3)
+verb paraître | Singular | agree="paraît" (2,2)
+verb paraître | Singular | as_pronominal(agree)="se paraît" (3,3)
+verb paraître | entry | id=Paraitre feet=(2,2) group=Third pronominal=false kind=Copule first_person="parais" (2,2) third_person="paraît" (2,2) sixth_person="paraissent" (2,2) lookup_by_id="paraître"
+verb rester | Plural | agree="restent" (1,1)
+verb rester | Plural | as_pronominal(agree)="se restent" (2,2)
+verb rester | Singular | agree="reste" (1,1)
+verb rester | Singular | as_pronominal(agree)="se reste" (2,2)
+verb rester | entry | id=Rester feet=(2,2) group=First pronominal=false kind=Copule first_person=- third_person=- sixth_person=- lookup_by_id="rester"
+verb sembler | Plural | agree="semblent" (1,1)
+verb sembler | Plural | as_pronominal(agree)="se semblent" (2,2)
+verb sembler | Singular | agree="semble" (1,1)
+verb sembler | Singular | as_pronominal(agree)="se semble" (2,2)
+verb sembler | entry | id=Sembler feet=(2,2) group=First pronominal=false kind=Copule first_person=- third_person=- sixth_person=- lookup_by_id="sembler"
+verb éclipser | Plural | agree="s'éclipsent" (2,2)
+verb éclipser | Singular | agree="s'éclipse" (2,2)
+verb éclipser | entry | id=SEclipser feet=(3,3) group=First pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="éclipser"
+verb évanouir | Plural | agree="s'évanouissent" (4,4)
+verb évanouir | Singular | agree="s'évanouit" (4,4)
+verb évanouir | entry | id=SEvanouir feet=(4,4) group=Second pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="évanouir"
+verb éveiller | Plural | agree="s'éveillent" (2,2)
+verb éveiller | Singular | agree="s'éveille" (2,2)
+verb éveiller | entry | id=SEveiller feet=(3,3) group=First pronominal=true kind=Intransitive first_person=- third_person=- sixth_person=- lookup_by_id="éveiller"
+verb être | Plural | agree="sont" (1,1)
+verb être | Plural | as_pronominal(agree)="se sont" (2,2)
+verb être | Singular | agree="est" (1,1)
+verb être | Singular | as_pronominal(agree)="s'est" (1,1)
+verb être | entry | id=Etre feet=(1,1) group=Third pronominal=false kind=Copule first_person="suis" (1,1) third_person="est" (1,1) sixth_person="sont" (1,1) lookup_by_id="être"

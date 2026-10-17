@@ -51,7 +51,7 @@ pub enum NounId {
     Chevreuil,
     Renard,
     Plume,
-   /* Duvet,*/
+    /* Duvet,*/
     Reflet,
     Eclat,
     Raie,
@@ -63,7 +63,7 @@ pub enum NounId {
     Serenite,
     Pluie,
     Bruine,
-    Rosee, 
+    Rosee,
     Orage,
     Averse,
     Embellie,

@@ -1,0 +1,5 @@
+verb_cat Etat | get_verb_cat | être, paraître, avoir l'air, rester, sembler, demeurer
+verb_cat Etat | être, paraître, avoir l'air, rester, sembler, demeurer
+verb_cat EtatDEveil | assoupir, éveiller, éclipser, coucher, lever, évanouir, endormir
+verb_cat EtatDEveil | get_verb_cat | assoupir, éveiller, éclipser, coucher, lever, évanouir, endormir
+verb_cat count | 2

@@ -1,0 +1,24 @@
+packages:
+  - apps/*
+  - packages/*
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vite-plus: 1.0.0
+  "@types/node": ^26.6.2
+  playwright: 1.63.0
+  "@axe-core/playwright": 4.13.0
+  sass-embedded: 1.105.1
+# Supply chain: a version must be 3 days old before it can be installed
+# (most malicious releases are yanked within hours).
+minimumReleaseAge: 4320
+overrides:
+  vite@*: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: "*"
+# sass-embedded's optional file watcher: its install script only builds a
+# native module the build does not use.
+allowBuilds:
+  "@parcel/watcher": false

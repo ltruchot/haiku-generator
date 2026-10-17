@@ -1,8 +1,6 @@
 // IMPORTS
 //externals
 use crate::string::take_last_graphemes;
-use rand::rngs::ThreadRng;
-use rand::seq::SliceRandom;
 
 // common
 use crate::common_enums;
@@ -15,7 +13,7 @@ use crate::random::get_rand_number;
 
 // wordgroups
 use crate::wordgroup;
-use wordgroup::{fold_wordgroups, WordGroup};
+use wordgroup::{WordGroup, fold_wordgroups};
 
 // verbs
 use crate::verb;
@@ -35,11 +33,14 @@ use noun::{
 
 // random
 use crate::random;
-use random::{get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat, get_rand_verb};
+use random::{
+    Chooser, choose, get_rand_adj, get_rand_adj_cat, get_rand_noun, get_rand_noun_cat,
+    get_rand_verb,
+};
 
 // EXPORTS
 pub type Combination =
-    Box<dyn Fn(&mut ThreadRng, &BlackLists) -> Result<(WordGroup, BlackLists), Vec<String>>>;
+    Box<dyn Fn(&mut dyn Chooser, &BlackLists) -> Result<(WordGroup, BlackLists), Vec<String>>>;
 
 pub fn get_with_adj_and_affiliation(
     number_opt: Option<Number>,
@@ -85,7 +86,7 @@ pub fn get_with_adj_and_affiliation(
         };
 
         // early return if categories not found
-        if errs.len() > 0 {
+        if !errs.is_empty() {
             return Err(errs);
         }
 
@@ -166,7 +167,7 @@ pub fn get_with_affiliation(
         };
 
         // early return if categories not found
-        if errs.len() > 0 {
+        if !errs.is_empty() {
             return Err(errs);
         }
 
@@ -234,7 +235,7 @@ pub fn get_with_adjective(
         };
 
         // early return if categories not found
-        if errs.len() > 0 {
+        if !errs.is_empty() {
             return Err(errs);
         }
 
@@ -302,7 +303,7 @@ pub fn get_with_linking_verb(
         };
 
         // early return if categories not found
-        if errs.len() > 0 {
+        if !errs.is_empty() {
             return Err(errs);
         }
 
@@ -382,7 +383,7 @@ pub fn get_with_intransitive_verb(
         // extract categories with intransitive verbs
         let cats_with_int_verbs = get_cats_containing_int_verbs();
         // early return if categories not found
-        if cats_with_int_verbs.len() == 0 {
+        if cats_with_int_verbs.is_empty() {
             errs.push(String::from(
                 "err#get_with_intransitive_verb#No category with intransitive verb",
             ));
@@ -406,18 +407,17 @@ pub fn get_with_intransitive_verb(
                         .functions
                         .iter()
                         .fold(&mut vec![], |acc, cur| {
-                            let verbs = get_verb_cat(cur).and_then(|verb_cat| {
-                                Ok(verb_cat
+                            let verbs = get_verb_cat(cur).map(|verb_cat| {
+                                verb_cat
                                     .iter()
                                     .filter(|verb_id| {
-                                        match VERBS.iter().find(|verb| verb_id.clone() == &verb.id)
-                                        {
+                                        match VERBS.iter().find(|verb| *verb_id == &verb.id) {
                                             Some(verb) => verb.kind == VerbKind::Intransitive,
                                             None => false,
                                         }
                                     })
                                     .cloned()
-                                    .collect::<Vec<VerbId>>())
+                                    .collect::<Vec<VerbId>>()
                             });
                             match verbs {
                                 Ok(filtered) => {
@@ -435,10 +435,9 @@ pub fn get_with_intransitive_verb(
                         vec![]
                     }
                 };
-                if intransitive_verbs.len() > 0 {
-                    let verb_opt = intransitive_verbs
-                        .choose(rng)
-                        .and_then(|verb_id| VERBS.iter().find(|verb| verb_id.clone() == verb.id));
+                if !intransitive_verbs.is_empty() {
+                    let verb_opt = choose(rng, &intransitive_verbs)
+                        .and_then(|verb_id| VERBS.iter().find(|verb| *verb_id == verb.id));
                     match verb_opt {
                         Some(verb) => {
                             new_blacklists.verbs.insert(verb.id);

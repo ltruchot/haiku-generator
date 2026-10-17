@@ -112,6 +112,4 @@ pub enum AdjId {
     // saveur
     Epice,
     Sucre,
-
-
 }

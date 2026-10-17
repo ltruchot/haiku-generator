@@ -1,0 +1,19 @@
+{
+  "name": "@haiku-generator/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Browser checks in Chromium (Playwright): the page built today must render and behave like the last 2020 build kept in fixtures/legacy-dist.",
+  "license": "CC-BY-NC-4.0",
+  "type": "module",
+  "scripts": {
+    "ready": "vp test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "catalog:",
+    "@types/node": "catalog:",
+    "playwright": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "web": "workspace:*"
+  }
+}

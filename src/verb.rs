@@ -9,12 +9,12 @@ use string::{drop_last_graphemes, take_last_graphemes};
 
 // wordgroup
 use crate::wordgroup;
-use wordgroup::{add_words, check_ellision, WordGroup};
+use wordgroup::{WordGroup, add_words, check_ellision};
 
 // verbs
 use crate::verb_data;
 use crate::verb_enums;
-use verb_data::{VERBS, VERB_CATS};
+use verb_data::{VERB_CATS, VERBS};
 use verb_enums::{VerbCatId, VerbGroup, VerbId, VerbKind};
 
 // EXPORTS
@@ -25,6 +25,13 @@ pub struct Verb {
     pub is_pronominal: bool,
     pub kind: VerbKind,
     pub word: WordGroup,
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "data entered for a sentence pattern not written yet"
+        )
+    )]
     pub first_person: Option<WordGroup>,
     pub third_person: Option<WordGroup>,
     pub sixth_person: Option<WordGroup>,
@@ -46,7 +53,7 @@ impl Verb {
             kind,
             word: WordGroup {
                 text: String::from(infinitive),
-                foots: foots,
+                foots,
             },
             first_person: None,
             third_person: None,
@@ -54,6 +61,7 @@ impl Verb {
         }
     }
 
+    #[expect(clippy::too_many_arguments, reason = "one row of the verb table")]
     pub fn new_special(
         id: VerbId,
         infinitive: &str,
@@ -79,7 +87,7 @@ impl Verb {
         }
     }
 
-    pub fn agree(self: &Self, number: &Number) -> WordGroup {
+    pub fn agree(&self, number: &Number) -> WordGroup {
         let root = drop_last_graphemes(&self.word.text, 2);
         let last_two = take_last_graphemes(&root, 2).clone();
         let agreed_verb = match number {
@@ -88,11 +96,7 @@ impl Verb {
                 None => match self.group {
                     VerbGroup::First => WordGroup {
                         text: if last_two == "ev" {
-                            [
-                                String::from(drop_last_graphemes(&root, 2)),
-                                String::from("ève"),
-                            ]
-                            .join("")
+                            [drop_last_graphemes(&root, 2), String::from("ève")].join("")
                         } else {
                             [&root, "e"].join("")
                         },
@@ -112,11 +116,7 @@ impl Verb {
                 None => match self.group {
                     VerbGroup::First => WordGroup {
                         text: if last_two == "ev" {
-                            [
-                                String::from(drop_last_graphemes(&root, 2)),
-                                String::from("èvent"),
-                            ]
-                            .join("")
+                            [drop_last_graphemes(&root, 2), String::from("èvent")].join("")
                         } else {
                             [&root, "ent"].join("")
                         },
@@ -150,13 +150,13 @@ pub fn as_pronominal(agreed_verb: &WordGroup) -> WordGroup {
         text: String::from(if has_ellision { "s'" } else { "se" }),
         foots: if has_ellision { (0, 0) } else { (1, 1) },
     };
-    return add_words(&pronoun, &agreed_verb);
+    add_words(&pronoun, agreed_verb)
 }
 
 pub fn get_verb_cat(id: &VerbCatId) -> Result<Vec<VerbId>, String> {
     VERB_CATS
         .get(id)
-        .and_then(|cat| Some(cat.clone()))
+        .cloned()
         .ok_or(String::from("err#get_verb_cat#Can't fin category"))
 }
 
@@ -164,6 +164,6 @@ pub fn get_verb(id: VerbId) -> Result<Verb, String> {
     VERBS
         .iter()
         .find(|verb| id == verb.id)
-        .and_then(|cat| Some(cat.clone()))
+        .cloned()
         .ok_or(String::from("err#get_verb_cat#Can't fin category"))
 }
