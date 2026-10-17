@@ -23,6 +23,9 @@ fi
 # cargo-audit is for the gate, not for the build: minutes of compilation saved.
 export MISE_DISABLE_TOOLS="cargo:cargo-audit"
 export MISE_YES=1
+# Render's image ships a Rust whose RUSTUP_HOME and CARGO_HOME (/usr/local) are
+# read-only: rustup-init cannot write its settings there. Our own homes instead.
+export RUSTUP_HOME="$HOME/.rustup" CARGO_HOME="$HOME/.cargo"
 mise trust
 mise install --locked rust "github:wasm-bindgen/wasm-bindgen" "aqua:WebAssembly/binaryen"
 mise run wasm
