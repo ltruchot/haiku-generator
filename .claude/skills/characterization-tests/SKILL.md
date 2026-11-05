@@ -26,7 +26,7 @@ is a regression, or it is wanted and its exact extent goes in the commit.
 - No seeded-RNG golden: the category tables are `HashMap`s, their iteration
   order changes per process. Sets and sorted dumps only.
 - A wanted change of output: make it, then `UPDATE_GOLDEN=1 mise exec --
-cargo test`, then **read `git diff --stat tests/golden` and the diff**. The
+  cargo test`, then **read `git diff --stat tests/golden` and the diff**. The
   commit states what was added and removed (see the "raie" commit: 1,098
   lines added, each with the word, nothing else removed). A few tests hold
   counts derived from the goldens (`haiku.rs`): update them from the failure

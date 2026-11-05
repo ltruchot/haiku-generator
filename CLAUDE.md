@@ -105,7 +105,7 @@ specific to this repo goes in a local skill beside them.
 ## Traps with no file trigger
 
 - zsh: an unquoted `--include=*` or `web#ready` glob fails (`no matches
-found`); quote them.
+  found`); quote them.
 - `pkill -f <pattern>` also kills the shell whose command line holds the
   pattern. Kill by PID.
 - Port 4060 is taken on this machine by the editor's port forwarding; the
