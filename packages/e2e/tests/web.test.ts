@@ -1,6 +1,6 @@
 // Today's page (apps/web/dist, built for its deploy path) against the 2020
 // build: same behaviour, same fingerprint. A difference here is a regression
-// unless it is one of the accepted changes listed in CLAUDE.md.
+// unless it is one of the accepted changes listed in AGENTS.md.
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { type Browser, chromium } from "playwright";

@@ -1,0 +1,149 @@
+{
+  "permissions": [
+    {
+      "action": "shell",
+      "resource": "vp check",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp check --fix",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp test",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp test *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp install",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp run ready",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp run web#ready",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp -C apps/web build",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp -C packages/e2e test",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "vp -C packages/e2e test *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise run wasm",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise run rust-check",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo test *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo test",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo check *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo clippy *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo fmt *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo fmt",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo run *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise exec -- cargo audit",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise ls *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mise ls-remote *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bash scripts/check-versions.sh",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bash scripts/render-build.sh",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git log *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git show *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "aws *",
+      "effect": "deny"
+    }
+  ]
+}

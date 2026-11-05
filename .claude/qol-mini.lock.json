@@ -1,4 +1,57 @@
 {
+  "harmonize": {
+    "artifacts": {
+      "opencode.json": {
+        "created": true,
+        "hash": "a877b63550ffdd4b5065c346facc5c17537caf3f27b75eae816d3a9bfb285c32",
+        "kind": "permission",
+        "mine": [
+          "shell|vp check|allow",
+          "shell|vp check --fix|allow",
+          "shell|vp test|allow",
+          "shell|vp test *|allow",
+          "shell|vp install|allow",
+          "shell|vp run ready|allow",
+          "shell|vp run web#ready|allow",
+          "shell|vp -C apps/web build|allow",
+          "shell|vp -C packages/e2e test|allow",
+          "shell|vp -C packages/e2e test *|allow",
+          "shell|mise run wasm|allow",
+          "shell|mise run rust-check|allow",
+          "shell|mise exec -- cargo test *|allow",
+          "shell|mise exec -- cargo test|allow",
+          "shell|mise exec -- cargo check *|allow",
+          "shell|mise exec -- cargo clippy *|allow",
+          "shell|mise exec -- cargo fmt *|allow",
+          "shell|mise exec -- cargo fmt|allow",
+          "shell|mise exec -- cargo run *|allow",
+          "shell|mise exec -- cargo audit|allow",
+          "shell|mise ls *|allow",
+          "shell|mise ls-remote *|allow",
+          "shell|bash scripts/check-versions.sh|allow",
+          "shell|bash scripts/render-build.sh|allow",
+          "shell|git status *|allow",
+          "shell|git diff *|allow",
+          "shell|git log *|allow",
+          "shell|git show *|allow",
+          "shell|aws *|deny"
+        ],
+        "sources": {
+          ".claude/settings.json": "254d920b96cbf83ad370b1f02e40acd0952356c8ab991c7a9ffc8d4702925fde"
+        }
+      }
+    },
+    "from": "claude",
+    "ops": [
+      {
+        "op": "mv",
+        "path": "CLAUDE.md",
+        "to": "AGENTS.md"
+      }
+    ],
+    "rules": "pure",
+    "version": 1
+  },
   "skills": {
     "npm-vulnerability-check": {
       "answers": {},
