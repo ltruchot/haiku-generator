@@ -11,6 +11,13 @@ services:
     autoDeployTrigger: checksPass
     buildCommand: bash scripts/render-build.sh
     staticPublishPath: ./site
+    envVars:
+      # Render's own install runs before buildCommand with a pnpm of its own,
+      # not the one of devEngines: it reads devEngines.runtime as a dependency
+      # (node@runtime:26.13.0) that our lockfile does not hold, and fails the
+      # frozen install. The build script installs with Vite+'s pnpm instead.
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
     # A push ending with a commit that touches only ignored paths may deploy
     # nothing, not even the code commits before it: push the code commit last,
     # or trigger a deploy by hand.

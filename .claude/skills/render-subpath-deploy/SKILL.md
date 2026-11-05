@@ -52,15 +52,20 @@ and sends them, so a violation fails locally.
   the code commits before it. Push the code commit last, or deploy by hand.
 - Then the `curl` checks of `docs/hub-patch/README.md`.
 
-## Not verified yet
+## Render build machine (verified)
 
-Record the answer here once the first deploy has run.
-
-- Whether a Render **static** build can install mise and a Rust toolchain
-  (home directory writable, downloads allowed). The script logs the PATH and
-  which tools exist. Fallback: install rustup directly in the script.
-- Whether Render serves `.wasm` as `application/wasm`. If not, the glue falls
-  back to a slower non-streaming compile and logs a warning.
-- Whether `vp install --frozen-lockfile` accepts in CI a lockfile written by
-  the pnpm 10 this machine uses (`devEngines` asks for 12.5.1).
-- The site's real host: Render may suffix the name (`haiku-generator-xxxx`).
+- Service `srv-db9j3q61egvs73fff1j0`, host
+  `https://haiku-generator-1mfx.onrender.com`, workspace "Gods Academy".
+- A static build can install mise and Rust, once `RUSTUP_HOME` and
+  `CARGO_HOME` point at `$HOME` (PR #15: the image's `/usr/local` is
+  read-only).
+- `.wasm` is served as `application/wasm` (curl, 2026-11-05).
+- Render runs **its own** `pnpm install --frozen-lockfile` before
+  `buildCommand`, with a pnpm of its choosing: `devEngines.packageManager`
+  and `runtimeOnFail: ignore` are not honored. Once `devEngines.runtime`
+  existed (Vite+ 1.5.0), it failed with `ERR_PNPM_OUTDATED_LOCKFILE` and
+  `1 dependencies were added: node@runtime:26.13.0`, while CI was green.
+  Fix: `SKIP_INSTALL_DEPS=true` in `render.yaml` `envVars`; the script's
+  `vp install --frozen-lockfile` is the only install.
+- Build logs: Render MCP `list_logs` with `type: ["build"]` and the deploy's
+  time window; only recent deploys still have theirs.
