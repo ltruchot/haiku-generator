@@ -53,6 +53,33 @@
     "version": 1
   },
   "skills": {
+    "css-modern": {
+      "answers": {
+        "TOKENS_FILE": "apps/web/src/tokens.css",
+        "TOKEN_PREFIX": "--haiku"
+      },
+      "files": {
+        "SKILL.md": "9e0ca5fc9759fd98cb598887f4098e10ccc2815369b3ddb19793209a8b0a6d3a",
+        "references/accessibility.md": "51e19fb8ee8fb513e166a463237e43efda48d94be70423c626152b69d7836720",
+        "references/animations.md": "ca20a87af57cf9103d45c803a62c03d8157b07c7620cb1e02f0887fb0584b54b",
+        "references/color.md": "d847ffef51f074455a888d115b9904ee3b8c9a3495404527091e630b6d5de98c",
+        "references/design-tokens.md": "f2bdefaf0de8af81e79e53aa3346a7f09b71e9f565ac42629768e8ef8139201d",
+        "references/layout.md": "cdf04b79af9980c870392a17d1e920b738f688de1d6f466d3a0f752d6d6bbd5e",
+        "references/reset.md": "50de34987819c2f31cff050ab19b1f4d2178697c1c1a07bab8b325a796addf70",
+        "references/selectors.md": "feaf67ab5dfe13a3f1f3239f1471c3b6ab6c236ac81774a9f67f96756a013afc",
+        "references/typography.md": "d7a639bd1cd9519e2fd5000834927c39528efff4e1c96ee05673be9613fb3a8b",
+        "references/utilities.md": "4e8e233a629cc9d24863ff8fc6ebdfc51f257f09c69aea0b38c693c2ab55c071"
+      },
+      "path": ".claude/skills/css-modern",
+      "ref": "0.6.3",
+      "renderedHash": "d69d18fb5fbc07001fed3b618bcce39ccc3fc2e8add826529dbb10d8c7ae998e",
+      "secrets": [],
+      "sha": "local:14c55c3d8072c12494b2139f1f67e99cf2c34bd12c2a4f5567e6f10b2e6544df",
+      "skillPath": "skills/css-modern",
+      "source": "qol-mini",
+      "sourceType": "local",
+      "templateHash": "2d851968c79dc3250a1481039c976a4487d80305e03e4a5c1526417e4bd845c4"
+    },
     "npm-vulnerability-check": {
       "answers": {},
       "files": {

@@ -17,6 +17,7 @@ const FROZEN = [
   // Managed by qol-mini (.claude/qol-mini.lock.json): one entry per managed
   // skill, never .claude/skills/ as a whole (local skills are checked).
   ".claude/skills/vp/**",
+  ".claude/skills/css-modern/**",
   ".claude/skills/npm-vulnerability-check/**",
   ".claude/skills/qa-pr/**",
   // The owner's editor file.
